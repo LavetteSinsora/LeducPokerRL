@@ -84,7 +84,7 @@ def handle_action(data):
         action = Action(action_val)
         
         # Validate legal action
-        legal_actions = game_state.game._get_legal_actions()
+        legal_actions = game_state.game.get_legal_actions()
         if action not in legal_actions:
             emit('error', {'message': "Illegal action"})
             return
@@ -94,7 +94,7 @@ def handle_action(data):
         
         # Update stacks if finished
         if game_state.game.is_finished:
-            rewards = game_state.game._get_reward()
+            rewards = game_state.game.get_reward()
             game_state.stacks[0] += rewards[0]
             game_state.stacks[1] += rewards[1]
 
@@ -148,10 +148,10 @@ def format_state(viewer_id):
         "current_player": game.current_player,
         "current_round_num": game.current_round,
         "current_round": "Pre-flop" if game.current_round == 0 else "Flop",
-        "legal_actions": [a.value for a in game._get_legal_actions()] if not game.is_finished else [],
+        "legal_actions": [a.value for a in game.get_legal_actions()] if not game.is_finished else [],
         "is_finished": game.is_finished,
         "winner": game.winner,
-        "rewards": game._get_reward() if game.is_finished else [0, 0],
+        "rewards": game.get_reward() if game.is_finished else [0, 0],
         "history": history,
         "connected_players": connected_players
     }

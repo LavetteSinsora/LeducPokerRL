@@ -87,8 +87,8 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 self.send_error(404, "File not found")
 
     def do_POST(self):
-        content_length = int(self.headers['Content-Length'])
-        post_data = self.rfile.read(content_length)
+        content_length = int(self.headers.get('Content-Length', 0))
+        post_data = self.rfile.read(content_length) if content_length > 0 else b''
         data = json.loads(post_data) if post_data else {}
 
         if self.path == '/reset':
@@ -153,7 +153,7 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
             
             # Update stacks if game finished
             if done:
-                reward = game._get_reward()
+                reward = game.get_reward()
                 LeducAPIHandler.game_state_obj.stacks[0] += reward[0]
                 LeducAPIHandler.game_state_obj.stacks[1] += reward[1]
 
@@ -255,7 +255,7 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 pot=list(game.pot),
                 current_player=current_player,
                 current_round=game.current_round,
-                legal_actions=[a for a in game._get_legal_actions()],
+                legal_actions=[a for a in game.get_legal_actions()],
                 is_finished=game.is_finished
             )
             
@@ -307,7 +307,7 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 
                 legal_actions = []
                 if not game.is_finished:
-                    legal_actions = [a.value for a in game._get_legal_actions()]
+                    legal_actions = [a.value for a in game.get_legal_actions()]
                 
                 # Format history for UI
                 # LeducGame.history contains (player, action_string)
@@ -368,7 +368,7 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 action = Action(int(action_val))
                 
             # Verify legality (optional, but good for safety)
-            legal = game._get_legal_actions()
+            legal = game.get_legal_actions()
             if action not in legal:
                 # If we try to Check but only Call is allowed, or vice versa?
                 # In Leduc: 
@@ -406,10 +406,10 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
             "current_player": game.current_player,
             "current_round_num": game.current_round,
             "current_round": "Pre-flop" if game.current_round == 0 else "Flop",
-            "legal_actions": [a.value for a in game._get_legal_actions()] if not game.is_finished else [],
+            "legal_actions": [a.value for a in game.get_legal_actions()] if not game.is_finished else [],
             "is_finished": game.is_finished,
             "winner": game.winner,
-            "rewards": game._get_reward() if game.is_finished else [0, 0],
+            "rewards": game.get_reward() if game.is_finished else [0, 0],
             "history": history,
             "agent_configs": configs
         }

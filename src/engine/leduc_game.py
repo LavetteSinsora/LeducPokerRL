@@ -203,6 +203,10 @@ class LeducGame:
             actions.append(Action.RAISE)
         return actions
 
+    def get_legal_actions(self):
+        """Returns the list of legal actions for the current state."""
+        return self._get_legal_actions()
+
     def __repr__(self):
         return f"LeducGame(Round={self.current_round}, Pot={self.pot}, Board={self.board}, Hands={self.player_hands})"
 
