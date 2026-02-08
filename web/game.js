@@ -15,12 +15,55 @@ const elements = {
     roundName: document.getElementById('round-name'),
     userActions: document.getElementById('user-actions'),
     gameLog: document.getElementById('game-log'),
-    p0Selector: document.getElementById('p0-agent-selector'),
-    p1Selector: document.getElementById('p1-agent-selector')
+    p0AgentSelect: document.getElementById('p0-agent-select'),
+    p1AgentSelect: document.getElementById('p1-agent-select')
 };
 
 let gameState = null;
 let aiLoopInterval = null;
+let agentsLoaded = false;
+
+// Load available agents from the server
+async function loadAgentOptions() {
+    try {
+        const response = await fetch(`${API_BASE}/api/agents`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const data = await response.json();
+
+        // Populate Player 0 (user) dropdown - includes human option
+        elements.p0AgentSelect.innerHTML = data.agents.map(agent =>
+            `<option value="${agent.id}" ${agent.id === 'human' ? 'selected' : ''} title="${agent.description}">
+                ${agent.displayName}
+            </option>`
+        ).join('');
+
+        // Populate Player 1 (AI) dropdown - excludes human by default for AI slot
+        // But still allow human option for human vs human games
+        const p1Agents = data.agents;
+        elements.p1AgentSelect.innerHTML = p1Agents.map(agent =>
+            `<option value="${agent.id}" ${agent.id === 'heuristic' ? 'selected' : ''} title="${agent.description}">
+                ${agent.displayName}
+            </option>`
+        ).join('');
+
+        agentsLoaded = true;
+        console.log('Agent options loaded:', data.agents);
+    } catch (e) {
+        console.error("Failed to load agent options:", e);
+        // Fallback to hardcoded options
+        elements.p0AgentSelect.innerHTML = `
+            <option value="human" selected>Human Player</option>
+            <option value="heuristic">Heuristic Agent</option>
+            <option value="value_based">Value Network AI</option>
+        `;
+        elements.p1AgentSelect.innerHTML = `
+            <option value="heuristic" selected>Heuristic Agent</option>
+            <option value="value_based">Value Network AI</option>
+            <option value="human">Human Player</option>
+        `;
+        agentsLoaded = true;
+    }
+}
 
 async function updateState() {
     try {
@@ -36,8 +79,8 @@ async function updateState() {
 
 async function resetGame() {
     try {
-        const p0Agent = elements.p0Selector.querySelector('.active').dataset.agent;
-        const p1Agent = elements.p1Selector.querySelector('.active').dataset.agent;
+        const p0Agent = elements.p0AgentSelect.value;
+        const p1Agent = elements.p1AgentSelect.value;
         const agent_types = [p0Agent, p1Agent];
 
         const response = await fetch(`${API_BASE}/reset`, {
@@ -48,8 +91,12 @@ async function resetGame() {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         gameState = await response.json();
 
+        // Get display names for log
+        const p0DisplayName = elements.p0AgentSelect.options[elements.p0AgentSelect.selectedIndex].text;
+        const p1DisplayName = elements.p1AgentSelect.options[elements.p1AgentSelect.selectedIndex].text;
+
         // Clear log
-        elements.gameLog.innerHTML = '<div class="log-entry">Game started! <span>' + p0Agent + '</span> vs <span>' + p1Agent + '</span></div>';
+        elements.gameLog.innerHTML = '<div class="log-entry">Game started! <span>' + p0DisplayName + '</span> vs <span>' + p1DisplayName + '</span></div>';
 
         // Stop any existing AI loop
         if (aiLoopInterval) clearInterval(aiLoopInterval);
@@ -254,23 +301,11 @@ function addLogEntry(actionId = null) {
 elements.resetBtn.addEventListener('click', resetGame);
 elements.resetAllBtn.addEventListener('click', resetAll);
 
-function setupSelector(selector) {
-    selector.addEventListener('click', (e) => {
-        if (e.target.classList.contains('agent-opt')) {
-            selector.querySelectorAll('.agent-opt').forEach(opt => opt.classList.remove('active'));
-            e.target.classList.add('active');
-        }
-    });
-}
-
-setupSelector(elements.p0Selector);
-setupSelector(elements.p1Selector);
-
 elements.userActions.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         performAction(e.target.getAttribute('data-action'));
     }
 });
 
-// Initial call
-// updateState();
+// Initialize - load agent options when page loads
+document.addEventListener('DOMContentLoaded', loadAgentOptions);

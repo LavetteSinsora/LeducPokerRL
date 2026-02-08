@@ -1,9 +1,8 @@
 import http.server
 import json
-import random
 import os
 from src.engine.leduc_game import LeducGame, Action
-from src.agents import HeuristicAgent, ValueBasedAgent
+from src.agents import registry
 from src.training.training_manager import TrainingManager
 
 # Get the directory where app.py is located
@@ -30,6 +29,28 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
         if self.path == '/state':
             self._set_headers()
             self.wfile.write(json.dumps(self.format_response()).encode())
+        elif self.path == '/api/agents':
+            # Return list of all available agents from registry
+            self._set_headers()
+            agents_data = [
+                {
+                    "id": meta.id,
+                    "displayName": meta.display_name,
+                    "description": meta.description,
+                    "isTrainable": meta.is_trainable,
+                    "category": meta.category,
+                }
+                for meta in registry.list_agents()
+            ]
+            # Add "human" as a special option for play mode
+            agents_data.insert(0, {
+                "id": "human",
+                "displayName": "Human Player",
+                "description": "You control this player",
+                "isTrainable": False,
+                "category": "special"
+            })
+            self.wfile.write(json.dumps({"agents": agents_data}).encode('utf-8'))
         elif self.path == '/train/status':
             self._set_headers()
             self.wfile.write(json.dumps(LeducAPIHandler.training_manager.get_status()).encode())
@@ -79,20 +100,22 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
             LeducAPIHandler.game_state_obj.agent_configs = agent_types
             
             for i, atype in enumerate(agent_types):
-                if atype == 'value_based':
-                    # Look for trained model in models/ relative to the project root
-                    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
-                    model_path = os.path.join(root_dir, 'models', 'value_agent.pt')
-                    if os.path.exists(model_path):
-                        print(f"Loading trained model from {model_path}")
-                        LeducAPIHandler.game_state_obj.agents[i] = ValueBasedAgent(model_path=model_path)
-                    else:
-                        print(f"Trained model not found at {model_path}, using initial weights.")
-                        LeducAPIHandler.game_state_obj.agents[i] = ValueBasedAgent()
-                elif atype == 'heuristic':
-                    LeducAPIHandler.game_state_obj.agents[i] = HeuristicAgent()
-                else: # human
+                if atype == 'human':
                     LeducAPIHandler.game_state_obj.agents[i] = None
+                else:
+                    # Use registry to create agent
+                    if atype == 'value_based':
+                        # Look for trained model in models/ relative to the project root
+                        root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
+                        model_path = os.path.join(root_dir, 'models', 'value_agent.pt')
+                        if os.path.exists(model_path):
+                            print(f"Loading trained model from {model_path}")
+                            LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype, model_path=model_path)
+                        else:
+                            print(f"Trained model not found at {model_path}, using initial weights.")
+                            LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype)
+                    else:
+                        LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype)
                 
             self._set_headers()
             self.wfile.write(json.dumps(self.format_response()).encode())
@@ -112,15 +135,18 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
 
             curr_player = game.current_player
             agent = LeducAPIHandler.game_state_obj.agents[curr_player]
-            obs = LeducAPIHandler.game_state_obj.last_obs
 
             # Determine action
             if agent is None: # Human player
                 if 'action' not in data:
                     self.send_error(400, f"Action required for human Player {curr_player}")
                     return
-                action = Action(data['action'])
+                obs = LeducAPIHandler.game_state_obj.last_obs
+                action = Action(int(data['action']))
             else:
+                # Get fresh observation from current player's perspective
+                # (last_obs may contain the previous player's hand)
+                obs = game.get_observation(viewer_id=curr_player)
                 action = agent.select_action(obs)
 
             LeducAPIHandler.game_state_obj.last_obs, reward, done, _ = game.step(action)
@@ -144,6 +170,11 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
 
         elif self.path == '/train/stop':
             success = LeducAPIHandler.training_manager.stop_training()
+            self._set_headers()
+            self.wfile.write(json.dumps({"success": success}).encode())
+
+        elif self.path == '/train/reset':
+            success = LeducAPIHandler.training_manager.reset_agent()
             self._set_headers()
             self.wfile.write(json.dumps({"success": success}).encode())
 
@@ -191,8 +222,162 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
             self._set_headers()
             self.wfile.write(json.dumps({"results": results}).encode())
 
+        elif self.path == '/analyze/state':
+            # Evaluate a custom state configuration based on history
+            from src.engine.observation import Observation
+            
+            player_hand = data.get('player_hand', 'Q')
+            board = data.get('board')
+            history = data.get('history', []) # List of action strings/ints
+            
+            # Reconstruct game state from history
+            try:
+                game = self._get_game_from_history(history)
+            except Exception as e:
+                self.send_error(400, str(e))
+                return
+
+            # Construct synthetic observation for the requested analysis
+            # We use the game's calculated state but override cards/board with user selection
+            
+            # If board is provided by user, use it. Otherwise use game's board if exists.
+            # Note: In Leduc, board is revealed after round 1.
+            # If user selected a board card, we force it.
+            
+            forced_board = board if board else game.board
+            
+            # Current player is determined by the history
+            current_player = game.current_player
+            
+            obs = Observation(
+                player_hand=player_hand,
+                board=forced_board,
+                pot=list(game.pot),
+                current_player=current_player,
+                current_round=game.current_round,
+                legal_actions=[a for a in game._get_legal_actions()],
+                is_finished=game.is_finished
+            )
+            
+            agent = LeducAPIHandler.training_manager.agent
+            simulator = LeducGame()
+            results = []
+
+            if not game.is_finished:
+                for action_enum in obs.legal_actions:
+                    simulator.set_state(obs)
+                    _, _, done, _ = simulator.step(action_enum)
+                    
+                    if done:
+                        if action_enum == Action.FOLD:
+                            val = -float(obs.pot[obs.current_player])
+                        else:
+                            terminal_obs = Observation(
+                                player_hand=obs.player_hand,
+                                board=simulator.board,
+                                pot=list(simulator.pot),
+                                current_player=obs.current_player,
+                                current_round=simulator.current_round,
+                                legal_actions=[],
+                                is_finished=True
+                            )
+                            val, _ = agent._evaluate_state(terminal_obs)
+                    else:
+                        next_obs = simulator.get_observation(viewer_id=obs.current_player)
+                        v_model, _ = agent._evaluate_state(next_obs)
+                        val = v_model if next_obs.current_player == obs.current_player else -v_model
+                    
+                    results.append({
+                        "action": action_enum.value,
+                        "value": round(val, 4)
+                    })
+            
+            self._set_headers()
+            self.wfile.write(json.dumps({
+                "results": results, 
+                "current_player": current_player,
+                "is_finished": game.is_finished
+            }).encode())
+
+        elif self.path == '/analyze/calculate_state':
+            # Helper to calculate state from history for the UI
+            history = data.get('history', [])
+            try:
+                game = self._get_game_from_history(history)
+                
+                legal_actions = []
+                if not game.is_finished:
+                    legal_actions = [a.value for a in game._get_legal_actions()]
+                
+                # Format history for UI
+                # LeducGame.history contains (player, action_string)
+                history_formatted = []
+                for p, a in game.history:
+                    # 'a' is a string like "FOLD", "CALL", "RAISE"
+                    # We need to convert it to the int value for consistency with UI
+                    try:
+                        action_val = Action[a].value
+                    except KeyError:
+                        # Fallback if somehow it's not a standard action or is already an int/enum
+                        action_val = a.value if hasattr(a, 'value') else a
+                        
+                    history_formatted.append({"player": p, "action": action_val})
+
+                self._set_headers()
+                self.wfile.write(json.dumps({
+                    "pot": game.pot,
+                    "current_player": game.current_player,
+                    "current_round": game.current_round,
+                    "board": game.board,
+                    "is_finished": game.is_finished,
+                    "legal_actions": legal_actions,
+                    "winner": game.winner,
+                    "history": history_formatted
+                }).encode())
+            except Exception as e:
+                self.send_error(400, str(e))
+                return
+
         else:
             self.send_error(404)
+
+    def _get_game_from_history(self, history):
+        """Replays a sequence of actions to return a LeducGame state."""
+        game = LeducGame()
+        game.reset()
+        
+        # We need to ensure the game has enough structure to accept actions.
+        # However, LeducGame randomizes cards on reset.
+        # For analysis, we don't care about the actual cards held by players 
+        # (except for the user's hand which we override later),
+        # but we DO care if the board card matches what the user selected.
+        # But here we just replay actions. Card consistency is handled by state override.
+        
+        for action_val in history:
+            if game.is_finished:
+                break
+            
+            # Map string/int to Action enum
+            if isinstance(action_val, str):
+                # Try to map string names if sent
+                try:
+                    action = Action[action_val.upper()]
+                except KeyError:
+                    action = Action(int(action_val))
+            else:
+                action = Action(int(action_val))
+                
+            # Verify legality (optional, but good for safety)
+            legal = game._get_legal_actions()
+            if action not in legal:
+                # If we try to Check but only Call is allowed, or vice versa?
+                # In Leduc: 
+                # CALL = 1, RAISE = 2, FOLD = 0.
+                pass
+                
+            game.step(action)
+            
+        return game
 
     def format_response(self):
         game = LeducAPIHandler.game_state_obj.game
@@ -233,7 +418,8 @@ class GlobalState:
     def __init__(self):
         self.game = LeducGame()
         self.agent_configs = ["heuristic", "human"]
-        self.agents = [HeuristicAgent(), None]
+        # Use registry to create initial agent
+        self.agents = [registry.create("heuristic"), None]
         self.last_obs = None
         self.stacks = [100, 100]
 

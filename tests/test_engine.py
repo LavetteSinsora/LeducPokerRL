@@ -11,14 +11,14 @@ class TestLeducGame(unittest.TestCase):
         self.assertEqual(self.game.pot, [1, 1])
         self.assertEqual(self.game.current_round, 0)
         self.assertIn(self.game.player_hands[0], ['J', 'Q', 'K'])
-        self.assertEqual(len(obs["legal_actions"]), 3) # Fold, Call, Raise
+        self.assertEqual(len(obs.legal_actions), 3) # Fold, Call, Raise
 
     def test_fold(self):
         self.game.reset()
         self.game.step(Action.FOLD)
         self.assertTrue(self.game.is_finished)
         self.assertEqual(self.game.winner, 1)
-        self.assertEqual(self.game._get_reward(), [-1, 1])
+        self.assertEqual(self.game.get_reward(), [-1, 1])
 
     def test_check_check_transition(self):
         self.game.reset()
@@ -42,7 +42,7 @@ class TestLeducGame(unittest.TestCase):
         obs, _, _, _ = self.game.step(Action.CALL) # Match R2
         self.assertEqual(self.game.current_round, 1)
         # Check that we can raise again in Flop
-        self.assertIn(Action.RAISE, obs["legal_actions"])
+        self.assertIn(Action.RAISE, obs.legal_actions)
 
     def test_showdown_pair(self):
         # Force a state
@@ -69,7 +69,7 @@ class TestLeducGame(unittest.TestCase):
         self.game.current_round = 1
         self.game._showdown()
         self.assertEqual(self.game.winner, -1)
-        self.assertEqual(self.game._get_reward(), [0, 0])
+        self.assertEqual(self.game.get_reward(), [0, 0])
 
 if __name__ == "__main__":
     unittest.main()

@@ -50,6 +50,7 @@
 
                 <button id="btn-start-train" class="train-btn">Start Training</button>
                 <button id="btn-stop-train" class="train-btn stop" style="display: none;">Stop Training</button>
+                <button id="btn-reset-agent" class="train-btn reset" style="margin-top: 10px;">Reset Training</button>
             </div>
 
             <!-- Charts -->
@@ -58,7 +59,8 @@
                     <h2>Training Progress</h2>
                     <div style="font-size: 0.8rem; opacity: 0.6;">
                         Loss: <span id="current-loss" style="color: #f4d03f; font-weight: bold;">0.0000</span> |
-                        Win Rate: <span id="current-win-rate" style="color: #4ade80; font-weight: bold;">0%</span>
+                        Chips/Round: <span id="current-chips-round"
+                            style="color: #4ade80; font-weight: bold;">+0.00</span>
                     </div>
                 </div>
                 <div class="chart-container">
@@ -66,45 +68,97 @@
                 </div>
             </div>
 
-            <!-- Interactive Simulation -->
-            <div class="dashboard-card simulation-view">
+            <!-- State Value Analyzer -->
+            <div class="dashboard-card state-analyzer">
                 <div class="chart-header">
-                    <h2>Decision Visualization</h2>
-                    <button class="reset-btn accent" id="sim-reset">Reset Simulation</button>
+                    <h2>State Value Analyzer</h2>
                 </div>
                 <p style="opacity: 0.6; font-size: 0.9rem; margin-bottom: 20px;">
-                    Simulate a game and see exactly how the agent values each legal action at any state.
+                    Configure a game state and see how the agent values each possible action.
                 </p>
 
-                <div id="game-table" style="height: 300px; margin-bottom: 20px;">
-                    <!-- Simplified game view for simulation -->
-                    <div class="pot-display">
-                        <div class="stat-label">Current Pot</div>
-                        <div class="pot-value" id="sim-pot">0</div>
-                    </div>
-                    <div id="sim-board" style="display: flex; gap: 10px; margin-top: 20px;"></div>
-                    <div id="sim-player" style="margin-top: 30px; text-align: center;">
-                        <div class="stat-label" id="sim-player-label">P0 Hand</div>
-                        <div id="sim-hand" class="card" style="margin: 10px auto;">?</div>
-                    </div>
-                </div>
+                <div class="analyzer-grid">
+                    <!-- State Configuration -->
+                    <div class="config-section">
+                        <h3>Configure State</h3>
 
-                <div id="decision-panel">
-                    <h3>Legal Actions & Values</h3>
-                    <table class="decision-table">
-                        <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>Expected Value</th>
-                                <th>Recommendation</th>
-                            </tr>
-                        </thead>
-                        <tbody id="decision-body">
-                            <tr>
-                                <td colspan="3" style="text-align: center; opacity: 0.5;">Wait for next step...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>Player Hand</label>
+                                <div class="card-selector" id="hand-selector">
+                                    <button class="card-btn" data-card="J">J</button>
+                                    <button class="card-btn active" data-card="Q">Q</button>
+                                    <button class="card-btn" data-card="K">K</button>
+                                </div>
+                            </div>
+
+                            <div class="config-item">
+                                <label>Board Card</label>
+                                <div class="card-selector" id="board-selector">
+                                    <button class="card-btn active" data-card="">None</button>
+                                    <button class="card-btn" data-card="J">J</button>
+                                    <button class="card-btn" data-card="Q">Q</button>
+                                    <button class="card-btn" data-card="K">K</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Sequence Builder -->
+                        <div class="config-row" style="flex-direction: column; gap: 10px;">
+                            <label>Action Sequence (History)</label>
+                            <div id="sequence-display" class="sequence-display">
+                                <span class="placeholder-text">Start of game (Ante 1)</span>
+                            </div>
+
+                            <div class="sequence-controls">
+                                <label style="margin-bottom: 5px;">Add Next Action:</label>
+                                <div id="next-actions-container" class="next-actions-grid">
+                                    <!-- Buttons injected by JS -->
+                                    <button class="action-btn" disabled>Loading...</button>
+                                </div>
+                                <button id="btn-reset-sequence" class="reset-btn"
+                                    style="margin-top: 10px; font-size: 0.8rem;">
+                                    Reset Sequence
+                                </button>
+                            </div>
+                        </div>
+
+                        <button id="btn-evaluate" class="train-btn" style="margin-top: 20px;">
+                            Evaluate State
+                        </button>
+                    </div>
+
+                    <!-- Results Display -->
+                    <div class="results-section">
+                        <h3>Action Values</h3>
+                        <div class="state-preview">
+                            <div class="preview-cards">
+                                <div class="preview-card" id="preview-hand">Q</div>
+                                <span style="margin: 0 10px; opacity: 0.5;">+</span>
+                                <div class="preview-card board" id="preview-board">?</div>
+                            </div>
+                            <div class="preview-pot">
+                                Pot: <span id="preview-pot">3</span>
+                            </div>
+                        </div>
+
+                        <table class="decision-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Next State Value</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="action-values-body">
+                                <tr>
+                                    <td colspan="3" style="text-align: center; opacity: 0.5;">
+                                        Click "Evaluate State" to analyze
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

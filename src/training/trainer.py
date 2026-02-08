@@ -3,17 +3,20 @@ import torch.nn as nn
 import torch.optim as optim
 import random
 from dataclasses import dataclass
-from typing import List, Tuple, Callable, Optional
+from typing import Dict, List, Tuple, Callable, Optional
 import numpy as np
 from src.engine.leduc_game import LeducGame, Action
 from src.agents.value_based import ValueBasedAgent
+from src.agents.heuristic import HeuristicAgent
+from src.training.base import BaseTrainer
+from src.training.evaluation import quick_evaluate
 
 @dataclass
 class TrajectoryStep:
     encoded_state: torch.Tensor
     player_id: int
 
-class SelfPlayTrainer:
+class SelfPlayTrainer(BaseTrainer):
     def __init__(self, agent: ValueBasedAgent, learning_rate=1e-4):
         self.agent = agent
         self.optimizer = optim.Adam(self.agent.model.parameters(), lr=learning_rate)
@@ -21,16 +24,17 @@ class SelfPlayTrainer:
         self.game = LeducGame()
         self.stop_requested = False
 
-    def train(self, num_episodes: int, batch_size: int = 32, save_path: str = None, callback: Optional[Callable] = None):
+    def train(self, num_episodes: int, batch_size: int = 32, save_path: str = None, callback: Optional[Callable] = None, start_episode: int = 0):
         self.agent.set_train_mode(True)
         self.stop_requested = False
         
         batch_data = []
-        for episode in range(num_episodes):
+        for i in range(num_episodes):
             if self.stop_requested:
                 print("Training stop requested.")
                 break
 
+            episode = start_episode + i + 1  # Current episode number (1-indexed)
             trajectory = self._play_episode()
             batch_data.append(trajectory)
             
@@ -41,24 +45,24 @@ class SelfPlayTrainer:
                 
                 if callback:
                     callback({
-                        "episode": episode + 1,
+                        "episode": episode,
                         "loss": loss,
                         "type": "batch_update"
                     })
 
-                if (episode + 1) % 100 == 0 or episode < batch_size:
-                    print(f"Episode {episode + 1}, Batch Loss: {loss:.4f}")
+                if i < batch_size or (episode) % 100 == 0:
+                    print(f"Episode {episode}, Batch Loss: {loss:.4f}")
 
             # Periodically evaluate
-            if (episode + 1) % 50 == 0:
-                win_rate = self.evaluate(num_games=100)
+            if episode % 50 == 0:
+                avg_chips = self.evaluate(num_games=100)
                 if callback:
                     callback({
-                        "episode": episode + 1,
-                        "win_rate": win_rate,
+                        "episode": episode,
+                        "avg_chips_per_round": avg_chips,
                         "type": "evaluation"
                     })
-                print(f"Episode {episode + 1}, Evaluation Win Rate: {win_rate:.2f}")
+                print(f"Episode {episode}, Avg Chips/Round: {avg_chips:+.2f}")
 
         if save_path and not self.stop_requested:
             import os
@@ -120,41 +124,28 @@ class SelfPlayTrainer:
     def evaluate(self, num_games: int = 100) -> float:
         """
         Evaluates the agent against a HeuristicAgent.
-        Returns the win rate (percentage of games where reward > 0).
+        Returns the average chips per round (more informative than win rate).
+        
+        Uses the decoupled evaluation module from src/training/evaluation.py.
         """
-        from src.agents.heuristic import HeuristicAgent
         opponent = HeuristicAgent()
         
         self.agent.set_train_mode(False)
-        wins = 0
-        
-        for _ in range(num_games):
-            self.game.reset()
-            # Randomize agent position (Player 0 or 1)
-            agent_id = random.randint(0, 1)
-            
-            while not self.game.is_finished:
-                curr_player = self.game.current_player
-                obs = self.game.get_observation(viewer_id=curr_player)
-                
-                if curr_player == agent_id:
-                    action = self.agent.select_action(obs)
-                else:
-                    action = opponent.select_action(obs)
-                
-                self.game.step(action)
-            
-            rewards = self.game.get_reward()
-            if rewards[agent_id] > 0:
-                wins += 1
-            elif rewards[agent_id] == 0:
-                wins += 0.5 # Count draw as half win
-        
+        avg_chips = quick_evaluate(self.agent, opponent, num_rounds=num_games)
         self.agent.set_train_mode(True)
-        return wins / num_games
+        
+        return avg_chips
 
     def request_stop(self):
         self.stop_requested = True
+
+    def update_params(self, params: Dict):
+        """Updates the learning rate of the optimizer."""
+        if "lr" in params:
+            new_lr = params["lr"]
+            for param_group in self.optimizer.param_groups:
+                param_group['lr'] = new_lr
+            print(f"Learning rate updated to: {new_lr}")
 
 if __name__ == "__main__":
     import argparse

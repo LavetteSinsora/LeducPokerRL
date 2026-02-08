@@ -12,7 +12,13 @@
 <body>
     <div id="app">
         <header>
-            <h1>Leduc Hold'em</h1>
+            <div class="header-left">
+                <h1>Leduc Hold'em</h1>
+                <nav class="nav-tabs">
+                    <a href="index.html" class="nav-link active">Play Game</a>
+                    <a href="dashboard.html" class="nav-link">Training</a>
+                </nav>
+            </div>
             <div class="controls">
                 <button class="reset-btn" id="reset-all-btn">Reset Stacks</button>
                 <button class="reset-btn accent" id="reset-btn">New Game</button>
@@ -23,9 +29,11 @@
             <!-- Player 1 (AI) -->
             <div class="player-slot" id="player-slot-1">
                 <div class="player-info">
-                    <div class="agent-selector-pill" id="p1-agent-selector">
-                        <button class="agent-opt active" data-agent="heuristic">Heuristic</button>
-                        <button class="agent-opt" data-agent="value_based">Value AI</button>
+                    <div class="agent-selector-dropdown">
+                        <label>Agent:</label>
+                        <select id="p1-agent-select" class="agent-select">
+                            <!-- Options populated dynamically -->
+                        </select>
                     </div>
                     <div class="stack-display">Stack: <span id="p1-stack">100</span></div>
                 </div>
@@ -40,10 +48,11 @@
             <!-- Player 0 (User) -->
             <div class="player-slot" id="player-slot-0">
                 <div class="player-info">
-                    <div class="agent-selector-pill" id="p0-agent-selector">
-                        <button class="agent-opt active" data-agent="human">Human</button>
-                        <button class="agent-opt" data-agent="heuristic">Heuristic</button>
-                        <button class="agent-opt" data-agent="value_based">Value AI</button>
+                    <div class="agent-selector-dropdown">
+                        <label>Agent:</label>
+                        <select id="p0-agent-select" class="agent-select">
+                            <!-- Options populated dynamically -->
+                        </select>
                     </div>
                     <div class="stack-display">Stack: <span id="p0-stack">100</span></div>
                 </div>

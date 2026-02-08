@@ -27,8 +27,9 @@ class ValueNetwork(nn.Module):
 class ValueBasedAgent(BaseAgent):
     """
     A baseline RL agent that uses a value network to select actions.
+    Uses softmax (Boltzmann) exploration during training to prevent reward hacking.
     """
-    def __init__(self, model_path=None):
+    def __init__(self, model_path=None, temperature=1.0):
         # Card mapping: J=0, Q=1, K=2
         self.card_map = {'J': 0, 'Q': 1, 'K': 2}
         
@@ -37,6 +38,7 @@ class ValueBasedAgent(BaseAgent):
         self.input_size = 4 + 4 + 2 + 1 + 2 + 1
         
         self.train_mode = False
+        self.temperature = temperature  # For Boltzmann exploration
         self.model = ValueNetwork(self.input_size)
         if model_path:
             self.model.load_state_dict(torch.load(model_path))
@@ -109,7 +111,11 @@ class ValueBasedAgent(BaseAgent):
 
     def select_action(self, obs: Observation) -> Action:
         """
-        Selects the best action based on 1-step simulation and value network.
+        Selects an action based on 1-step simulation and value network.
+        
+        Train mode: Uses softmax (Boltzmann) exploration to sample actions.
+        Eval mode: Greedy selection (argmax).
+        
         If in train_mode, returns (action, encoded_state) for the trainer.
         """
         simulator = LeducGame()
@@ -123,8 +129,18 @@ class ValueBasedAgent(BaseAgent):
             if done:
                 if action == Action.FOLD:
                     # Case 1: Fold (Deterministic payout)
+                    # Create a terminal observation for the fold state so it can be trained on
                     val = -float(obs.pot[obs.current_player])
-                    encoded = None
+                    terminal_obs = Observation(
+                        player_hand=obs.player_hand,
+                        board=obs.board,  # Board unchanged on fold
+                        pot=list(obs.pot),
+                        current_player=obs.current_player,
+                        current_round=obs.current_round,
+                        legal_actions=[],
+                        is_finished=True
+                    )
+                    encoded = self.encode_observation(terminal_obs)
                 else:
                     # Case 2: Showdown (Value network on resulting terminal state)
                     terminal_obs = Observation(
@@ -148,10 +164,27 @@ class ValueBasedAgent(BaseAgent):
                 val = v_model if next_obs.current_player == obs.current_player else -v_model
             
             results.append((action, val, encoded))
+        
+        # Robustness check to prevent empty results causing max() arg error
+        if not results:
+             print("Warning: ValueBasedAgent found no legal actions results! Defaulting to FOLD/CHECK.")
+             return Action.FOLD
 
-        # Greedy selection over simulated futures
-        best_action, _, best_encoded = max(results, key=lambda x: x[1])
+        try:
+            if self.train_mode:
+                # Softmax (Boltzmann) exploration: sample from probability distribution
+                values = torch.tensor([r[1] for r in results], dtype=torch.float32)
+                probs = torch.softmax(values / self.temperature, dim=0)
+                idx = torch.multinomial(probs, 1).item()
+                selected_action = results[idx][0]
+                selected_encoded = results[idx][2]
+                return selected_action, selected_encoded
+            else:
+                # Greedy selection in eval mode
+                best_action, _, _ = max(results, key=lambda x: x[1])
+                return best_action
+        except Exception as e:
+            print(f"Error in ValueBasedAgent selection logic: {e}")
+            # Fallback
+            return results[0][0] if results else Action.FOLD
 
-        if self.train_mode:
-            return best_action, best_encoded
-        return best_action

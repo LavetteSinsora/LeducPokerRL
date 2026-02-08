@@ -1,0 +1,183 @@
+"""
+Agent Registry - Single source of truth for all available agents.
+
+This module provides a centralized registry for all agents in the system.
+New agents should be registered here to be discoverable by the web UI,
+training systems, and other components.
+
+Usage:
+    from src.agents.registry import registry
+
+    # List all available agents
+    agents = registry.list_agents()
+
+    # Create an agent instance
+    agent = registry.create("heuristic")
+
+    # Create with custom kwargs
+    agent = registry.create("value_based", model_path="path/to/model.pt")
+"""
+
+from dataclasses import dataclass
+from typing import Type, Dict, Any, Optional, List
+
+
+@dataclass
+class AgentMetadata:
+    """Metadata describing an agent type."""
+    id: str                          # Unique identifier (e.g., "heuristic", "value_based")
+    display_name: str                # Human-readable name (e.g., "Heuristic Agent")
+    description: str                 # Description for UI tooltips
+    is_trainable: bool = False       # Whether this agent can be trained
+    requires_model_path: bool = False  # Whether agent needs a model file
+    category: str = "general"        # Category for grouping (e.g., "rule_based", "rl")
+
+
+class AgentRegistry:
+    """
+    Central registry for all agent types.
+    
+    This class maintains a mapping of agent IDs to their classes and metadata,
+    enabling dynamic discovery and instantiation of agents throughout the system.
+    """
+    
+    def __init__(self):
+        self._agents: Dict[str, Type] = {}
+        self._metadata: Dict[str, AgentMetadata] = {}
+        self._factory_kwargs: Dict[str, Dict[str, Any]] = {}
+    
+    def register(
+        self, 
+        id: str, 
+        agent_class: Type, 
+        metadata: AgentMetadata,
+        default_kwargs: Optional[Dict[str, Any]] = None
+    ):
+        """
+        Register an agent type with the registry.
+        
+        Args:
+            id: Unique identifier for the agent type
+            agent_class: The agent class to instantiate
+            metadata: AgentMetadata describing the agent
+            default_kwargs: Default keyword arguments for instantiation
+        """
+        self._agents[id] = agent_class
+        self._metadata[id] = metadata
+        self._factory_kwargs[id] = default_kwargs or {}
+    
+    def list_agents(self, category: Optional[str] = None) -> List[AgentMetadata]:
+        """
+        List all registered agents, optionally filtered by category.
+        
+        Args:
+            category: Optional category to filter by
+            
+        Returns:
+            List of AgentMetadata for matching agents
+        """
+        agents = list(self._metadata.values())
+        if category:
+            agents = [a for a in agents if a.category == category]
+        return agents
+    
+    def get_metadata(self, agent_id: str) -> Optional[AgentMetadata]:
+        """
+        Get metadata for a specific agent.
+        
+        Args:
+            agent_id: The agent's unique identifier
+            
+        Returns:
+            AgentMetadata if found, None otherwise
+        """
+        return self._metadata.get(agent_id)
+    
+    def create(self, agent_id: str, **kwargs):
+        """
+        Create an instance of an agent by its ID.
+        
+        Args:
+            agent_id: The agent's unique identifier
+            **kwargs: Additional keyword arguments to pass to the constructor
+            
+        Returns:
+            An instance of the requested agent
+            
+        Raises:
+            ValueError: If agent_id is not registered
+        """
+        if agent_id not in self._agents:
+            raise ValueError(f"Unknown agent type: {agent_id}. "
+                           f"Available: {list(self._agents.keys())}")
+        
+        # Merge default kwargs with provided kwargs (provided takes precedence)
+        merged_kwargs = {**self._factory_kwargs[agent_id], **kwargs}
+        return self._agents[agent_id](**merged_kwargs)
+    
+    def is_registered(self, agent_id: str) -> bool:
+        """
+        Check if an agent ID is registered.
+        
+        Args:
+            agent_id: The agent's unique identifier
+            
+        Returns:
+            True if registered, False otherwise
+        """
+        return agent_id in self._agents
+    
+    def get_trainable_agents(self) -> List[AgentMetadata]:
+        """
+        Get all agents that can be trained.
+        
+        Returns:
+            List of AgentMetadata for trainable agents
+        """
+        return [a for a in self._metadata.values() if a.is_trainable]
+
+
+# Global registry instance - single source of truth
+registry = AgentRegistry()
+
+
+# ============================================================
+# Register all built-in agents
+# ============================================================
+
+def _register_builtin_agents():
+    """Register all built-in agents with the registry."""
+    # Import here to avoid circular imports
+    from .heuristic import HeuristicAgent
+    from .value_based import ValueBasedAgent
+    
+    # Heuristic Agent - rule-based baseline
+    registry.register(
+        id="heuristic",
+        agent_class=HeuristicAgent,
+        metadata=AgentMetadata(
+            id="heuristic",
+            display_name="Heuristic Agent",
+            description="A rule-based agent using hand-crafted poker strategy",
+            is_trainable=False,
+            category="rule_based"
+        )
+    )
+    
+    # Value-Based RL Agent - trainable neural network
+    registry.register(
+        id="value_based",
+        agent_class=ValueBasedAgent,
+        metadata=AgentMetadata(
+            id="value_based",
+            display_name="Value Network AI",
+            description="RL agent using a learned value function",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl"
+        )
+    )
+
+
+# Initialize built-in agents on module import
+_register_builtin_agents()
