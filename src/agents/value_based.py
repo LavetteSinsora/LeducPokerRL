@@ -109,31 +109,26 @@ class ValueBasedAgent(BaseAgent):
             val = self.model(encoded).item()
         return val, encoded
 
-    def select_action(self, obs: Observation) -> Action:
+    def get_action_evaluations(self, obs: Observation):
         """
-        Selects an action based on 1-step simulation and value network.
-        
-        Train mode: Uses softmax (Boltzmann) exploration to sample actions.
-        Eval mode: Greedy selection (argmax).
-        
-        If in train_mode, returns (action, encoded_state) for the trainer.
+        Runs 1-step simulation for all legal actions and returns predicted values.
+        Returns a list of Dicts: [{"action": Action, "value": float, "encoded": Tensor, "is_terminal": bool}]
         """
         simulator = LeducGame()
-        results = []
+        evaluations = []
 
         for action in obs.legal_actions:
             # Simulation step
             simulator.set_state(obs)
             _, _, done, _ = simulator.step(action)
             
+            is_terminal = done
             if done:
                 if action == Action.FOLD:
-                    # Case 1: Fold (Deterministic payout)
-                    # Create a terminal observation for the fold state so it can be trained on
                     val = -float(obs.pot[obs.current_player])
                     terminal_obs = Observation(
                         player_hand=obs.player_hand,
-                        board=obs.board,  # Board unchanged on fold
+                        board=obs.board,
                         pot=list(obs.pot),
                         current_player=obs.current_player,
                         current_round=obs.current_round,
@@ -142,7 +137,6 @@ class ValueBasedAgent(BaseAgent):
                     )
                     encoded = self.encode_observation(terminal_obs)
                 else:
-                    # Case 2: Showdown (Value network on resulting terminal state)
                     terminal_obs = Observation(
                         player_hand=obs.player_hand,
                         board=simulator.board,
@@ -154,18 +148,24 @@ class ValueBasedAgent(BaseAgent):
                     )
                     val, encoded = self._evaluate_state(terminal_obs)
             else:
-                # Case 3: Mid-game transition
-                # View next state from our perspective
                 next_obs = simulator.get_observation(viewer_id=obs.current_player)
                 v_model, encoded = self._evaluate_state(next_obs)
-                
-                # Zero-sum normalization: 
-                # If it's the opponent's turn, the network predicts their value.
                 val = v_model if next_obs.current_player == obs.current_player else -v_model
             
-            results.append((action, val, encoded))
+            evaluations.append({
+                "action": action,
+                "value": val,
+                "encoded": encoded,
+                "is_terminal": is_terminal
+            })
+        return evaluations
+
+    def select_action(self, obs: Observation) -> Action:
+        """
+        Selects an action based on 1-step simulation and value network.
+        """
+        results = self.get_action_evaluations(obs)
         
-        # Robustness check to prevent empty results causing max() arg error
         if not results:
              print("Warning: ValueBasedAgent found no legal actions results! Defaulting to FOLD/CHECK.")
              return Action.FOLD
@@ -173,18 +173,17 @@ class ValueBasedAgent(BaseAgent):
         try:
             if self.train_mode:
                 # Softmax (Boltzmann) exploration: sample from probability distribution
-                values = torch.tensor([r[1] for r in results], dtype=torch.float32)
+                values = torch.tensor([r["value"] for r in results], dtype=torch.float32)
                 probs = torch.softmax(values / self.temperature, dim=0)
                 idx = torch.multinomial(probs, 1).item()
-                selected_action = results[idx][0]
-                selected_encoded = results[idx][2]
+                selected_action = results[idx]["action"]
+                selected_encoded = results[idx]["encoded"]
                 return selected_action, selected_encoded
             else:
                 # Greedy selection in eval mode
-                best_action, _, _ = max(results, key=lambda x: x[1])
-                return best_action
+                best = max(results, key=lambda x: x["value"])
+                return best["action"]
         except Exception as e:
             print(f"Error in ValueBasedAgent selection logic: {e}")
-            # Fallback
-            return results[0][0] if results else Action.FOLD
+            return results[0]["action"] if results else Action.FOLD
 

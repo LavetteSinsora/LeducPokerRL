@@ -121,6 +121,68 @@ class SelfPlayTrainer(BaseTrainer):
         
         return 0.0
 
+    def debug_episode(self) -> List[Dict]:
+        """
+        Plays one episode and records detailed mental simulations and final rewards.
+        """
+        self.game.reset()
+        episode_trace = []
+        
+        # We temporarily disable Boltzmann exploration for cleaner debug traces
+        old_train_mode = self.agent.train_mode
+        self.agent.set_train_mode(False) # Use greedy for debug
+        
+        while not self.game.is_finished:
+            current_player = self.game.current_player
+            obs = self.game.get_observation(viewer_id=current_player)
+            
+            # Get full simulation results
+            evaluations = self.agent.get_action_evaluations(obs)
+            
+            # Select action greedily for the trace
+            selected_eval = max(evaluations, key=lambda x: x["value"])
+            action = selected_eval["action"]
+            
+            step_info = {
+                "player_id": current_player,
+                "observation": {
+                    "player_hand": obs.player_hand,
+                    "board": obs.board,
+                    "pot": obs.pot,
+                    "current_round": obs.current_round,
+                },
+                "evaluations": [
+                    {
+                        "action": e["action"].name,
+                        "value": e["value"],
+                        "action_id": e["action"].value
+                    } for e in evaluations
+                ],
+                "selected_action": action.name,
+                "selected_action_id": action.value
+            }
+            
+            episode_trace.append(step_info)
+            self.game.step(action)
+        
+        # Calculate final profits
+        rewards = self.game.get_reward()
+        
+        # Post-process trace to add "True Value" and "Prediction Error"
+        for step in episode_trace:
+            player_reward = rewards[step["player_id"]]
+            step["true_value"] = player_reward
+            
+            # Prediction error for the selected action
+            pred_val = next(e["value"] for e in step["evaluations"] if e["action"] == step["selected_action"])
+            step["prediction_error"] = (pred_val - player_reward) ** 2
+            
+        self.agent.set_train_mode(old_train_mode)
+        return {
+            "trace": episode_trace,
+            "final_rewards": rewards
+        }
+
     def evaluate(self, num_games: int = 100) -> float:
         """
         Evaluates the agent against a HeuristicAgent.
