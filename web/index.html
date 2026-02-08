@@ -26,7 +26,7 @@
         </header>
 
         <div id="game-table">
-            <!-- Player 1 (AI) -->
+            <!-- Player 1 (Opponent) -->
             <div class="player-slot" id="player-slot-1">
                 <div class="player-info">
                     <div class="agent-selector-dropdown">
@@ -42,8 +42,14 @@
                 </div>
             </div>
 
-            <!-- Community Card -->
-            <div class="community-card hidden" id="board-card">?</div>
+            <!-- Table Center -->
+            <div class="table-center">
+                <div class="round-label" id="round-name">Pre-flop</div>
+                <div class="community-card hidden" id="board-card">?</div>
+                <div class="pot-display">
+                    Pot: <span class="pot-value" id="pot-total">0</span>
+                </div>
+            </div>
 
             <!-- Player 0 (User) -->
             <div class="player-slot" id="player-slot-0">
@@ -58,13 +64,6 @@
                 </div>
                 <div class="card-container" id="p0-card-container">
                     <div class="card" id="p0-card">?</div>
-                </div>
-            </div>
-
-            <div class="status-indicator">
-                <div class="round-name" id="round-name">Pre-flop</div>
-                <div class="pot-display">
-                    Pot: <span class="pot-value" id="pot-total">0</span>
                 </div>
             </div>
         </div>
