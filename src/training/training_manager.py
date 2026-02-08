@@ -127,3 +127,7 @@ class TrainingManager:
 
     def get_history(self):
         return self.history
+
+    def run_debug_episode(self) -> Dict:
+        """Runs a single episode in debug mode and returns the trace."""
+        return self.trainer.debug_episode()

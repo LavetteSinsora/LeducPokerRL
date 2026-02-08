@@ -57,6 +57,13 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
         elif self.path == '/train/history':
             self._set_headers()
             self.wfile.write(json.dumps(LeducAPIHandler.training_manager.get_history()).encode())
+        elif self.path == '/analyze/episode':
+            self._set_headers()
+            try:
+                result = LeducAPIHandler.training_manager.run_debug_episode()
+                self.wfile.write(json.dumps(result).encode())
+            except Exception as e:
+                self.wfile.write(json.dumps({"error": str(e)}).encode())
         else:
             # Serve static files from 'web' directory
             path = self.path.lstrip('/')
