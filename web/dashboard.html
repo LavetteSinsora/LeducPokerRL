@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Dashboard - PokerRL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="app" style="max-width: 1200px;">
+        <header>
+            <h1>Training Dashboard</h1>
+            <nav class="nav-tabs">
+                <a href="index.html" class="nav-link">Play Game</a>
+                <a href="dashboard.html" class="nav-link active">Training</a>
+            </nav>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Training Controls -->
+            <div class="dashboard-card">
+                <h2>Controls</h2>
+                <div class="stats-grid" style="margin-top: 20px;">
+                    <div class="stat-item">
+                        <span class="stat-label">Status</span>
+                        <span id="train-status-text" class="stat-value" style="color: #f87171;">Idle</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Episodes</span>
+                        <span id="stat-episode" class="stat-value">0</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Learning Rate</label>
+                    <input type="number" id="train-lr" value="0.0001" step="0.00001">
+                </div>
+                <div class="control-group">
+                    <label>Batch Size</label>
+                    <input type="number" id="train-batch" value="32">
+                </div>
+                <div class="control-group">
+                    <label>Total Episodes</label>
+                    <input type="number" id="train-episodes" value="1000">
+                </div>
+
+                <button id="btn-start-train" class="train-btn">Start Training</button>
+                <button id="btn-stop-train" class="train-btn stop" style="display: none;">Stop Training</button>
+            </div>
+
+            <!-- Charts -->
+            <div class="dashboard-card">
+                <div class="chart-header">
+                    <h2>Training Progress</h2>
+                    <div style="font-size: 0.8rem; opacity: 0.6;">
+                        Loss: <span id="current-loss" style="color: #f4d03f; font-weight: bold;">0.0000</span> |
+                        Win Rate: <span id="current-win-rate" style="color: #4ade80; font-weight: bold;">0%</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trainingChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Interactive Simulation -->
+            <div class="dashboard-card simulation-view">
+                <div class="chart-header">
+                    <h2>Decision Visualization</h2>
+                    <button class="reset-btn accent" id="sim-reset">Reset Simulation</button>
+                </div>
+                <p style="opacity: 0.6; font-size: 0.9rem; margin-bottom: 20px;">
+                    Simulate a game and see exactly how the agent values each legal action at any state.
+                </p>
+
+                <div id="game-table" style="height: 300px; margin-bottom: 20px;">
+                    <!-- Simplified game view for simulation -->
+                    <div class="pot-display">
+                        <div class="stat-label">Current Pot</div>
+                        <div class="pot-value" id="sim-pot">0</div>
+                    </div>
+                    <div id="sim-board" style="display: flex; gap: 10px; margin-top: 20px;"></div>
+                    <div id="sim-player" style="margin-top: 30px; text-align: center;">
+                        <div class="stat-label" id="sim-player-label">P0 Hand</div>
+                        <div id="sim-hand" class="card" style="margin: 10px auto;">?</div>
+                    </div>
+                </div>
+
+                <div id="decision-panel">
+                    <h3>Legal Actions & Values</h3>
+                    <table class="decision-table">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Expected Value</th>
+                                <th>Recommendation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="decision-body">
+                            <tr>
+                                <td colspan="3" style="text-align: center; opacity: 0.5;">Wait for next step...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
