@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
 </head>
 
 <body>
@@ -34,6 +35,14 @@
                         <span class="stat-label">Episodes</span>
                         <span id="stat-episode" class="stat-value">0</span>
                     </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Agent Architecture</label>
+                    <select id="train-agent-select" class="agent-select"
+                        style="width: 100%; padding: 8px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+                        <!-- Populate dynamically -->
+                    </select>
                 </div>
 
                 <div class="control-group">
@@ -64,8 +73,20 @@
                             style="color: #4ade80; font-weight: bold;">+0.00</span>
                     </div>
                 </div>
-                <div class="chart-container">
-                    <canvas id="trainingChart"></canvas>
+
+                <div class="smoothing-controls">
+                    <label for="smoothing-slider">Smoothing:</label>
+                    <input type="range" id="smoothing-slider" min="0" max="0.99" step="0.01" value="0.6"
+                        style="flex: 1; accent-color: #f4d03f;">
+                    <span id="smoothing-value">0.60</span>
+                    <button id="btn-reset-zoom" class="reset-btn" style="padding: 6px 14px; font-size: 0.8rem;">Reset Zoom</button>
+                </div>
+
+                <div class="chart-container-split">
+                    <canvas id="lossChart"></canvas>
+                </div>
+                <div class="chart-container-split">
+                    <canvas id="chipsChart"></canvas>
                 </div>
             </div>
 

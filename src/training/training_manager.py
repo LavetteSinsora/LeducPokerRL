@@ -3,31 +3,49 @@ import os
 import torch
 from typing import List, Dict, Optional
 from src.training.trainer import SelfPlayTrainer
-from src.agents.value_based import ValueBasedAgent
+from src.agents.registry import registry
 
 class TrainingManager:
-    def __init__(self, model_path: str = "models/value_agent.pt"):
-        self.model_path = model_path
-        self.agent = ValueBasedAgent()
+    def __init__(self, agent_id: str = "value_based", model_path: Optional[str] = None):
+        self.agent_id = agent_id
+        
+        # Use default path if none provided
+        if model_path is None:
+            self.model_path = f"models/{agent_id}_agent.pt"
+        else:
+            self.model_path = model_path
+            
+        # Initialize agent from registry
+        self.agent = registry.create(agent_id)
+        
         if os.path.exists(self.model_path):
             try:
-                self.agent.model.load_state_dict(torch.load(self.model_path))
-                print(f"Loaded existing model from {self.model_path}")
+                # Need to check if agent uses torch model
+                if hasattr(self.agent, 'model'):
+                    self.agent.model.load_state_dict(torch.load(self.model_path))
+                    print(f"Loaded existing model from {self.model_path}")
             except Exception as e:
                 print(f"Error loading model: {e}")
         
-        self.trainer = SelfPlayTrainer(self.agent)
+        self.trainer = self._create_trainer()
         self.training_thread: Optional[threading.Thread] = None
         self.is_training = False
         
-        # Metrics storage
+        # Metrics storage (no cap — kept in full for long-range trend analysis)
         self.history: List[Dict] = []
-        self.max_history = 1000
         self.current_stats = {
             "episode": 0,
             "loss": 0.0,
             "avg_chips_per_round": 0.0
         }
+
+    def _create_trainer(self):
+        """Factory method to create the appropriate trainer for the agent."""
+        if self.agent_id == "value_based":
+            return SelfPlayTrainer(self.agent)
+        else:
+            # Fallback to default trainer if possible, or raise error
+            raise ValueError(f"No trainer implemented for agent type: {self.agent_id}")
 
     def _training_callback(self, data: Dict):
         if data["type"] == "batch_update":
@@ -47,21 +65,20 @@ class TrainingManager:
                 "type": "avg_chips"
             })
         
-        # Trim history if too long
-        if len(self.history) > self.max_history:
-            self.history = self.history[-self.max_history:]
+        # No trim — full history preserved for long-range trend charts
 
     def start_training(self, episodes: int = 1000, batch_size: int = 32, lr: float = 1e-4):
         """Start fresh training or resume if already training (to update LR)."""
         if self.is_training:
-            # If already training, we can update the LR on the fly!
             self.trainer.update_params({"lr": lr})
             return True
         
         self.is_training = True
-        self.trainer.update_params({"lr": lr})
         
-        # Get starting episode from current stats (for resume functionality)
+        # Ensure trainer has latest LR
+        if hasattr(self.trainer, 'update_params'):
+            self.trainer.update_params({"lr": lr})
+        
         start_episode = self.current_stats.get("episode", 0)
         
         def run_target():
@@ -82,7 +99,6 @@ class TrainingManager:
 
     @property
     def has_training_history(self) -> bool:
-        """Returns True if there is any training history (for resume detection)."""
         return len(self.history) > 0
 
     def stop_training(self):
@@ -92,16 +108,21 @@ class TrainingManager:
         self.trainer.request_stop()
         return True
 
-    def reset_agent(self):
+    def reset_agent(self, agent_id: Optional[str] = None):
         """Stops training, deletes model, and resets agent weights."""
         if self.is_training:
             self.stop_training()
             if self.training_thread:
                 self.training_thread.join(timeout=2.0)
         
+        # If new agent_id provided, switch to it
+        if agent_id:
+            self.agent_id = agent_id
+            self.model_path = f"models/{agent_id}_agent.pt"
+        
         # Reset agent and trainer
-        self.agent = ValueBasedAgent()
-        self.trainer = SelfPlayTrainer(self.agent)
+        self.agent = registry.create(self.agent_id)
+        self.trainer = self._create_trainer()
         
         # Clear metrics
         self.history = []

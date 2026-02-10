@@ -2,36 +2,47 @@ const API_URL = window.location.port === '8001'
     ? `${window.location.protocol}//${window.location.hostname}:8000`
     : window.location.origin;
 
-let chart;
-let historyData = {
-    loss: [],
-    avgChips: []
-};
+let lossChart, chipsChart;
+let smoothingAlpha = 0.6;
+let rawLossData = [], rawChipsData = [];
 
-// Initialize Chart
-function initChart() {
-    const ctx = document.getElementById('trainingChart').getContext('2d');
-    chart = new Chart(ctx, {
+// EMA smoothing: alpha=0 means no smoothed line, alpha close to 1 = very smooth
+function computeEMA(data, alpha) {
+    if (alpha === 0 || data.length === 0) return [];
+    const result = [{ x: data[0].x, y: data[0].y }];
+    for (let i = 1; i < data.length; i++) {
+        result.push({
+            x: data[i].x,
+            y: alpha * result[i - 1].y + (1 - alpha) * data[i].y
+        });
+    }
+    return result;
+}
+
+// Chart factory for split charts
+function createTrainingChart(canvasId, label, rawColor, emaColor, yAxisLabel) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    return new Chart(ctx, {
         type: 'line',
         data: {
             datasets: [
                 {
-                    label: 'Batch Loss',
+                    label: label + ' (raw)',
                     data: [],
-                    borderColor: '#f4d03f',
-                    backgroundColor: 'rgba(244, 208, 63, 0.1)',
-                    yAxisID: 'y',
-                    tension: 0.3,
+                    borderColor: rawColor,
+                    backgroundColor: 'transparent',
+                    borderWidth: 1,
+                    tension: 0,
                     pointRadius: 0
                 },
                 {
-                    label: 'Avg Chips/Round',
+                    label: label + ' (smoothed)',
                     data: [],
-                    borderColor: '#4ade80',
-                    backgroundColor: 'rgba(74, 222, 128, 0.1)',
-                    yAxisID: 'y1',
+                    borderColor: emaColor,
+                    backgroundColor: 'transparent',
+                    borderWidth: 2.5,
                     tension: 0.3,
-                    stepped: true
+                    pointRadius: 0
                 }
             ]
         },
@@ -53,25 +64,58 @@ function initChart() {
                     type: 'linear',
                     display: true,
                     position: 'left',
-                    title: { display: true, text: 'Loss', color: '#f4d03f' },
+                    title: { display: true, text: yAxisLabel, color: emaColor },
                     grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                    ticks: { color: 'rgba(255, 255, 255, 0.6)' }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: { display: true, text: 'Chips/Round', color: '#4ade80' },
-                    grid: { drawOnChartArea: false },
                     ticks: { color: 'rgba(255, 255, 255, 0.6)' }
                 }
             },
             plugins: {
                 legend: {
                     labels: { color: '#fff', font: { family: 'Inter' } }
+                },
+                zoom: {
+                    zoom: {
+                        drag: { enabled: true, backgroundColor: 'rgba(244, 208, 63, 0.15)', borderColor: '#f4d03f', borderWidth: 1 },
+                        mode: 'xy'
+                    },
+                    pan: {
+                        enabled: true,
+                        modifierKey: 'shift',
+                        mode: 'xy'
+                    },
+                    limits: {
+                        x: { min: 'original', max: 'original' },
+                        y: { min: 'original', max: 'original' }
+                    }
                 }
             }
         }
+    });
+}
+
+function initCharts() {
+    lossChart = createTrainingChart('lossChart', 'Loss', 'rgba(244, 208, 63, 0.3)', '#f4d03f', 'Loss');
+    chipsChart = createTrainingChart('chipsChart', 'Chips/Round', 'rgba(74, 222, 128, 0.3)', '#4ade80', 'Chips/Round');
+}
+
+function initSmoothingControl() {
+    const slider = document.getElementById('smoothing-slider');
+    const display = document.getElementById('smoothing-value');
+    slider.addEventListener('input', () => {
+        smoothingAlpha = parseFloat(slider.value);
+        display.textContent = smoothingAlpha.toFixed(2);
+        // Recompute EMA from cached raw data (no fetch needed)
+        lossChart.data.datasets[1].data = computeEMA(rawLossData, smoothingAlpha);
+        chipsChart.data.datasets[1].data = computeEMA(rawChipsData, smoothingAlpha);
+        lossChart.update('none');
+        chipsChart.update('none');
+    });
+}
+
+function initResetZoom() {
+    document.getElementById('btn-reset-zoom').addEventListener('click', () => {
+        lossChart.resetZoom();
+        chipsChart.resetZoom();
     });
 }
 
@@ -114,12 +158,16 @@ async function pollStatus() {
 }
 
 function updateChart(history) {
-    const lossData = history.filter(h => h.type === 'loss').map(h => ({ x: h.episode, y: h.loss }));
-    const avgChipsData = history.filter(h => h.type === 'avg_chips').map(h => ({ x: h.episode, y: h.avg_chips_per_round }));
+    rawLossData = history.filter(h => h.type === 'loss').map(h => ({ x: h.episode, y: h.loss }));
+    rawChipsData = history.filter(h => h.type === 'avg_chips').map(h => ({ x: h.episode, y: h.avg_chips_per_round }));
 
-    chart.data.datasets[0].data = lossData;
-    chart.data.datasets[1].data = avgChipsData;
-    chart.update('none'); // Update without animation for performance
+    lossChart.data.datasets[0].data = rawLossData;
+    lossChart.data.datasets[1].data = computeEMA(rawLossData, smoothingAlpha);
+    lossChart.update('none');
+
+    chipsChart.data.datasets[0].data = rawChipsData;
+    chipsChart.data.datasets[1].data = computeEMA(rawChipsData, smoothingAlpha);
+    chipsChart.update('none');
 }
 
 // Training Actions
@@ -140,14 +188,45 @@ document.getElementById('btn-stop-train').onclick = async () => {
 };
 
 document.getElementById('btn-reset-agent').onclick = async () => {
-    if (confirm('Are you sure you want to reset the agent? This will delete the saved model and start fresh.')) {
-        await fetch(`${API_URL}/train/reset`, { method: 'POST' });
-        // Clear the chart
-        chart.data.datasets[0].data = [];
-        chart.data.datasets[1].data = [];
-        chart.update();
+    const agentSelect = document.getElementById('train-agent-select');
+    const agentId = agentSelect.value;
+    const agentName = agentSelect.options[agentSelect.selectedIndex].text;
+
+    if (confirm(`Are you sure you want to reset training for ${agentName}? This will delete the saved model for this agent and start fresh.`)) {
+        await fetch(`${API_URL}/train/reset`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ agent_id: agentId })
+        });
+        // Clear both charts
+        rawLossData = [];
+        rawChipsData = [];
+        lossChart.data.datasets[0].data = [];
+        lossChart.data.datasets[1].data = [];
+        lossChart.update();
+        chipsChart.data.datasets[0].data = [];
+        chipsChart.data.datasets[1].data = [];
+        chipsChart.update();
     }
 };
+
+// Load trainable agents
+async function loadTrainableAgents() {
+    try {
+        const res = await fetch(`${API_URL}/api/agents`);
+        const data = await res.json();
+        const select = document.getElementById('train-agent-select');
+
+        // Filter for trainable agents only
+        const trainableAgents = data.agents.filter(a => a.isTrainable);
+
+        select.innerHTML = trainableAgents.map(a =>
+            `<option value="${a.id}">${a.displayName}</option>`
+        ).join('');
+    } catch (err) {
+        console.error('Error loading agents:', err);
+    }
+}
 
 // --- STATE VALUE ANALYZER LOGIC ---
 
@@ -342,9 +421,12 @@ function renderActionValues(results) {
 document.getElementById('btn-evaluate').onclick = evaluateState;
 
 // Init
-initChart();
+initCharts();
+initSmoothingControl();
+initResetZoom();
 initCardSelectors();
 updateSequenceUI();
+loadTrainableAgents();
 setInterval(pollStatus, 2000);
 pollStatus();
 
