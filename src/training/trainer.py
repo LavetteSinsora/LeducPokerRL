@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import random
-from dataclasses import dataclass
 from typing import Dict, List, Tuple, Callable, Optional
 import numpy as np
 from src.engine.leduc_game import LeducGame, Action
@@ -10,11 +9,6 @@ from src.agents.value_based import ValueBasedAgent
 from src.agents.heuristic import HeuristicAgent
 from src.training.base import BaseTrainer
 from src.training.evaluation import quick_evaluate
-
-@dataclass
-class TrajectoryStep:
-    encoded_state: torch.Tensor
-    player_id: int
 
 class SelfPlayTrainer(BaseTrainer):
     def __init__(self, agent: ValueBasedAgent, learning_rate=1e-4):
@@ -70,55 +64,59 @@ class SelfPlayTrainer(BaseTrainer):
             torch.save(self.agent.model.state_dict(), save_path)
             print(f"Model saved to {save_path}")
 
-    def _play_episode(self) -> Tuple[List[TrajectoryStep], List[float]]:
+    def _play_episode(self) -> Tuple[List[List[torch.Tensor]], List[float]]:
+        """Play one episode, returning per-player post-action state chains and rewards."""
         self.game.reset()
-        trajectories = []
-        
+        chains = [[], []]  # chains[0] = P0's post-action states, chains[1] = P1's
+
         while not self.game.is_finished:
             current_player = self.game.current_player
-            obs = self.game.get_observation(viewer_id=current_player)
-            
-            # Agent outputs action and the encoded state that was evaluated
-            # In train_mode, select_action returns (action, encoded_state)
-            action, encoded_state = self.agent.select_action(obs)
-            
-            if encoded_state is not None:
-                trajectories.append(TrajectoryStep(
-                    encoded_state=encoded_state,
-                    player_id=current_player
-                ))
-            
-            self.game.step(action)
-        
-        # Calculate final profits for both players from the game engine
-        rewards = self.game.get_reward()
-        return trajectories, rewards
+            obs = self.game.get_observation(viewer_id=current_player, privileged=True)
+            action = self.agent.select_action(obs)
+            if isinstance(action, tuple):
+                action = action[0]
 
-    def _update_network(self, batch_data: List[Tuple[List[TrajectoryStep], List[float]]]) -> float:
-        """
-        Updates the network using all trajectories collected in a batch.
-        """
+            # Record post-action state for the acting player (with board masking)
+            post_obs, _ = LeducGame.simulate_action(obs, action)
+            encoded = self.agent.encode_observation(post_obs, viewer_id=current_player)
+            chains[current_player].append(encoded)
+
+            self.game.step(action)
+
+        rewards = self.game.get_reward()
+        return chains, rewards
+
+    def _update_network(self, batch_data: list) -> float:
+        """TD(0) on per-player post-action state chains.
+        Each chain: V(s_t) -> V(s_{t+1}), last state -> terminal reward."""
         self.optimizer.zero_grad()
-        
         total_losses = []
-        for trajectories, rewards in batch_data:
-            if not trajectories:
-                continue
-            
-            for step in trajectories:
-                target = torch.FloatTensor([rewards[step.player_id]])
-                prediction = self.agent.model(step.encoded_state).squeeze(0)
-                
-                loss = self.criterion(prediction, target)
-                total_losses.append(loss)
-        
+
+        for chains, rewards in batch_data:
+            for p_idx in [0, 1]:
+                chain = chains[p_idx]
+                if not chain:
+                    continue
+
+                for t in range(len(chain)):
+                    prediction = self.agent.model(chain[t]).squeeze(0)
+
+                    if t == len(chain) - 1:
+                        # Last action -> target is terminal reward
+                        target = torch.FloatTensor([rewards[p_idx]])
+                    else:
+                        # Bootstrap from next state in this player's chain
+                        with torch.no_grad():
+                            target = self.agent.model(chain[t + 1]).squeeze(0)
+
+                    loss = self.criterion(prediction, target)
+                    total_losses.append(loss)
+
         if total_losses:
-            # Average the loss across all decision points in the entire batch
             mean_loss = torch.stack(total_losses).mean()
             mean_loss.backward()
             self.optimizer.step()
             return mean_loss.item()
-        
         return 0.0
 
     def debug_episode(self) -> List[Dict]:
@@ -155,11 +153,13 @@ class SelfPlayTrainer(BaseTrainer):
                     {
                         "action": e["action"].name,
                         "value": e["value"],
-                        "action_id": e["action"].value
+                        "action_id": e["action"].value,
+                        "encoded_state": e["encoded"].squeeze(0).tolist()
                     } for e in evaluations
                 ],
                 "selected_action": action.name,
-                "selected_action_id": action.value
+                "selected_action_id": action.value,
+                "encoded_state": selected_eval["encoded"].squeeze(0).tolist()
             }
             
             episode_trace.append(step_info)

@@ -111,17 +111,15 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                     LeducAPIHandler.game_state_obj.agents[i] = None
                 else:
                     # Use registry to create agent
-                    if atype == 'value_based':
-                        # Look for trained model in models/ relative to the project root
-                        root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
-                        model_path = os.path.join(root_dir, 'models', 'value_agent.pt')
-                        if os.path.exists(model_path):
-                            print(f"Loading trained model from {model_path}")
-                            LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype, model_path=model_path)
-                        else:
-                            print(f"Trained model not found at {model_path}, using initial weights.")
-                            LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype)
+                    # Look for trained model in models/ relative to the project root
+                    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
+                    model_path = os.path.join(root_dir, 'models', f'{atype}_agent.pt')
+                    
+                    if os.path.exists(model_path):
+                        print(f"Loading trained {atype} model from {model_path}")
+                        LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype, model_path=model_path)
                     else:
+                        print(f"Trained model for {atype} not found at {model_path}, using initial weights.")
                         LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype)
                 
             self._set_headers()
@@ -181,50 +179,19 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": success}).encode())
 
         elif self.path == '/train/reset':
-            success = LeducAPIHandler.training_manager.reset_agent()
+            agent_id = data.get('agent_id', 'value_based')
+            success = LeducAPIHandler.training_manager.reset_agent(agent_id=agent_id)
             self._set_headers()
             self.wfile.write(json.dumps({"success": success}).encode())
 
         elif self.path == '/simulate/decision':
-            # Run simulation for all legal actions and return values
             game = LeducAPIHandler.game_state_obj.game
             curr_player = game.current_player
-            # Use the training manager's agent for evaluation to see current progress
             agent = LeducAPIHandler.training_manager.agent
             obs = game.get_observation(viewer_id=curr_player)
-            
-            simulator = LeducGame()
-            results = []
 
-            for action_enum in obs.legal_actions:
-                # Simulation step logic similar to ValueBasedAgent.select_action
-                simulator.set_state(obs)
-                _, _, done, _ = simulator.step(action_enum)
-                
-                if done:
-                    if action_enum == Action.FOLD:
-                        val = -float(obs.pot[obs.current_player])
-                    else:
-                        from src.engine.observation import Observation
-                        terminal_obs = Observation(
-                            player_hand=obs.player_hand,
-                            board=simulator.board,
-                            pot=list(simulator.pot),
-                            current_player=obs.current_player,
-                            current_round=simulator.current_round,
-                            legal_actions=[],
-                            is_finished=True
-                        )
-                        val, _ = agent._evaluate_state(terminal_obs)
-                else:
-                    next_obs = simulator.get_observation(viewer_id=obs.current_player)
-                    v_model, _ = agent._evaluate_state(next_obs)
-                    val = v_model if next_obs.current_player == obs.current_player else -v_model
-                
-                results.append({
-                    "action": action_enum.value,
-                    "value": round(val, 4)
-                })
+            evals = agent.get_action_evaluations(obs)
+            results = [{"action": e["action"].value, "value": round(e["value"], 4)} for e in evals]
 
             self._set_headers()
             self.wfile.write(json.dumps({"results": results}).encode())
@@ -263,41 +230,16 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 current_player=current_player,
                 current_round=game.current_round,
                 legal_actions=[a for a in game.get_legal_actions()],
-                is_finished=game.is_finished
+                is_finished=game.is_finished,
+                raises_this_round=game.raises_this_round,
             )
-            
+
             agent = LeducAPIHandler.training_manager.agent
-            simulator = LeducGame()
             results = []
 
             if not game.is_finished:
-                for action_enum in obs.legal_actions:
-                    simulator.set_state(obs)
-                    _, _, done, _ = simulator.step(action_enum)
-                    
-                    if done:
-                        if action_enum == Action.FOLD:
-                            val = -float(obs.pot[obs.current_player])
-                        else:
-                            terminal_obs = Observation(
-                                player_hand=obs.player_hand,
-                                board=simulator.board,
-                                pot=list(simulator.pot),
-                                current_player=obs.current_player,
-                                current_round=simulator.current_round,
-                                legal_actions=[],
-                                is_finished=True
-                            )
-                            val, _ = agent._evaluate_state(terminal_obs)
-                    else:
-                        next_obs = simulator.get_observation(viewer_id=obs.current_player)
-                        v_model, _ = agent._evaluate_state(next_obs)
-                        val = v_model if next_obs.current_player == obs.current_player else -v_model
-                    
-                    results.append({
-                        "action": action_enum.value,
-                        "value": round(val, 4)
-                    })
+                evals = agent.get_action_evaluations(obs)
+                results = [{"action": e["action"].value, "value": round(e["value"], 4)} for e in evals]
             
             self._set_headers()
             self.wfile.write(json.dumps({
@@ -397,8 +339,10 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
         # If both are AI, both hands stay hidden until finished.
         # This simplifies to: if game is not finished, hand is hidden unless player is human.
         
-        p0_hand = game.player_hands[0] if (game.is_finished or is_p0_human) else "HIDDEN"
-        p1_hand = game.player_hands[1] if (game.is_finished or is_p1_human) else "HIDDEN"
+        p0_hand = game.get_observation(viewer_id=0, privileged=True).player_hand if (
+            game.is_finished or is_p0_human) else "HIDDEN"
+        p1_hand = game.get_observation(viewer_id=1, privileged=True).player_hand if (
+            game.is_finished or is_p1_human) else "HIDDEN"
 
         # Handle Action objects (enums) for JSON serialization
         history = []
