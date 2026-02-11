@@ -178,21 +178,16 @@ class LeducGame:
         else: # winner == -2 (incomplete info)
             return [0, 0]
 
-    def get_observation(self, viewer_id=None, privileged=False) -> Observation:
+    def get_observation(self, viewer_id=None) -> Observation:
         """Returns the observation from a specific player's perspective.
 
-        If privileged=True, always returns the viewer's own hand regardless
-        of whose turn it is. Use for training with full information.
+        The returned Observation always contains the viewer's own private
+        hand card (J, Q, or K).  The opponent's hand is never exposed.
         """
         if viewer_id is None:
             viewer_id = self.current_player
 
-        if privileged:
-            hand = self.player_hands[viewer_id]
-        else:
-            hand = self.player_hands[self.current_player]
-            if viewer_id != self.current_player:
-                hand = 'UNKNOWN'
+        hand = self.player_hands[viewer_id]
 
         return Observation(
             player_hand=hand,

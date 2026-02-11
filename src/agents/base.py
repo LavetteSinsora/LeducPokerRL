@@ -1,55 +1,65 @@
 import abc
+from typing import Any, List
 from src.engine.leduc_game import Action
 from src.engine.observation import Observation
 
 class BaseAgent(abc.ABC):
     """
     Abstract base class for all Leduc Hold'em agents.
-    Provides a consistent interface for the game engine.
+
+    Required to implement:
+        select_action(obs) -> Action
+
+    Optional overrides (have sensible defaults):
+        encode_observation(obs, **kwargs) -> Any   (default: returns obs as-is)
+        get_action_evaluations(obs) -> list         (default: returns [])
+        save_model(path) -> None                    (default: no-op)
+        load_model(path) -> None                    (default: no-op)
+        set_train_mode(mode) -> None                (default: no-op)
     """
 
     @abc.abstractmethod
-    def encode_observation(self, obs: Observation):
-        """
-        Transforms the game engine's Observation object into a format
-        the agent's internal model can process (e.g., a torch.Tensor).
-        
-        Args:
-            obs (Observation): Observation object from LeducGame.
-            
-        Returns:
-            Any: Agent-specific representation of the game state.
-        """
-        pass
-
-    @abc.abstractmethod
-    def select_action(self, obs: Observation):
+    def select_action(self, obs: Observation) -> Action:
         """
         Takes an Observation and returns a game Action.
-        
+
         Args:
-            obs (Observation): Observation object from LeducGame.
-            
+            obs: Observation object from LeducGame.
+
         Returns:
-            Action: The selected action.
+            The selected Action.
         """
         pass
 
-    def format_action(self, agent_output, legal_actions):
+    def encode_observation(self, obs: Observation, **kwargs) -> Any:
         """
-        Maps the internal model output to a valid game Action.
-        
+        Transforms the Observation into a format the agent can process.
+        Rule-based agents can leave the default (returns obs unchanged).
+
         Args:
-            agent_output (Any): Raw output from the agent's model.
-            legal_actions (list): List of legal Action enums.
-            
+            obs: Observation object from LeducGame.
+
         Returns:
-            Action: A valid game Action.
+            Agent-specific representation of the game state.
         """
-        # Default implementation assumes agent_output is an index into Action enum
-        # This can be overridden for more complex mapping logic.
-        action = Action(agent_output)
-        if action not in legal_actions:
-            # Fallback strategy if model suggests illegal action
-            return legal_actions[0] 
-        return action
+        return obs
+
+    def get_action_evaluations(self, obs: Observation) -> list:
+        """
+        Returns per-action value estimates for the analyzer UI.
+        Agents without value estimation return an empty list,
+        which the analyzer renders gracefully as "no data".
+        """
+        return []
+
+    def save_model(self, path: str) -> None:
+        """Persist model weights to *path*. No-op for non-trainable agents."""
+        pass
+
+    def load_model(self, path: str) -> None:
+        """Load model weights from *path*. No-op for non-trainable agents."""
+        pass
+
+    def set_train_mode(self, mode: bool) -> None:
+        """Toggle train/eval mode. No-op for non-trainable agents."""
+        pass

@@ -18,7 +18,7 @@ Usage:
     agent = registry.create("value_based", model_path="path/to/model.pt")
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Type, Dict, Any, Optional, List
 
 
@@ -31,6 +31,7 @@ class AgentMetadata:
     is_trainable: bool = False       # Whether this agent can be trained
     requires_model_path: bool = False  # Whether agent needs a model file
     category: str = "general"        # Category for grouping (e.g., "rule_based", "rl")
+    trainer_class: Optional[Type] = None  # Trainer class for trainable agents
 
 
 class AgentRegistry:
@@ -150,7 +151,8 @@ def _register_builtin_agents():
     # Import here to avoid circular imports
     from .heuristic import HeuristicAgent
     from .value_based import ValueBasedAgent
-    
+    from src.training.value_based_trainer import SelfPlayTrainer
+
     # Heuristic Agent - rule-based baseline
     registry.register(
         id="heuristic",
@@ -163,7 +165,7 @@ def _register_builtin_agents():
             category="rule_based"
         )
     )
-    
+
     # Value-Based RL Agent - trainable neural network
     registry.register(
         id="value_based",
@@ -174,7 +176,8 @@ def _register_builtin_agents():
             description="RL agent using a learned value function",
             is_trainable=True,
             requires_model_path=True,
-            category="rl"
+            category="rl",
+            trainer_class=SelfPlayTrainer
         )
     )
 

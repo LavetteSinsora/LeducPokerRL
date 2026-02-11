@@ -1,8 +1,6 @@
 import threading
 import os
-import torch
 from typing import List, Dict, Optional
-from src.training.trainer import SelfPlayTrainer
 from src.agents.registry import registry
 
 class TrainingManager:
@@ -17,13 +15,11 @@ class TrainingManager:
             
         # Initialize agent from registry
         self.agent = registry.create(agent_id)
-        
+
         if os.path.exists(self.model_path):
             try:
-                # Need to check if agent uses torch model
-                if hasattr(self.agent, 'model'):
-                    self.agent.model.load_state_dict(torch.load(self.model_path))
-                    print(f"Loaded existing model from {self.model_path}")
+                self.agent.load_model(self.model_path)
+                print(f"Loaded existing model from {self.model_path}")
             except Exception as e:
                 print(f"Error loading model: {e}")
         
@@ -41,11 +37,10 @@ class TrainingManager:
 
     def _create_trainer(self):
         """Factory method to create the appropriate trainer for the agent."""
-        if self.agent_id == "value_based":
-            return SelfPlayTrainer(self.agent)
-        else:
-            # Fallback to default trainer if possible, or raise error
-            raise ValueError(f"No trainer implemented for agent type: {self.agent_id}")
+        metadata = registry.get_metadata(self.agent_id)
+        if metadata and metadata.trainer_class:
+            return metadata.trainer_class(self.agent)
+        raise ValueError(f"No trainer registered for agent type: {self.agent_id}")
 
     def _training_callback(self, data: Dict):
         if data["type"] == "batch_update":

@@ -39,15 +39,23 @@ class ValueBasedAgent(BaseAgent):
         self.input_size = 3 + 4 + 2 + 1 + 1 + 1 + 1 + 1 + 1
         self.temperature = temperature
         self.train_mode = False
-        
+
         self.model = ValueNetwork(self.input_size)
         if model_path:
-            self.model.load_state_dict(torch.load(model_path))
+            self.load_model(model_path)
         self.model.eval()
 
     def set_train_mode(self, mode: bool):
         self.train_mode = mode
         self.model.train(mode)
+
+    def save_model(self, path: str) -> None:
+        """Save model weights to disk."""
+        torch.save(self.model.state_dict(), path)
+
+    def load_model(self, path: str) -> None:
+        """Load model weights from disk."""
+        self.model.load_state_dict(torch.load(path))
 
     def encode_observation(self, obs: Observation, viewer_id: int = None) -> torch.Tensor:
         """

@@ -110,17 +110,17 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 if atype == 'human':
                     LeducAPIHandler.game_state_obj.agents[i] = None
                 else:
-                    # Use registry to create agent
-                    # Look for trained model in models/ relative to the project root
+                    # Use registry to create agent, then load model if available
                     root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
                     model_path = os.path.join(root_dir, 'models', f'{atype}_agent.pt')
-                    
+
+                    agent = registry.create(atype)
                     if os.path.exists(model_path):
                         print(f"Loading trained {atype} model from {model_path}")
-                        LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype, model_path=model_path)
+                        agent.load_model(model_path)
                     else:
                         print(f"Trained model for {atype} not found at {model_path}, using initial weights.")
-                        LeducAPIHandler.game_state_obj.agents[i] = registry.create(atype)
+                    LeducAPIHandler.game_state_obj.agents[i] = agent
                 
             self._set_headers()
             self.wfile.write(json.dumps(self.format_response()).encode())
@@ -339,9 +339,9 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
         # If both are AI, both hands stay hidden until finished.
         # This simplifies to: if game is not finished, hand is hidden unless player is human.
         
-        p0_hand = game.get_observation(viewer_id=0, privileged=True).player_hand if (
+        p0_hand = game.get_observation(viewer_id=0).player_hand if (
             game.is_finished or is_p0_human) else "HIDDEN"
-        p1_hand = game.get_observation(viewer_id=1, privileged=True).player_hand if (
+        p1_hand = game.get_observation(viewer_id=1).player_hand if (
             game.is_finished or is_p1_human) else "HIDDEN"
 
         # Handle Action objects (enums) for JSON serialization
@@ -376,10 +376,7 @@ class GlobalState:
 
 def run(server_class=http.server.HTTPServer, handler_class=LeducAPIHandler, port=8000):
     LeducAPIHandler.game_state_obj = GlobalState()
-    # Initialize TrainingManager with model path
-    root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
-    model_path = os.path.join(root_dir, 'models', 'value_agent.pt')
-    LeducAPIHandler.training_manager = TrainingManager(model_path=model_path)
+    LeducAPIHandler.training_manager = TrainingManager()
     
     server_address = ('', port)
     httpd = server_class(server_address, handler_class)

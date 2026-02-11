@@ -1,77 +1,26 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import random
-from typing import Dict, List, Tuple, Callable, Optional
-import numpy as np
+from typing import Dict, List, Tuple
 from src.engine.leduc_game import LeducGame, Action
-from src.agents.value_based import ValueBasedAgent
-from src.agents.heuristic import HeuristicAgent
+from src.agents.base import BaseAgent
 from src.training.base import BaseTrainer
-from src.training.evaluation import quick_evaluate
 
 class SelfPlayTrainer(BaseTrainer):
-    def __init__(self, agent: ValueBasedAgent, learning_rate=1e-4):
-        self.agent = agent
+    def __init__(self, agent: BaseAgent, learning_rate=1e-4):
+        super().__init__(agent, eval_interval=50, eval_num_games=100)
         self.optimizer = optim.Adam(self.agent.model.parameters(), lr=learning_rate)
         self.criterion = nn.MSELoss()
         self.game = LeducGame()
-        self.stop_requested = False
 
-    def train(self, num_episodes: int, batch_size: int = 32, save_path: str = None, callback: Optional[Callable] = None, start_episode: int = 0):
-        self.agent.set_train_mode(True)
-        self.stop_requested = False
-        
-        batch_data = []
-        for i in range(num_episodes):
-            if self.stop_requested:
-                print("Training stop requested.")
-                break
-
-            episode = start_episode + i + 1  # Current episode number (1-indexed)
-            trajectory = self._play_episode()
-            batch_data.append(trajectory)
-            
-            # Update the network once we've reached the batch size
-            if len(batch_data) >= batch_size:
-                loss = self._update_network(batch_data)
-                batch_data = [] # Clear the batch
-                
-                if callback:
-                    callback({
-                        "episode": episode,
-                        "loss": loss,
-                        "type": "batch_update"
-                    })
-
-                if i < batch_size or (episode) % 100 == 0:
-                    print(f"Episode {episode}, Batch Loss: {loss:.4f}")
-
-            # Periodically evaluate
-            if episode % 50 == 0:
-                avg_chips = self.evaluate(num_games=100)
-                if callback:
-                    callback({
-                        "episode": episode,
-                        "avg_chips_per_round": avg_chips,
-                        "type": "evaluation"
-                    })
-                print(f"Episode {episode}, Avg Chips/Round: {avg_chips:+.2f}")
-
-        if save_path and not self.stop_requested:
-            import os
-            os.makedirs(os.path.dirname(save_path), exist_ok=True)
-            torch.save(self.agent.model.state_dict(), save_path)
-            print(f"Model saved to {save_path}")
-
-    def _play_episode(self) -> Tuple[List[List[torch.Tensor]], List[float]]:
+    def collect_episode(self) -> Tuple[List[List[torch.Tensor]], List[float]]:
         """Play one episode, returning per-player post-action state chains and rewards."""
         self.game.reset()
         chains = [[], []]  # chains[0] = P0's post-action states, chains[1] = P1's
 
         while not self.game.is_finished:
             current_player = self.game.current_player
-            obs = self.game.get_observation(viewer_id=current_player, privileged=True)
+            obs = self.game.get_observation(viewer_id=current_player)
             action = self.agent.select_action(obs)
             if isinstance(action, tuple):
                 action = action[0]
@@ -86,7 +35,7 @@ class SelfPlayTrainer(BaseTrainer):
         rewards = self.game.get_reward()
         return chains, rewards
 
-    def _update_network(self, batch_data: list) -> float:
+    def update_model(self, batch_data: list) -> float:
         """TD(0) on per-player post-action state chains.
         Each chain: V(s_t) -> V(s_{t+1}), last state -> terminal reward."""
         self.optimizer.zero_grad()
@@ -125,22 +74,22 @@ class SelfPlayTrainer(BaseTrainer):
         """
         self.game.reset()
         episode_trace = []
-        
+
         # We temporarily disable Boltzmann exploration for cleaner debug traces
         old_train_mode = self.agent.train_mode
         self.agent.set_train_mode(False) # Use greedy for debug
-        
+
         while not self.game.is_finished:
             current_player = self.game.current_player
             obs = self.game.get_observation(viewer_id=current_player)
-            
+
             # Get full simulation results
             evaluations = self.agent.get_action_evaluations(obs)
-            
+
             # Select action greedily for the trace
             selected_eval = max(evaluations, key=lambda x: x["value"])
             action = selected_eval["action"]
-            
+
             step_info = {
                 "player_id": current_player,
                 "observation": {
@@ -161,45 +110,27 @@ class SelfPlayTrainer(BaseTrainer):
                 "selected_action_id": action.value,
                 "encoded_state": selected_eval["encoded"].squeeze(0).tolist()
             }
-            
+
             episode_trace.append(step_info)
             self.game.step(action)
-        
+
         # Calculate final profits
         rewards = self.game.get_reward()
-        
+
         # Post-process trace to add "True Value" and "Prediction Error"
         for step in episode_trace:
             player_reward = rewards[step["player_id"]]
             step["true_value"] = player_reward
-            
+
             # Prediction error for the selected action
             pred_val = next(e["value"] for e in step["evaluations"] if e["action"] == step["selected_action"])
             step["prediction_error"] = (pred_val - player_reward) ** 2
-            
+
         self.agent.set_train_mode(old_train_mode)
         return {
             "trace": episode_trace,
             "final_rewards": rewards
         }
-
-    def evaluate(self, num_games: int = 100) -> float:
-        """
-        Evaluates the agent against a HeuristicAgent.
-        Returns the average chips per round (more informative than win rate).
-        
-        Uses the decoupled evaluation module from src/training/evaluation.py.
-        """
-        opponent = HeuristicAgent()
-        
-        self.agent.set_train_mode(False)
-        avg_chips = quick_evaluate(self.agent, opponent, num_rounds=num_games)
-        self.agent.set_train_mode(True)
-        
-        return avg_chips
-
-    def request_stop(self):
-        self.stop_requested = True
 
     def update_params(self, params: Dict):
         """Updates the learning rate of the optimizer."""
@@ -212,19 +143,20 @@ class SelfPlayTrainer(BaseTrainer):
 if __name__ == "__main__":
     import argparse
     import os
+    from src.agents.value_based import ValueBasedAgent
 
     parser = argparse.ArgumentParser(description="Train a ValueBasedAgent through self-play.")
     parser.add_argument("--episodes", type=int, default=1000, help="Number of episodes to train.")
     parser.add_argument("--batch_size", type=int, default=32, help="Batch size for updates.")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate.")
     parser.add_argument("--save_path", type=str, default="models/value_agent.pt", help="Path to save the trained model.")
-    
+
     args = parser.parse_args()
-    
+
     # Initialize agent and trainer
     agent = ValueBasedAgent()
     trainer = SelfPlayTrainer(agent, learning_rate=args.lr)
-    
+
     print(f"Starting training for {args.episodes} episodes...")
     trainer.train(num_episodes=args.episodes, batch_size=args.batch_size, save_path=args.save_path)
     print("Training complete.")
