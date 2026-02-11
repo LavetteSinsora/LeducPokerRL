@@ -18,7 +18,7 @@ I know that this repo looks intimidating and has a lot of files. On a high level
 3. Web dashboard: The web interface for training agents and playing against them (human vs AI)
 
 Below explains what each directory contains (for your reference). 
-**tl;dr: implement your agent in `src/agents/` and its corresponding trainer in `src/training/`.**
+**TL;DR: implement your agent in `src/agents/` and its corresponding trainer in `src/training/`.**
 
 A list of quick definitions:
 1. Game state/state: The current situation in the game, including:
@@ -67,7 +67,7 @@ HTML/CSS/JS files for the web interface. Three main pages:
 
 ## 2. Implementing Your Agent
 
-Let's build a **Policy Gradient agent** — one of the simplest RL approaches. A policy gradient agent directly learns a *policy*: a function that maps game states to action probabilities.
+Let's build a **Policy Gradient agent** — one of the simplest RL approaches. A policy gradient agent directly learns a *policy*: a function that takes the current game state as input, and outputs a probability distribution over all possible actions (e.g., fold: 20%, call: 50%, raise: 30%).
 
 The idea is intuitive:
 - The agent plays a game and records every action it took
@@ -197,7 +197,7 @@ class PolicyGradientAgent(BaseAgent):
 That's the complete agent. Let's break down what each piece does:
 
 - **`encode_observation()`** converts the game state (cards, pot, round info) into a flat tensor of 15 numbers. The neural network needs numeric input, not strings like `'K'` or `'Q'`.
-- **`select_action()`** feeds the encoded state through the network, masks out illegal actions, and either samples (training) or picks the best (evaluation).
+- **`select_action()`** feeds the encoded state through the network and gets a probability distrbution over actions. It then masks out illegal actions, and returns an action to be played at the current state, either by sampling from the distribution (training) or picking the action with the highest probability (evaluation).
 - **`save_model()` / `load_model()`** save and restore the network weights so training progress isn't lost.
 
 ---
@@ -208,14 +208,11 @@ Now we need to teach the agent how to play. The trainer defines *how* the agent 
 
 ### How policy gradient training works
 
-The core idea is simple. After each game:
-
-1. Look at every action the agent took during the game
-2. Multiply each action's log-probability by the game's outcome (chips won or lost)
-3. Use gradient ascent to make winning actions more probable and losing actions less probable
-
-This is called the **REINFORCE** algorithm. If the agent won +5 chips, all actions it took get nudged upward. If it lost -3 chips, they all get nudged downward. Over thousands of games, the agent learns which actions lead to wins.
-
+Core idea:
+- Recall that RL is about rewards and punishments.
+- In this case, the reward is the amount of chips won or lost at the end of a game.
+- Recall that the policy network takes in a game state and outputs a probability for each action.
+- We optimize the network by: increasing the probability of actions that earn agent chip, and making actions that lose agent chip less probable.
 ### The trainer code
 
 Create a new file `src/training/policy_gradient_trainer.py`:
@@ -394,6 +391,7 @@ The key fields:
    - Adjust the training settings if you want (episodes, batch size, learning rate)
    - Click **Start Training**
    - Watch the loss chart and performance chart update in real time
+   - Legit advice: try to pump up the number of episodes trained (e.g., to 100,000). That's how my agent learned to beat me.
 
 4. Go to the **Play** tab (`index.html`) to play against your trained agent:
    - Select "Policy Gradient AI" from one of the player dropdowns
