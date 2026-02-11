@@ -1,7 +1,7 @@
 
 import torch
 from src.agents.value_based import ValueBasedAgent
-from src.training.trainer import SelfPlayTrainer
+from src.training.value_based_trainer import SelfPlayTrainer
 from src.engine.leduc_game import LeducGame, Action
 
 def verify_sign_error():
