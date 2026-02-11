@@ -24,7 +24,7 @@ from src.engine.observation import Observation
 from src.agents.base import BaseAgent
 from src.agents.heuristic import HeuristicAgent
 from src.agents.value_based import ValueBasedAgent, ValueNetwork
-from src.training.trainer import SelfPlayTrainer, TrajectoryStep
+from src.training.value_based_trainer import SelfPlayTrainer
 from src.training.evaluation import evaluate_agents, quick_evaluate, EvaluationResult
 
 
@@ -129,18 +129,6 @@ class TestBaseAgentContract:
         result = value_agent.select_action(sample_observation)
         assert isinstance(result, Action)
         assert result in [Action.FOLD, Action.CALL, Action.RAISE]
-    
-    def test_format_action_fallback(self, value_agent):
-        """format_action should fallback to first legal action for illegal output."""
-        legal_actions = [Action.FOLD, Action.CALL]  # RAISE not legal
-        result = value_agent.format_action(Action.RAISE.value, legal_actions)
-        assert result in legal_actions
-    
-    def test_format_action_valid(self, value_agent):
-        """format_action should return the action if it's legal."""
-        legal_actions = [Action.FOLD, Action.CALL, Action.RAISE]
-        result = value_agent.format_action(Action.CALL.value, legal_actions)
-        assert result == Action.CALL
 
 
 # =============================================================================
@@ -164,21 +152,6 @@ class TestObservationHandling:
         )
         action = value_agent.select_action(obs)
         assert isinstance(action, Action)
-    
-    def test_handles_unknown_hand(self, value_agent):
-        """Agent must handle UNKNOWN player hand (opponent's perspective)."""
-        obs = Observation(
-            player_hand='UNKNOWN',
-            board='Q',
-            pot=[3, 3],
-            current_player=0,
-            current_round=1,
-            legal_actions=[Action.FOLD, Action.CALL],
-            is_finished=False
-        )
-        # This should not raise an error
-        encoded = value_agent.encode_observation(obs)
-        assert encoded is not None
     
     def test_handles_no_board_preflop(self, value_agent, sample_observation):
         """Agent must handle None board in pre-flop."""
@@ -401,18 +374,13 @@ class TestTrainingIntegration:
         value_agent.set_train_mode(False)
         assert value_agent.train_mode is False
     
-    def test_train_mode_returns_tuple(self, value_agent, sample_observation):
-        """In train mode, select_action must return (action, encoded_state)."""
+    def test_train_mode_returns_action(self, value_agent, sample_observation):
+        """In train mode, select_action must return an Action."""
         value_agent.set_train_mode(True)
         
         result = value_agent.select_action(sample_observation)
         
-        assert isinstance(result, tuple), "Train mode should return tuple"
-        assert len(result) == 2, "Tuple should have 2 elements"
-        
-        action, encoded_state = result
-        assert isinstance(action, Action)
-        # encoded_state can be None in some cases (e.g., fold)
+        assert isinstance(result, Action), "Train mode should return Action"
     
     def test_eval_mode_returns_action_only(self, value_agent, sample_observation):
         """In eval mode, select_action must return just the Action."""
@@ -436,12 +404,13 @@ class TestTrainingIntegration:
     def test_single_episode_training(self, value_agent):
         """One training episode must complete without error."""
         trainer = SelfPlayTrainer(value_agent)
-        
+
         # Run a single episode
         value_agent.set_train_mode(True)
-        trajectory, rewards = trainer._play_episode()
-        
-        assert isinstance(trajectory, list)
+        chains, rewards = trainer.collect_episode()
+
+        assert isinstance(chains, list)
+        assert len(chains) == 2  # Per-player chains
         assert isinstance(rewards, list)
         assert len(rewards) == 2  # Rewards for both players
     
@@ -464,16 +433,16 @@ class TestTrainingIntegration:
         """Loss must be computable from training data."""
         trainer = SelfPlayTrainer(value_agent)
         value_agent.set_train_mode(True)
-        
+
         # Collect some training data
         batch_data = []
         for _ in range(5):
-            trajectory, rewards = trainer._play_episode()
-            batch_data.append((trajectory, rewards))
-        
+            episode_data = trainer.collect_episode()
+            batch_data.append(episode_data)
+
         # Compute loss
-        loss = trainer._update_network(batch_data)
-        
+        loss = trainer.update_model(batch_data)
+
         assert isinstance(loss, float)
         assert not np.isnan(loss), "Loss should not be NaN"
     

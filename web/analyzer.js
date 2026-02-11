@@ -68,24 +68,67 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
 
-                    <div style="margin-top: 20px;">
-                        <div class="stat-label" style="margin-bottom: 10px;">Mental Simulation (V-Values)</div>
-                        <div class="eval-grid">
-            `;
-
-            step.evaluations.forEach(ev => {
-                const isSelected = ev.action === step.selected_action;
-                html += `
-                    <div class="eval-item ${isSelected ? 'selected' : ''}">
-                        <span class="action-label" style="background: transparent; padding: 0;">${ev.action}</span>
-                        <span class="eval-val ${ev.value >= 0 ? 'value-pos' : 'value-neg'}">${ev.value.toFixed(4)}</span>
-                        ${isSelected ? '<span class="best-badge">CHOSEN</span>' : ''}
+                <div style="margin-top: 20px;">
+                    <div class="stat-label" style="margin-bottom: 10px;">Mental Simulation (V-Values)</div>
+                    <div class="eval-grid" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                        ${step.evaluations.map(e => `
+                            <div class="eval-card ${e.action === step.selected_action ? 'chosen' : ''}" style="padding: 15px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 10px;">
+                                        <span class="action-badge ${e.action.toLowerCase()}">${e.action}</span>
+                                        ${e.action === step.selected_action ? '<span class="chosen-badge">CHOSEN</span>' : ''}
+                                    </div>
+                                    <div class="stat-value" style="font-size: 1.2rem; color: ${e.value >= 0 ? 'var(--accent-gold)' : '#e74c3c'}">
+                                        ${e.value.toFixed(4)}
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 5px; font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
+                                    Simulated State Vector (Network Input)
+                                </div>
+                                <div style="overflow-x: auto; background: rgba(0,0,0,0.2); border-radius: 6px;">
+                                    <table style="width: 100%; border-collapse: collapse; font-size: 0.65rem; text-align: center;">
+                                        <tr style="background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.4);">
+                                            <th colspan="3" style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Hand</th>
+                                            <th colspan="4" style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Board</th>
+                                            <th colspan="2" style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Pot</th>
+                                            <th style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Turn</th>
+                                            <th style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Pos</th>
+                                            <th style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Rnd</th>
+                                            <th style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Term</th>
+                                            <th style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Pair</th>
+                                            <th style="padding: 3px; border: 1px solid rgba(255,255,255,0.05);">Raises</th>
+                                        </tr>
+                                        <tr style="color: var(--accent-gold); opacity: 0.8; font-family: monospace; font-size: 0.6rem;">
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">J</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">Q</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">K</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">J</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">Q</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">K</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">None</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">Me</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">Opp</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">?</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">#</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">#</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">!</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">=</td>
+                                            <td style="padding: 2px; border: 1px solid rgba(255,255,255,0.05);">R</td>
+                                        </tr>
+                                        <tr style="font-family: monospace; font-size: 0.7rem;">
+                                            ${e.encoded_state.map(val => `
+                                                <td style="padding: 4px 2px; border: 1px solid rgba(255,255,255,0.05); background: ${val > 0 ? 'rgba(244, 208, 63, 0.08)' : 'transparent'};">
+                                                    ${val.toFixed(2)}
+                                                </td>
+                                            `).join('')}
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
-                `;
-            });
-
-            html += `
-                        </div>
+                </div>
                     </div>
                 </div>
             `;

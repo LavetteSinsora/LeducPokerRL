@@ -1,6 +1,7 @@
 import random
 import copy
 from enum import IntEnum
+from typing import Tuple
 from .observation import Observation
 
 class Action(IntEnum):
@@ -55,6 +56,7 @@ class LeducGame:
         self.current_player = observation.current_player
         self.board = observation.board
         self.is_finished = observation.is_finished
+        self.raises_this_round = observation.raises_this_round
         self.winner = None # Reset winner for simulation
         
         # We assume player_hand is for the current acting player.
@@ -177,25 +179,51 @@ class LeducGame:
             return [0, 0]
 
     def get_observation(self, viewer_id=None) -> Observation:
-        """Returns the observation from a specific player's perspective."""
+        """Returns the observation from a specific player's perspective.
+
+        The returned Observation always contains the viewer's own private
+        hand card (J, Q, or K).  The opponent's hand is never exposed.
+        """
         if viewer_id is None:
             viewer_id = self.current_player
-            
-        # The observation focused on the hand of the CURRENT acting player.
-        # This hand is only visible to the viewer if the viewer IS that player.
-        acting_player_hand = self.player_hands[self.current_player]
-        if viewer_id != self.current_player:
-            acting_player_hand = 'UNKNOWN'
-            
+
+        hand = self.player_hands[viewer_id]
+
         return Observation(
-            player_hand=acting_player_hand,
+            player_hand=hand,
             board=self.board,
             pot=list(self.pot),
             current_player=self.current_player,
             current_round=self.current_round,
             legal_actions=self._get_legal_actions(),
-            is_finished=self.is_finished
+            is_finished=self.is_finished,
+            raises_this_round=self.raises_this_round
         )
+
+    @classmethod
+    def simulate_action(cls, obs: Observation, action: 'Action') -> Tuple[Observation, bool]:
+        """Simulate one action with correct information masking.
+
+        If the action triggers a round transition (pre-flop -> flop), the board
+        card is newly dealt and was NOT known at decision time -- it is masked
+        (board=None) in the returned observation.
+        """
+        sim = cls()
+        sim.set_state(obs)
+        pre_board = sim.board
+        sim.step(action)
+
+        # Mask board if newly revealed
+        board = sim.board if sim.board == pre_board else None
+
+        post_obs = Observation(
+            player_hand=obs.player_hand, board=board,
+            pot=list(sim.pot), current_player=sim.current_player,
+            current_round=sim.current_round,
+            legal_actions=sim.get_legal_actions() if not sim.is_finished else [],
+            is_finished=sim.is_finished, raises_this_round=sim.raises_this_round,
+        )
+        return post_obs, sim.is_finished
 
     def _get_legal_actions(self):
         actions = [Action.FOLD, Action.CALL]

@@ -1,5 +1,25 @@
+# Python
 __pycache__/
-models/
 *.pyc
-.DS_Store
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+
+# IDE
 .vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environments
+.env
+.venv/
+venv/
+
+# pytest
+.pytest_cache/

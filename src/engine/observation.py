@@ -15,6 +15,7 @@ class Observation:
     current_round: int
     legal_actions: List[Any]  # List of Action enums
     is_finished: bool
+    raises_this_round: int = 0
 
     def to_dict(self) -> dict:
         """Converts the observation to a dictionary for JSON serialization."""
