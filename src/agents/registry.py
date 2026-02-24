@@ -155,11 +155,13 @@ def _register_builtin_agents():
     from .adaptive_value import AdaptiveValueAgent
     from .aux_value import AuxValueAgent
     from .cfr_agent import CFRAgent
+    from .decay_adaptive import DecayAdaptiveAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
     from src.training.aux_value_trainer import AuxValueTrainer
     from src.training.cfr_trainer import CFRTrainer
+    from src.training.decay_adaptive_trainer import DecayAdaptiveTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -231,6 +233,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=AuxValueTrainer
+        )
+    )
+
+    # Decay Adaptive Agent - EMA-weighted opponent stats
+    registry.register(
+        id="decay_adaptive",
+        agent_class=DecayAdaptiveAgent,
+        metadata=AgentMetadata(
+            id="decay_adaptive",
+            display_name="Decay Adaptive AI",
+            description="Adaptive value agent with EMA-weighted opponent statistics for faster adaptation",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=DecayAdaptiveTrainer
         )
     )
 
