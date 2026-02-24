@@ -155,11 +155,13 @@ def _register_builtin_agents():
     from .adaptive_value import AdaptiveValueAgent
     from .aux_value import AuxValueAgent
     from .cfr_agent import CFRAgent
+    from .history_value import HistoryValueAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
     from src.training.aux_value_trainer import AuxValueTrainer
     from src.training.cfr_trainer import CFRTrainer
+    from src.training.history_value_trainer import HistoryValueTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -231,6 +233,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=AuxValueTrainer
+        )
+    )
+
+    # History Value Agent - action history augmented value network
+    registry.register(
+        id="history_value",
+        agent_class=HistoryValueAgent,
+        metadata=AgentMetadata(
+            id="history_value",
+            display_name="History Value AI",
+            description="Value agent augmented with scalable intra-hand action history encoding",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=HistoryValueTrainer
         )
     )
 
