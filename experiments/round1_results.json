@@ -1,0 +1,953 @@
+{
+  "timestamp": "2026-02-24 00:06:34",
+  "training": {
+    "actor_critic": {
+      "agent_id": "actor_critic",
+      "training_time_s": 3.3,
+      "final_loss": 16.721935272216797,
+      "final_eval_vs_heuristic": -0.2,
+      "eval_history": [
+        {
+          "episode": 50,
+          "avg_chips": -1.6
+        },
+        {
+          "episode": 100,
+          "avg_chips": -0.63
+        },
+        {
+          "episode": 150,
+          "avg_chips": -0.24
+        },
+        {
+          "episode": 200,
+          "avg_chips": -1.15
+        },
+        {
+          "episode": 250,
+          "avg_chips": -1.17
+        },
+        {
+          "episode": 300,
+          "avg_chips": -1.04
+        },
+        {
+          "episode": 350,
+          "avg_chips": -0.84
+        },
+        {
+          "episode": 400,
+          "avg_chips": -0.68
+        },
+        {
+          "episode": 450,
+          "avg_chips": -0.35
+        },
+        {
+          "episode": 500,
+          "avg_chips": -0.21
+        },
+        {
+          "episode": 550,
+          "avg_chips": -0.42
+        },
+        {
+          "episode": 600,
+          "avg_chips": -0.78
+        },
+        {
+          "episode": 650,
+          "avg_chips": -1.08
+        },
+        {
+          "episode": 700,
+          "avg_chips": -0.63
+        },
+        {
+          "episode": 750,
+          "avg_chips": -0.78
+        },
+        {
+          "episode": 800,
+          "avg_chips": -1.25
+        },
+        {
+          "episode": 850,
+          "avg_chips": -0.78
+        },
+        {
+          "episode": 900,
+          "avg_chips": -1.19
+        },
+        {
+          "episode": 950,
+          "avg_chips": -0.98
+        },
+        {
+          "episode": 1000,
+          "avg_chips": -0.48
+        },
+        {
+          "episode": 1050,
+          "avg_chips": 0.28
+        },
+        {
+          "episode": 1100,
+          "avg_chips": -1.27
+        },
+        {
+          "episode": 1150,
+          "avg_chips": -0.02
+        },
+        {
+          "episode": 1200,
+          "avg_chips": -0.15
+        },
+        {
+          "episode": 1250,
+          "avg_chips": -0.67
+        },
+        {
+          "episode": 1300,
+          "avg_chips": -1.26
+        },
+        {
+          "episode": 1350,
+          "avg_chips": -1.5
+        },
+        {
+          "episode": 1400,
+          "avg_chips": -0.4
+        },
+        {
+          "episode": 1450,
+          "avg_chips": -0.02
+        },
+        {
+          "episode": 1500,
+          "avg_chips": -1.17
+        },
+        {
+          "episode": 1550,
+          "avg_chips": -0.53
+        },
+        {
+          "episode": 1600,
+          "avg_chips": -1.01
+        },
+        {
+          "episode": 1650,
+          "avg_chips": -0.28
+        },
+        {
+          "episode": 1700,
+          "avg_chips": -0.06
+        },
+        {
+          "episode": 1750,
+          "avg_chips": 0.4
+        },
+        {
+          "episode": 1800,
+          "avg_chips": -0.42
+        },
+        {
+          "episode": 1850,
+          "avg_chips": -0.53
+        },
+        {
+          "episode": 1900,
+          "avg_chips": -0.87
+        },
+        {
+          "episode": 1950,
+          "avg_chips": -0.47
+        },
+        {
+          "episode": 2000,
+          "avg_chips": -1.02
+        },
+        {
+          "episode": 2050,
+          "avg_chips": -0.27
+        },
+        {
+          "episode": 2100,
+          "avg_chips": 0.0
+        },
+        {
+          "episode": 2150,
+          "avg_chips": -0.48
+        },
+        {
+          "episode": 2200,
+          "avg_chips": -0.45
+        },
+        {
+          "episode": 2250,
+          "avg_chips": 0.06
+        },
+        {
+          "episode": 2300,
+          "avg_chips": -0.36
+        },
+        {
+          "episode": 2350,
+          "avg_chips": -0.7
+        },
+        {
+          "episode": 2400,
+          "avg_chips": -1.37
+        },
+        {
+          "episode": 2450,
+          "avg_chips": -1.3
+        },
+        {
+          "episode": 2500,
+          "avg_chips": -0.66
+        },
+        {
+          "episode": 2550,
+          "avg_chips": -0.54
+        },
+        {
+          "episode": 2600,
+          "avg_chips": -0.91
+        },
+        {
+          "episode": 2650,
+          "avg_chips": -0.49
+        },
+        {
+          "episode": 2700,
+          "avg_chips": -1.08
+        },
+        {
+          "episode": 2750,
+          "avg_chips": -1.14
+        },
+        {
+          "episode": 2800,
+          "avg_chips": -0.69
+        },
+        {
+          "episode": 2850,
+          "avg_chips": -0.48
+        },
+        {
+          "episode": 2900,
+          "avg_chips": -0.71
+        },
+        {
+          "episode": 2950,
+          "avg_chips": 0.29
+        },
+        {
+          "episode": 3000,
+          "avg_chips": -0.2
+        }
+      ]
+    },
+    "history_value": {
+      "agent_id": "history_value",
+      "training_time_s": 7.0,
+      "final_loss": 14.951377868652344,
+      "final_eval_vs_heuristic": -2.6,
+      "eval_history": [
+        {
+          "episode": 50,
+          "avg_chips": -0.85
+        },
+        {
+          "episode": 100,
+          "avg_chips": -2.4
+        },
+        {
+          "episode": 150,
+          "avg_chips": -2.53
+        },
+        {
+          "episode": 200,
+          "avg_chips": -1.56
+        },
+        {
+          "episode": 250,
+          "avg_chips": 0.41
+        },
+        {
+          "episode": 300,
+          "avg_chips": 0.1
+        },
+        {
+          "episode": 350,
+          "avg_chips": -2.57
+        },
+        {
+          "episode": 400,
+          "avg_chips": -1.76
+        },
+        {
+          "episode": 450,
+          "avg_chips": -0.99
+        },
+        {
+          "episode": 500,
+          "avg_chips": -1.02
+        },
+        {
+          "episode": 550,
+          "avg_chips": -2.3
+        },
+        {
+          "episode": 600,
+          "avg_chips": -0.99
+        },
+        {
+          "episode": 650,
+          "avg_chips": -3.1
+        },
+        {
+          "episode": 700,
+          "avg_chips": -0.79
+        },
+        {
+          "episode": 750,
+          "avg_chips": -0.41
+        },
+        {
+          "episode": 800,
+          "avg_chips": -0.64
+        },
+        {
+          "episode": 850,
+          "avg_chips": -0.31
+        },
+        {
+          "episode": 900,
+          "avg_chips": -1.4
+        },
+        {
+          "episode": 950,
+          "avg_chips": -0.91
+        },
+        {
+          "episode": 1000,
+          "avg_chips": -1.73
+        },
+        {
+          "episode": 1050,
+          "avg_chips": -2.16
+        },
+        {
+          "episode": 1100,
+          "avg_chips": -1.88
+        },
+        {
+          "episode": 1150,
+          "avg_chips": 0.31
+        },
+        {
+          "episode": 1200,
+          "avg_chips": -1.6
+        },
+        {
+          "episode": 1250,
+          "avg_chips": -2.33
+        },
+        {
+          "episode": 1300,
+          "avg_chips": -1.05
+        },
+        {
+          "episode": 1350,
+          "avg_chips": -1.93
+        },
+        {
+          "episode": 1400,
+          "avg_chips": -2.57
+        },
+        {
+          "episode": 1450,
+          "avg_chips": -2.47
+        },
+        {
+          "episode": 1500,
+          "avg_chips": -2.53
+        },
+        {
+          "episode": 1550,
+          "avg_chips": -1.14
+        },
+        {
+          "episode": 1600,
+          "avg_chips": -1.23
+        },
+        {
+          "episode": 1650,
+          "avg_chips": -1.58
+        },
+        {
+          "episode": 1700,
+          "avg_chips": -1.21
+        },
+        {
+          "episode": 1750,
+          "avg_chips": -1.84
+        },
+        {
+          "episode": 1800,
+          "avg_chips": -1.73
+        },
+        {
+          "episode": 1850,
+          "avg_chips": -0.96
+        },
+        {
+          "episode": 1900,
+          "avg_chips": -0.78
+        },
+        {
+          "episode": 1950,
+          "avg_chips": -1.32
+        },
+        {
+          "episode": 2000,
+          "avg_chips": -2.09
+        },
+        {
+          "episode": 2050,
+          "avg_chips": -2.11
+        },
+        {
+          "episode": 2100,
+          "avg_chips": -0.77
+        },
+        {
+          "episode": 2150,
+          "avg_chips": -1.72
+        },
+        {
+          "episode": 2200,
+          "avg_chips": -1.82
+        },
+        {
+          "episode": 2250,
+          "avg_chips": -1.26
+        },
+        {
+          "episode": 2300,
+          "avg_chips": 0.19
+        },
+        {
+          "episode": 2350,
+          "avg_chips": -0.21
+        },
+        {
+          "episode": 2400,
+          "avg_chips": -0.68
+        },
+        {
+          "episode": 2450,
+          "avg_chips": -2.41
+        },
+        {
+          "episode": 2500,
+          "avg_chips": -0.82
+        },
+        {
+          "episode": 2550,
+          "avg_chips": -1.97
+        },
+        {
+          "episode": 2600,
+          "avg_chips": -0.25
+        },
+        {
+          "episode": 2650,
+          "avg_chips": -2.56
+        },
+        {
+          "episode": 2700,
+          "avg_chips": -0.31
+        },
+        {
+          "episode": 2750,
+          "avg_chips": -0.13
+        },
+        {
+          "episode": 2800,
+          "avg_chips": -1.48
+        },
+        {
+          "episode": 2850,
+          "avg_chips": -1.89
+        },
+        {
+          "episode": 2900,
+          "avg_chips": -2.46
+        },
+        {
+          "episode": 2950,
+          "avg_chips": -1.41
+        },
+        {
+          "episode": 3000,
+          "avg_chips": -2.6
+        }
+      ]
+    },
+    "decay_adaptive": {
+      "agent_id": "decay_adaptive",
+      "training_time_s": 6.9,
+      "final_loss": 23.570934295654297,
+      "final_eval_vs_heuristic": 0.13,
+      "eval_history": [
+        {
+          "episode": 30,
+          "avg_chips": -2.27
+        },
+        {
+          "episode": 60,
+          "avg_chips": -2.0
+        },
+        {
+          "episode": 90,
+          "avg_chips": -1.71
+        },
+        {
+          "episode": 120,
+          "avg_chips": -0.66
+        },
+        {
+          "episode": 150,
+          "avg_chips": -0.62
+        },
+        {
+          "episode": 180,
+          "avg_chips": -0.43
+        },
+        {
+          "episode": 210,
+          "avg_chips": -0.33
+        },
+        {
+          "episode": 240,
+          "avg_chips": -0.76
+        },
+        {
+          "episode": 270,
+          "avg_chips": -0.66
+        },
+        {
+          "episode": 300,
+          "avg_chips": -0.51
+        },
+        {
+          "episode": 330,
+          "avg_chips": -0.66
+        },
+        {
+          "episode": 360,
+          "avg_chips": -0.23
+        },
+        {
+          "episode": 390,
+          "avg_chips": -0.22
+        },
+        {
+          "episode": 420,
+          "avg_chips": -1.07
+        },
+        {
+          "episode": 450,
+          "avg_chips": 0.3
+        },
+        {
+          "episode": 480,
+          "avg_chips": -1.24
+        },
+        {
+          "episode": 510,
+          "avg_chips": -2.14
+        },
+        {
+          "episode": 540,
+          "avg_chips": -0.68
+        },
+        {
+          "episode": 570,
+          "avg_chips": -0.35
+        },
+        {
+          "episode": 600,
+          "avg_chips": -0.26
+        },
+        {
+          "episode": 630,
+          "avg_chips": -1.1
+        },
+        {
+          "episode": 660,
+          "avg_chips": -1.01
+        },
+        {
+          "episode": 690,
+          "avg_chips": -0.95
+        },
+        {
+          "episode": 720,
+          "avg_chips": -1.19
+        },
+        {
+          "episode": 750,
+          "avg_chips": -1.75
+        },
+        {
+          "episode": 780,
+          "avg_chips": -0.58
+        },
+        {
+          "episode": 810,
+          "avg_chips": -0.35
+        },
+        {
+          "episode": 840,
+          "avg_chips": -1.04
+        },
+        {
+          "episode": 870,
+          "avg_chips": -0.3
+        },
+        {
+          "episode": 900,
+          "avg_chips": -0.22
+        },
+        {
+          "episode": 930,
+          "avg_chips": -0.96
+        },
+        {
+          "episode": 960,
+          "avg_chips": -0.73
+        },
+        {
+          "episode": 990,
+          "avg_chips": -0.52
+        },
+        {
+          "episode": 1020,
+          "avg_chips": -0.29
+        },
+        {
+          "episode": 1050,
+          "avg_chips": -0.15
+        },
+        {
+          "episode": 1080,
+          "avg_chips": -1.47
+        },
+        {
+          "episode": 1110,
+          "avg_chips": -0.35
+        },
+        {
+          "episode": 1140,
+          "avg_chips": -0.87
+        },
+        {
+          "episode": 1170,
+          "avg_chips": -0.24
+        },
+        {
+          "episode": 1200,
+          "avg_chips": -1.56
+        },
+        {
+          "episode": 1230,
+          "avg_chips": -0.48
+        },
+        {
+          "episode": 1260,
+          "avg_chips": -1.97
+        },
+        {
+          "episode": 1290,
+          "avg_chips": -0.42
+        },
+        {
+          "episode": 1320,
+          "avg_chips": -1.5
+        },
+        {
+          "episode": 1350,
+          "avg_chips": -0.44
+        },
+        {
+          "episode": 1380,
+          "avg_chips": -0.17
+        },
+        {
+          "episode": 1410,
+          "avg_chips": -0.74
+        },
+        {
+          "episode": 1440,
+          "avg_chips": -0.48
+        },
+        {
+          "episode": 1470,
+          "avg_chips": -0.15
+        },
+        {
+          "episode": 1500,
+          "avg_chips": -1.01
+        },
+        {
+          "episode": 1530,
+          "avg_chips": -0.4
+        },
+        {
+          "episode": 1560,
+          "avg_chips": -0.84
+        },
+        {
+          "episode": 1590,
+          "avg_chips": -1.71
+        },
+        {
+          "episode": 1620,
+          "avg_chips": -0.81
+        },
+        {
+          "episode": 1650,
+          "avg_chips": -1.21
+        },
+        {
+          "episode": 1680,
+          "avg_chips": 0.15
+        },
+        {
+          "episode": 1710,
+          "avg_chips": -1.64
+        },
+        {
+          "episode": 1740,
+          "avg_chips": -0.64
+        },
+        {
+          "episode": 1770,
+          "avg_chips": -1.4
+        },
+        {
+          "episode": 1800,
+          "avg_chips": -0.69
+        },
+        {
+          "episode": 1830,
+          "avg_chips": -1.21
+        },
+        {
+          "episode": 1860,
+          "avg_chips": -0.56
+        },
+        {
+          "episode": 1890,
+          "avg_chips": -1.13
+        },
+        {
+          "episode": 1920,
+          "avg_chips": 0.27
+        },
+        {
+          "episode": 1950,
+          "avg_chips": -1.19
+        },
+        {
+          "episode": 1980,
+          "avg_chips": -0.41
+        },
+        {
+          "episode": 2010,
+          "avg_chips": -1.67
+        },
+        {
+          "episode": 2040,
+          "avg_chips": -0.46
+        },
+        {
+          "episode": 2070,
+          "avg_chips": -0.81
+        },
+        {
+          "episode": 2100,
+          "avg_chips": 0.31
+        },
+        {
+          "episode": 2130,
+          "avg_chips": -0.86
+        },
+        {
+          "episode": 2160,
+          "avg_chips": -1.23
+        },
+        {
+          "episode": 2190,
+          "avg_chips": -0.84
+        },
+        {
+          "episode": 2220,
+          "avg_chips": -1.07
+        },
+        {
+          "episode": 2250,
+          "avg_chips": 0.15
+        },
+        {
+          "episode": 2280,
+          "avg_chips": -0.78
+        },
+        {
+          "episode": 2310,
+          "avg_chips": -0.63
+        },
+        {
+          "episode": 2340,
+          "avg_chips": 0.28
+        },
+        {
+          "episode": 2370,
+          "avg_chips": -0.46
+        },
+        {
+          "episode": 2400,
+          "avg_chips": -0.7
+        },
+        {
+          "episode": 2430,
+          "avg_chips": -1.42
+        },
+        {
+          "episode": 2460,
+          "avg_chips": 0.2
+        },
+        {
+          "episode": 2490,
+          "avg_chips": -0.12
+        },
+        {
+          "episode": 2520,
+          "avg_chips": -1.09
+        },
+        {
+          "episode": 2550,
+          "avg_chips": -1.38
+        },
+        {
+          "episode": 2580,
+          "avg_chips": -0.97
+        },
+        {
+          "episode": 2610,
+          "avg_chips": -1.5
+        },
+        {
+          "episode": 2640,
+          "avg_chips": -1.08
+        },
+        {
+          "episode": 2670,
+          "avg_chips": -0.86
+        },
+        {
+          "episode": 2700,
+          "avg_chips": -0.17
+        },
+        {
+          "episode": 2730,
+          "avg_chips": -0.7
+        },
+        {
+          "episode": 2760,
+          "avg_chips": -1.45
+        },
+        {
+          "episode": 2790,
+          "avg_chips": -0.3
+        },
+        {
+          "episode": 2820,
+          "avg_chips": 0.91
+        },
+        {
+          "episode": 2850,
+          "avg_chips": -0.99
+        },
+        {
+          "episode": 2880,
+          "avg_chips": 0.17
+        },
+        {
+          "episode": 2910,
+          "avg_chips": -1.29
+        },
+        {
+          "episode": 2940,
+          "avg_chips": -0.87
+        },
+        {
+          "episode": 2970,
+          "avg_chips": -1.84
+        },
+        {
+          "episode": 3000,
+          "avg_chips": 0.13
+        }
+      ]
+    }
+  },
+  "evaluation": {
+    "heuristic": {
+      "heuristic": 0.0,
+      "value_based": -0.442,
+      "adaptive_value": -0.676,
+      "aux_value": 0.33,
+      "actor_critic": 0.712,
+      "history_value": 1.282,
+      "decay_adaptive": 0.522
+    },
+    "value_based": {
+      "value_based": 0.0,
+      "adaptive_value": -0.102,
+      "aux_value": 1.006,
+      "actor_critic": 1.018,
+      "history_value": 1.968,
+      "decay_adaptive": 1.136
+    },
+    "adaptive_value": {
+      "adaptive_value": 0.0,
+      "aux_value": 1.266,
+      "actor_critic": 0.858,
+      "history_value": 1.634,
+      "decay_adaptive": 1.43
+    },
+    "aux_value": {
+      "aux_value": 0.0,
+      "actor_critic": 0.268,
+      "history_value": 0.776,
+      "decay_adaptive": 0.834
+    },
+    "actor_critic": {
+      "actor_critic": 0.0,
+      "history_value": -0.51,
+      "decay_adaptive": 0.126
+    },
+    "history_value": {
+      "history_value": 0.0,
+      "decay_adaptive": 0.692
+    },
+    "decay_adaptive": {
+      "decay_adaptive": 0.0
+    }
+  }
+}
