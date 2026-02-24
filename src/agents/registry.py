@@ -155,11 +155,13 @@ def _register_builtin_agents():
     from .adaptive_value import AdaptiveValueAgent
     from .aux_value import AuxValueAgent
     from .cfr_agent import CFRAgent
+    from .actor_critic import ActorCriticAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
     from src.training.aux_value_trainer import AuxValueTrainer
     from src.training.cfr_trainer import CFRTrainer
+    from src.training.actor_critic_trainer import ActorCriticTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -246,6 +248,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="game_theory",
             trainer_class=CFRTrainer
+        )
+    )
+
+    # Actor-Critic RL Agent - policy gradient with learned value baseline
+    registry.register(
+        id="actor_critic",
+        agent_class=ActorCriticAgent,
+        metadata=AgentMetadata(
+            id="actor_critic",
+            display_name="Actor-Critic AI",
+            description="RL agent using REINFORCE with a learned value baseline for variance reduction",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=ActorCriticTrainer
         )
     )
 
