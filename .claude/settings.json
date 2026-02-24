@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(launchctl list:*)",
+      "Bash(find:*)"
+    ]
+  }
+}

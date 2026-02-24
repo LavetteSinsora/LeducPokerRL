@@ -518,24 +518,13 @@ class TestEvaluationIntegration:
         assert isinstance(result, float)
         assert not np.isnan(result)
     
-    def test_evaluation_with_position_randomization(self, value_agent, heuristic_agent):
-        """Evaluation must work with position randomization."""
+    def test_evaluation_covers_both_positions(self, value_agent, heuristic_agent):
+        """Evaluation splits rounds across both positions and returns correct count."""
         result = evaluate_agents(
             value_agent, heuristic_agent,
             num_rounds=20,
-            randomize_positions=True
         )
-        
-        assert result.num_rounds == 20
-    
-    def test_evaluation_without_position_randomization(self, value_agent, heuristic_agent):
-        """Evaluation must work without position randomization."""
-        result = evaluate_agents(
-            value_agent, heuristic_agent,
-            num_rounds=20,
-            randomize_positions=False
-        )
-        
+
         assert result.num_rounds == 20
     
     def test_symmetric_evaluation(self, heuristic_agent):

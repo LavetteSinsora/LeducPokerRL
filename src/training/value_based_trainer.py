@@ -129,7 +129,8 @@ class SelfPlayTrainer(BaseTrainer):
         self.agent.set_train_mode(old_train_mode)
         return {
             "trace": episode_trace,
-            "final_rewards": rewards
+            "final_rewards": rewards,
+            "eval_type": "value",
         }
 
     def update_params(self, params: Dict):

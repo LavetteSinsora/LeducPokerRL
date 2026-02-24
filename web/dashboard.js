@@ -2,9 +2,23 @@ const API_URL = window.location.port === '8001'
     ? `${window.location.protocol}//${window.location.hostname}:8000`
     : window.location.origin;
 
-let lossChart, chipsChart;
+let lossChart, chipsChart, matchupChart;
 let smoothingAlpha = 0.6;
+let matchupSmoothing = 0.6;
 let rawLossData = [], rawChipsData = [];
+let rawMatchupData = {};  // { opponent_id: [{x, y}, ...] }
+let currentPanel = 0;
+let selectedOpponents = [];
+let allAgents = [];
+
+const MATCHUP_COLORS = [
+    '#f87171',  // red
+    '#60a5fa',  // blue
+    '#a78bfa',  // purple
+    '#fb923c',  // orange
+    '#2dd4bf',  // teal
+    '#e879f9',  // pink
+];
 
 // EMA smoothing: alpha=0 means no smoothed line, alpha close to 1 = very smooth
 function computeEMA(data, alpha) {
@@ -93,9 +107,50 @@ function createTrainingChart(canvasId, label, rawColor, emaColor, yAxisLabel) {
     });
 }
 
+function createMatchupChart() {
+    const ctx = document.getElementById('matchupChart').getContext('2d');
+    matchupChart = new Chart(ctx, {
+        type: 'line',
+        data: { datasets: [] },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            scales: {
+                x: {
+                    type: 'linear',
+                    title: { display: true, text: 'Episode', color: '#fff' },
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: 'rgba(255, 255, 255, 0.6)' }
+                },
+                y: {
+                    type: 'linear',
+                    title: { display: true, text: 'Avg Chips/Round', color: '#4ade80' },
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: 'rgba(255, 255, 255, 0.6)' }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: { color: '#fff', font: { family: 'Inter' } }
+                },
+                zoom: {
+                    zoom: {
+                        drag: { enabled: true, backgroundColor: 'rgba(244, 208, 63, 0.15)', borderColor: '#f4d03f', borderWidth: 1 },
+                        mode: 'xy'
+                    },
+                    pan: { enabled: true, modifierKey: 'shift', mode: 'xy' },
+                    limits: { x: { min: 'original', max: 'original' }, y: { min: 'original', max: 'original' } }
+                }
+            }
+        }
+    });
+}
+
 function initCharts() {
     lossChart = createTrainingChart('lossChart', 'Loss', 'rgba(244, 208, 63, 0.3)', '#f4d03f', 'Loss');
     chipsChart = createTrainingChart('chipsChart', 'Chips/Round', 'rgba(74, 222, 128, 0.3)', '#4ade80', 'Chips/Round');
+    createMatchupChart();
 }
 
 function initSmoothingControl() {
@@ -112,10 +167,56 @@ function initSmoothingControl() {
     });
 }
 
+function initMatchupSmoothing() {
+    const slider = document.getElementById('matchup-smoothing-slider');
+    const display = document.getElementById('matchup-smoothing-value');
+    slider.addEventListener('input', () => {
+        matchupSmoothing = parseFloat(slider.value);
+        display.textContent = matchupSmoothing.toFixed(2);
+        updateMatchupChart();
+    });
+}
+
 function initResetZoom() {
     document.getElementById('btn-reset-zoom').addEventListener('click', () => {
         lossChart.resetZoom();
         chipsChart.resetZoom();
+    });
+    document.getElementById('btn-reset-matchup-zoom').addEventListener('click', () => {
+        matchupChart.resetZoom();
+    });
+}
+
+// Carousel navigation
+function initCarousel() {
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const dots = document.querySelectorAll('.carousel-dot');
+
+    const panels = document.querySelectorAll('.carousel-panel');
+
+    function goToPanel(index) {
+        currentPanel = index;
+        // Show/hide panels (no flex, no transform — Chart.js can always measure)
+        panels.forEach((p, i) => p.classList.toggle('active', i === index));
+        prevBtn.disabled = (index === 0);
+        nextBtn.disabled = (index === 1);
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        document.getElementById('carousel-title').textContent =
+            index === 0 ? 'Training Progress' : 'Matchup Evaluation';
+
+        // Resize charts after panel becomes visible
+        requestAnimationFrame(() => {
+            if (index === 0) { lossChart.resize(); chipsChart.resize(); }
+            if (index === 1) { matchupChart.resize(); }
+        });
+    }
+
+    prevBtn.addEventListener('click', () => { if (currentPanel > 0) goToPanel(currentPanel - 1); });
+    nextBtn.addEventListener('click', () => { if (currentPanel < 1) goToPanel(currentPanel + 1); });
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => goToPanel(parseInt(dot.dataset.panel)));
     });
 }
 
@@ -168,6 +269,55 @@ function updateChart(history) {
     chipsChart.data.datasets[0].data = rawChipsData;
     chipsChart.data.datasets[1].data = computeEMA(rawChipsData, smoothingAlpha);
     chipsChart.update('none');
+
+    // Matchup chart
+    updateMatchupChart(history);
+}
+
+function updateMatchupChart(history) {
+    if (history) {
+        const matchupEntries = history.filter(h => h.type === 'matchup');
+        rawMatchupData = {};
+        matchupEntries.forEach(h => {
+            if (!rawMatchupData[h.opponent_id]) rawMatchupData[h.opponent_id] = [];
+            rawMatchupData[h.opponent_id].push({ x: h.episode, y: h.avg_chips_per_round });
+        });
+    }
+
+    const datasets = [];
+    const opponentIds = Object.keys(rawMatchupData);
+
+    opponentIds.forEach((oppId, i) => {
+        const color = MATCHUP_COLORS[i % MATCHUP_COLORS.length];
+        const agent = allAgents.find(a => a.id === oppId);
+        const displayName = agent ? agent.displayName : oppId;
+        const raw = rawMatchupData[oppId];
+
+        // Raw (faint)
+        datasets.push({
+            label: `vs ${displayName} (raw)`,
+            data: raw,
+            borderColor: color + '4D',
+            backgroundColor: 'transparent',
+            borderWidth: 1,
+            tension: 0,
+            pointRadius: 0
+        });
+
+        // Smoothed (bold)
+        datasets.push({
+            label: `vs ${displayName}`,
+            data: computeEMA(raw, matchupSmoothing),
+            borderColor: color,
+            backgroundColor: 'transparent',
+            borderWidth: 2.5,
+            tension: 0.3,
+            pointRadius: 0
+        });
+    });
+
+    matchupChart.data.datasets = datasets;
+    matchupChart.update('none');
 }
 
 // Training Actions
@@ -198,7 +348,7 @@ document.getElementById('btn-reset-agent').onclick = async () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ agent_id: agentId })
         });
-        // Clear both charts
+        // Clear all charts
         rawLossData = [];
         rawChipsData = [];
         lossChart.data.datasets[0].data = [];
@@ -207,14 +357,20 @@ document.getElementById('btn-reset-agent').onclick = async () => {
         chipsChart.data.datasets[0].data = [];
         chipsChart.data.datasets[1].data = [];
         chipsChart.update();
+        rawMatchupData = {};
+        matchupChart.data.datasets = [];
+        matchupChart.update();
+        selectedOpponents = [];
+        populateOpponentSelector();
     }
 };
 
-// Load trainable agents
+// Load trainable agents and populate opponent selector
 async function loadTrainableAgents() {
     try {
         const res = await fetch(`${API_URL}/api/agents`);
         const data = await res.json();
+        allAgents = data.agents;
         const select = document.getElementById('train-agent-select');
 
         // Filter for trainable agents only
@@ -223,9 +379,46 @@ async function loadTrainableAgents() {
         select.innerHTML = trainableAgents.map(a =>
             `<option value="${a.id}">${a.displayName}</option>`
         ).join('');
+
+        // Re-populate opponent checkboxes when training agent changes
+        select.addEventListener('change', () => populateOpponentSelector());
+
+        populateOpponentSelector();
     } catch (err) {
         console.error('Error loading agents:', err);
     }
+}
+
+function populateOpponentSelector() {
+    const container = document.getElementById('matchup-opponent-list');
+    const trainingAgentId = document.getElementById('train-agent-select').value;
+
+    // All agents except "human" and the currently-training agent
+    const opponents = allAgents.filter(a => a.id !== 'human' && a.id !== trainingAgentId);
+
+    container.innerHTML = opponents.map((a, i) => {
+        const color = MATCHUP_COLORS[i % MATCHUP_COLORS.length];
+        const checked = selectedOpponents.includes(a.id) ? 'checked' : '';
+        return `
+            <label class="matchup-opponent-item">
+                <input type="checkbox" value="${a.id}" ${checked}
+                       onchange="onOpponentToggle()">
+                <span class="opponent-color-swatch" style="background: ${color};"></span>
+                ${a.displayName}
+            </label>
+        `;
+    }).join('');
+}
+
+async function onOpponentToggle() {
+    const checkboxes = document.querySelectorAll('#matchup-opponent-list input[type="checkbox"]');
+    selectedOpponents = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+    await fetch(`${API_URL}/train/matchup-opponents`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ opponent_ids: selectedOpponents })
+    });
 }
 
 // --- STATE VALUE ANALYZER LOGIC ---
@@ -423,7 +616,9 @@ document.getElementById('btn-evaluate').onclick = evaluateState;
 // Init
 initCharts();
 initSmoothingControl();
+initMatchupSmoothing();
 initResetZoom();
+initCarousel();
 initCardSelectors();
 updateSequenceUI();
 loadTrainableAgents();

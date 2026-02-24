@@ -151,7 +151,15 @@ def _register_builtin_agents():
     # Import here to avoid circular imports
     from .heuristic import HeuristicAgent
     from .value_based import ValueBasedAgent
+    from .policy_gradient import PolicyGradientAgent
+    from .adaptive_value import AdaptiveValueAgent
+    from .aux_value import AuxValueAgent
+    from .cfr_agent import CFRAgent
     from src.training.value_based_trainer import SelfPlayTrainer
+    from src.training.policy_gradient_trainer import PolicyGradientTrainer
+    from src.training.adaptive_trainer import AdaptiveTrainer
+    from src.training.aux_value_trainer import AuxValueTrainer
+    from src.training.cfr_trainer import CFRTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -178,6 +186,66 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=SelfPlayTrainer
+        )
+    )
+
+    # Policy Gradient RL Agent - trainable neural network
+    registry.register(
+        id="policy_gradient",
+        agent_class=PolicyGradientAgent,
+        metadata=AgentMetadata(
+            id="policy_gradient",
+            display_name="Policy Gradient AI",
+            description="RL agent using policy gradient (REINFORCE) algorithm",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=PolicyGradientTrainer
+        )
+    )
+
+    # Adaptive Value Agent - exploits opponent tendencies via session stats
+    registry.register(
+        id="adaptive_value",
+        agent_class=AdaptiveValueAgent,
+        metadata=AgentMetadata(
+            id="adaptive_value",
+            display_name="Adaptive Value AI",
+            description="Exploits opponent tendencies using cross-hand behavior statistics",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=AdaptiveTrainer
+        )
+    )
+
+    # Auxiliary Value Agent - pre-action Bellman consistency auxiliary loss
+    registry.register(
+        id="aux_value",
+        agent_class=AuxValueAgent,
+        metadata=AgentMetadata(
+            id="aux_value",
+            display_name="Aux Value AI",
+            description="Value agent with pre-action Bellman consistency auxiliary loss",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=AuxValueTrainer
+        )
+    )
+
+    # CFR Nash Equilibrium Agent - game-theoretic baseline
+    registry.register(
+        id="cfr",
+        agent_class=CFRAgent,
+        metadata=AgentMetadata(
+            id="cfr",
+            display_name="CFR Nash Equilibrium",
+            description="Game-theoretic baseline via Counterfactual Regret Minimization",
+            is_trainable=True,
+            requires_model_path=True,
+            category="game_theory",
+            trainer_class=CFRTrainer
         )
     )
 

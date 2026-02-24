@@ -1,3 +1,4 @@
+import json
 import threading
 import os
 from typing import List, Dict, Optional
@@ -26,14 +27,58 @@ class TrainingManager:
         self.trainer = self._create_trainer()
         self.training_thread: Optional[threading.Thread] = None
         self.is_training = False
-        
-        # Metrics storage (no cap — kept in full for long-range trend analysis)
+        self.history_path = self.model_path.replace('.pt', '_history.json')
+
+        # Metrics storage — persisted to disk so charts survive server restarts
         self.history: List[Dict] = []
         self.current_stats = {
             "episode": 0,
             "loss": 0.0,
             "avg_chips_per_round": 0.0
         }
+        self._load_history()
+
+        # Matchup evaluation: agent IDs to evaluate against at each eval interval
+        self.matchup_opponents: List[str] = []
+
+    def set_matchup_opponents(self, opponent_ids: List[str]):
+        """Update the list of opponents for matchup evaluation.
+
+        Safe to call while training is running — the next eval interval
+        will pick up the change.
+        """
+        self.matchup_opponents = [oid for oid in opponent_ids if oid != self.agent_id]
+
+    def _load_history(self):
+        """Load training history from disk if available."""
+        if os.path.exists(self.history_path):
+            try:
+                with open(self.history_path, 'r') as f:
+                    self.history = json.load(f)
+                # Restore episode counter and latest stats from history
+                if self.history:
+                    last_episode = max(h.get("episode", 0) for h in self.history)
+                    self.current_stats["episode"] = last_episode
+                    # Restore last loss and chips values
+                    for h in reversed(self.history):
+                        if h["type"] == "loss" and self.current_stats["loss"] == 0.0:
+                            self.current_stats["loss"] = h["loss"]
+                        if h["type"] == "avg_chips" and self.current_stats["avg_chips_per_round"] == 0.0:
+                            self.current_stats["avg_chips_per_round"] = h["avg_chips_per_round"]
+                        if self.current_stats["loss"] != 0.0 and self.current_stats["avg_chips_per_round"] != 0.0:
+                            break
+                print(f"Loaded training history ({len(self.history)} entries, episode {self.current_stats['episode']})")
+            except Exception as e:
+                print(f"Error loading history: {e}")
+
+    def _save_history(self):
+        """Persist training history to disk."""
+        try:
+            os.makedirs(os.path.dirname(self.history_path) or '.', exist_ok=True)
+            with open(self.history_path, 'w') as f:
+                json.dump(self.history, f)
+        except Exception as e:
+            print(f"Error saving history: {e}")
 
     def _create_trainer(self):
         """Factory method to create the appropriate trainer for the agent."""
@@ -51,6 +96,7 @@ class TrainingManager:
                 "loss": data["loss"],
                 "type": "loss"
             })
+            self._save_history()
         elif data["type"] == "evaluation":
             self.current_stats["episode"] = data["episode"]
             self.current_stats["avg_chips_per_round"] = data["avg_chips_per_round"]
@@ -59,8 +105,29 @@ class TrainingManager:
                 "avg_chips_per_round": data["avg_chips_per_round"],
                 "type": "avg_chips"
             })
-        
-        # No trim — full history preserved for long-range trend charts
+
+            # Run matchup evaluations against selected opponents
+            if self.matchup_opponents:
+                from src.training.evaluation import quick_evaluate
+                self.agent.set_train_mode(False)
+                for opp_id in self.matchup_opponents:
+                    try:
+                        opponent = registry.create(opp_id)
+                        model_path = f"models/{opp_id}_agent.pt"
+                        if os.path.exists(model_path):
+                            opponent.load_model(model_path)
+                        avg_chips = quick_evaluate(self.agent, opponent, num_rounds=100)
+                        self.history.append({
+                            "episode": data["episode"],
+                            "opponent_id": opp_id,
+                            "avg_chips_per_round": avg_chips,
+                            "type": "matchup"
+                        })
+                    except Exception as e:
+                        print(f"Matchup eval error vs {opp_id}: {e}")
+                self.agent.set_train_mode(True)
+
+            self._save_history()
 
     def start_training(self, episodes: int = 1000, batch_size: int = 32, lr: float = 1e-4):
         """Start fresh training or resume if already training (to update LR)."""
@@ -114,6 +181,7 @@ class TrainingManager:
         if agent_id:
             self.agent_id = agent_id
             self.model_path = f"models/{agent_id}_agent.pt"
+            self.history_path = self.model_path.replace('.pt', '_history.json')
         
         # Reset agent and trainer
         self.agent = registry.create(self.agent_id)
@@ -126,11 +194,13 @@ class TrainingManager:
             "loss": 0.0,
             "avg_chips_per_round": 0.0
         }
+        self.matchup_opponents = []
         
-        # Delete model file if it exists
-        if os.path.exists(self.model_path):
-            os.remove(self.model_path)
-            print(f"Deleted model file: {self.model_path}")
+        # Delete model and history files if they exist
+        for path in [self.model_path, self.history_path]:
+            if os.path.exists(path):
+                os.remove(path)
+                print(f"Deleted: {path}")
         
         return True
 
@@ -138,7 +208,8 @@ class TrainingManager:
         return {
             "is_training": self.is_training,
             "has_history": self.has_training_history,
-            "stats": self.current_stats
+            "stats": self.current_stats,
+            "matchup_opponents": self.matchup_opponents
         }
 
     def get_history(self):

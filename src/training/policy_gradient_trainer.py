@@ -93,6 +93,61 @@ class PolicyGradientTrainer(BaseTrainer):
 
         return total_loss.item()
 
+    def debug_episode(self) -> Dict:
+        """Plays one episode and records action probabilities at each step."""
+        self.game.reset()
+        episode_trace = []
+
+        old_train_mode = self.agent.train_mode
+        self.agent.set_train_mode(False)
+
+        while not self.game.is_finished:
+            current_player = self.game.current_player
+            obs = self.game.get_observation(viewer_id=current_player)
+
+            evaluations = self.agent.get_action_evaluations(obs)
+
+            # Greedy: pick the highest-probability action
+            selected_eval = max(evaluations, key=lambda x: x["probability"])
+            action = selected_eval["action"]
+
+            step_info = {
+                "player_id": current_player,
+                "observation": {
+                    "player_hand": obs.player_hand,
+                    "board": obs.board,
+                    "pot": obs.pot,
+                    "current_round": obs.current_round,
+                },
+                "evaluations": [
+                    {
+                        "action": e["action"].name,
+                        "action_id": e["action"].value,
+                        "probability": e["probability"],
+                        "raw_probability": e["raw_probability"],
+                    }
+                    for e in evaluations
+                ],
+                "selected_action": action.name,
+                "selected_action_id": action.value,
+                "encoded_state": selected_eval["encoded"].squeeze(0).tolist(),
+            }
+
+            episode_trace.append(step_info)
+            self.game.step(action)
+
+        rewards = self.game.get_reward()
+
+        for step in episode_trace:
+            step["true_value"] = rewards[step["player_id"]]
+
+        self.agent.set_train_mode(old_train_mode)
+        return {
+            "trace": episode_trace,
+            "final_rewards": rewards,
+            "eval_type": "policy",
+        }
+
     def update_params(self, params: Dict):
         """Allow the dashboard to adjust learning rate during training."""
         if "lr" in params:

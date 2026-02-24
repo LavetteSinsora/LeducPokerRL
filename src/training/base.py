@@ -111,7 +111,7 @@ class BaseTrainer(ABC):
                     })
                 print(f"Episode {episode}, Avg Chips/Round: {avg_chips:+.2f}")
 
-        if save_path and not self.stop_requested:
+        if save_path:
             import os
             os.makedirs(os.path.dirname(save_path), exist_ok=True)
             self.agent.save_model(save_path)

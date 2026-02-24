@@ -197,7 +197,8 @@ class LeducGame:
             current_round=self.current_round,
             legal_actions=self._get_legal_actions(),
             is_finished=self.is_finished,
-            raises_this_round=self.raises_this_round
+            raises_this_round=self.raises_this_round,
+            action_history=tuple(tuple(h) for h in self.history),
         )
 
     @classmethod
@@ -222,6 +223,7 @@ class LeducGame:
             current_round=sim.current_round,
             legal_actions=sim.get_legal_actions() if not sim.is_finished else [],
             is_finished=sim.is_finished, raises_this_round=sim.raises_this_round,
+            opponent_stats=obs.opponent_stats,
         )
         return post_obs, sim.is_finished
 

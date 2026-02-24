@@ -1,6 +1,7 @@
 import http.server
 import json
 import os
+from urllib.parse import urlparse, parse_qs
 from src.engine.leduc_game import LeducGame, Action
 from src.agents import registry
 from src.training.training_manager import TrainingManager
@@ -26,10 +27,14 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
         self._set_headers()
 
     def do_GET(self):
-        if self.path == '/state':
+        parsed = urlparse(self.path)
+        path = parsed.path
+        query = parse_qs(parsed.query)
+
+        if path == '/state':
             self._set_headers()
             self.wfile.write(json.dumps(self.format_response()).encode())
-        elif self.path == '/api/agents':
+        elif path == '/api/agents':
             # Return list of all available agents from registry
             self._set_headers()
             agents_data = [
@@ -51,22 +56,23 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                 "category": "special"
             })
             self.wfile.write(json.dumps({"agents": agents_data}).encode('utf-8'))
-        elif self.path == '/train/status':
+        elif path == '/train/status':
             self._set_headers()
             self.wfile.write(json.dumps(LeducAPIHandler.training_manager.get_status()).encode())
-        elif self.path == '/train/history':
+        elif path == '/train/history':
             self._set_headers()
             self.wfile.write(json.dumps(LeducAPIHandler.training_manager.get_history()).encode())
-        elif self.path == '/analyze/episode':
+        elif path == '/analyze/episode':
             self._set_headers()
+            agent_id = query.get('agent_id', ['value_based'])[0]
             try:
-                result = LeducAPIHandler.training_manager.run_debug_episode()
+                result = self._run_debug_episode_for(agent_id)
                 self.wfile.write(json.dumps(result).encode())
             except Exception as e:
                 self.wfile.write(json.dumps({"error": str(e)}).encode())
         else:
             # Serve static files from 'web' directory
-            path = self.path.lstrip('/')
+            path = parsed.path.lstrip('/')
             if path == "" or path == "web/":
                 path = "index.html"
             
@@ -184,6 +190,15 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
             self._set_headers()
             self.wfile.write(json.dumps({"success": success}).encode())
 
+        elif self.path == '/train/matchup-opponents':
+            opponent_ids = data.get('opponent_ids', [])
+            LeducAPIHandler.training_manager.set_matchup_opponents(opponent_ids)
+            self._set_headers()
+            self.wfile.write(json.dumps({
+                "success": True,
+                "active_opponents": LeducAPIHandler.training_manager.matchup_opponents
+            }).encode())
+
         elif self.path == '/simulate/decision':
             game = LeducAPIHandler.game_state_obj.game
             curr_player = game.current_player
@@ -289,6 +304,30 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
 
         else:
             self.send_error(404)
+
+    def _run_debug_episode_for(self, agent_id: str):
+        """Run a debug episode for any registered agent."""
+        # If this agent matches the current training manager, reuse it
+        tm = LeducAPIHandler.training_manager
+        if tm.agent_id == agent_id:
+            return tm.run_debug_episode()
+
+        # Otherwise create a temporary agent + trainer
+        root_dir = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
+        model_path = os.path.join(root_dir, 'models', f'{agent_id}_agent.pt')
+
+        agent = registry.create(agent_id)
+        if os.path.exists(model_path):
+            agent.load_model(model_path)
+        else:
+            print(f"No saved model for {agent_id} at {model_path}, using initial weights.")
+
+        metadata = registry.get_metadata(agent_id)
+        if not metadata or not metadata.trainer_class:
+            raise ValueError(f"No trainer registered for agent: {agent_id}")
+
+        trainer = metadata.trainer_class(agent)
+        return trainer.debug_episode()
 
     def _get_game_from_history(self, history):
         """Replays a sequence of actions to return a LeducGame state."""

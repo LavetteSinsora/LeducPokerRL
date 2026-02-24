@@ -96,6 +96,29 @@ class PolicyGradientAgent(BaseAgent):
 
         return Action(action_idx)
 
+    def get_action_evaluations(self, obs: Observation) -> list:
+        """Returns per-action probabilities for the analyzer UI."""
+        encoded = self.encode_observation(obs)
+        with torch.no_grad():
+            probs = self.model(encoded).squeeze(0)  # raw [P(fold), P(call), P(raise)]
+
+        # Legal masking + renormalization
+        legal_mask = torch.zeros(3)
+        for action in obs.legal_actions:
+            legal_mask[action.value] = 1.0
+        masked = probs * legal_mask
+        masked = masked / masked.sum()
+
+        return [
+            {
+                "action": a,
+                "probability": masked[a.value].item(),
+                "raw_probability": probs[a.value].item(),
+                "encoded": encoded,
+            }
+            for a in obs.legal_actions
+        ]
+
     def set_train_mode(self, mode: bool):
         self.train_mode = mode
         self.model.train(mode)

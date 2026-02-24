@@ -58,15 +58,22 @@
                     <input type="number" id="train-episodes" value="1000">
                 </div>
 
+                <div class="control-group">
+                    <label>Matchup Opponents</label>
+                    <div id="matchup-opponent-list" class="matchup-opponent-list">
+                        <!-- Populated dynamically with checkboxes -->
+                    </div>
+                </div>
+
                 <button id="btn-start-train" class="train-btn">Start Training</button>
                 <button id="btn-stop-train" class="train-btn stop" style="display: none;">Stop Training</button>
                 <button id="btn-reset-agent" class="train-btn reset" style="margin-top: 10px;">Reset Training</button>
             </div>
 
-            <!-- Charts -->
+            <!-- Charts Carousel -->
             <div class="dashboard-card">
                 <div class="chart-header">
-                    <h2>Training Progress</h2>
+                    <h2 id="carousel-title">Training Progress</h2>
                     <div style="font-size: 0.8rem; opacity: 0.6;">
                         Loss: <span id="current-loss" style="color: #f4d03f; font-weight: bold;">0.0000</span> |
                         Chips/Round: <span id="current-chips-round"
@@ -74,19 +81,52 @@
                     </div>
                 </div>
 
-                <div class="smoothing-controls">
-                    <label for="smoothing-slider">Smoothing:</label>
-                    <input type="range" id="smoothing-slider" min="0" max="0.99" step="0.01" value="0.6"
-                        style="flex: 1; accent-color: #f4d03f;">
-                    <span id="smoothing-value">0.60</span>
-                    <button id="btn-reset-zoom" class="reset-btn" style="padding: 6px 14px; font-size: 0.8rem;">Reset Zoom</button>
+                <!-- Carousel Navigation -->
+                <div class="carousel-nav">
+                    <button id="carousel-prev" class="carousel-arrow" disabled>&larr;</button>
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" data-panel="0"></span>
+                        <span class="carousel-dot" data-panel="1"></span>
+                    </div>
+                    <button id="carousel-next" class="carousel-arrow">&rarr;</button>
                 </div>
 
-                <div class="chart-container-split">
-                    <canvas id="lossChart"></canvas>
-                </div>
-                <div class="chart-container-split">
-                    <canvas id="chipsChart"></canvas>
+                <!-- Carousel Track -->
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Panel 0: Existing Loss + Chips charts -->
+                        <div class="carousel-panel active" data-panel="0">
+                            <div class="smoothing-controls">
+                                <label for="smoothing-slider">Smoothing:</label>
+                                <input type="range" id="smoothing-slider" min="0" max="0.99" step="0.01" value="0.6"
+                                    style="flex: 1; accent-color: #f4d03f;">
+                                <span id="smoothing-value">0.60</span>
+                                <button id="btn-reset-zoom" class="reset-btn"
+                                    style="padding: 6px 14px; font-size: 0.8rem;">Reset Zoom</button>
+                            </div>
+                            <div class="chart-container-split">
+                                <canvas id="lossChart"></canvas>
+                            </div>
+                            <div class="chart-container-split">
+                                <canvas id="chipsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Panel 1: Matchup chart -->
+                        <div class="carousel-panel" data-panel="1">
+                            <div class="smoothing-controls">
+                                <label for="matchup-smoothing-slider">Smoothing:</label>
+                                <input type="range" id="matchup-smoothing-slider" min="0" max="0.99" step="0.01"
+                                    value="0.6" style="flex: 1; accent-color: #f4d03f;">
+                                <span id="matchup-smoothing-value">0.60</span>
+                                <button id="btn-reset-matchup-zoom" class="reset-btn"
+                                    style="padding: 6px 14px; font-size: 0.8rem;">Reset Zoom</button>
+                            </div>
+                            <div class="chart-container-matchup">
+                                <canvas id="matchupChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
