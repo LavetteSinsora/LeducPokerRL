@@ -162,6 +162,7 @@ def _register_builtin_agents():
     from .nstep_value import NStepValueAgent
     from .pop_adaptive import PopAdaptiveAgent
     from .adaptive_history import AdaptiveHistoryAgent
+    from .target_value import TargetValueAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -174,6 +175,7 @@ def _register_builtin_agents():
     from src.training.nstep_value_trainer import NStepValueTrainer
     from src.training.pop_adaptive_trainer import PopAdaptiveTrainer
     from src.training.adaptive_history_trainer import AdaptiveHistoryTrainer
+    from src.training.target_value_trainer import TargetValueTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -365,6 +367,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=PopAdaptiveTrainer
+        )
+    )
+
+    # Target-Stabilized Value Agent - frozen target network for stable TD learning
+    registry.register(
+        id="target_value",
+        agent_class=TargetValueAgent,
+        metadata=AgentMetadata(
+            id="target_value",
+            display_name="Target-Stabilized Value AI",
+            description="Value agent with frozen target network for stable TD learning",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=TargetValueTrainer
         )
     )
 
