@@ -134,6 +134,57 @@ def evaluate_agents(
     )
 
 
+def compute_robustness_metrics(scores: dict) -> dict:
+    """
+    Compute multi-dimensional robustness metrics from head-to-head scores.
+
+    Given a dict of {opponent_id: avg_chips_per_round}, returns:
+      - avg: Mean performance across all opponents (overall strength)
+      - worst_case: Minimum performance (how badly the worst opponent hurts us)
+      - std: Standard deviation (consistency across opponent types)
+      - robustness: avg - 1.5 * std (lower confidence bound at ~93.3%)
+
+    The robustness score is a risk-adjusted metric inspired by portfolio theory.
+    It answers: "What performance can we be 93.3% confident of exceeding?"
+    In a normal distribution, avg - 1.5*std is the ~6.7th percentile.
+
+    Args:
+        scores: Dict mapping opponent_id to avg chips/round against that opponent.
+                Self-matchups (score=0) should be excluded.
+
+    Returns:
+        Dict with keys: avg, worst_case, best_case, std, robustness, n_opponents
+    """
+    import math
+
+    values = [v for v in scores.values() if v != 0.0 or len(scores) == 1]
+    if not values:
+        return {"avg": 0.0, "worst_case": 0.0, "best_case": 0.0,
+                "std": 0.0, "robustness": 0.0, "n_opponents": 0}
+
+    n = len(values)
+    avg = sum(values) / n
+    worst = min(values)
+    best = max(values)
+
+    if n > 1:
+        variance = sum((v - avg) ** 2 for v in values) / (n - 1)  # sample std
+        std = math.sqrt(variance)
+    else:
+        std = 0.0
+
+    robustness = avg - 1.5 * std
+
+    return {
+        "avg": round(avg, 4),
+        "worst_case": round(worst, 4),
+        "best_case": round(best, 4),
+        "std": round(std, 4),
+        "robustness": round(robustness, 4),
+        "n_opponents": n,
+    }
+
+
 def quick_evaluate(
     agent: BaseAgent,
     opponent: BaseAgent,
