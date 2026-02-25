@@ -158,6 +158,7 @@ def _register_builtin_agents():
     from .actor_critic import ActorCriticAgent
     from .history_value import HistoryValueAgent
     from .decay_adaptive import DecayAdaptiveAgent
+    from .target_value import TargetValueAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -166,6 +167,7 @@ def _register_builtin_agents():
     from src.training.actor_critic_trainer import ActorCriticTrainer
     from src.training.history_value_trainer import HistoryValueTrainer
     from src.training.decay_adaptive_trainer import DecayAdaptiveTrainer
+    from src.training.target_value_trainer import TargetValueTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -297,6 +299,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=ActorCriticTrainer
+        )
+    )
+
+    # Target-Stabilized Value Agent - frozen target network for stable TD learning
+    registry.register(
+        id="target_value",
+        agent_class=TargetValueAgent,
+        metadata=AgentMetadata(
+            id="target_value",
+            display_name="Target-Stabilized Value AI",
+            description="Value agent with frozen target network for stable TD learning",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=TargetValueTrainer
         )
     )
 
