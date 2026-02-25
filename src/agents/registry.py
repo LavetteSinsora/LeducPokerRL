@@ -158,6 +158,7 @@ def _register_builtin_agents():
     from .actor_critic import ActorCriticAgent
     from .history_value import HistoryValueAgent
     from .decay_adaptive import DecayAdaptiveAgent
+    from .adaptive_history import AdaptiveHistoryAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -166,6 +167,7 @@ def _register_builtin_agents():
     from src.training.actor_critic_trainer import ActorCriticTrainer
     from src.training.history_value_trainer import HistoryValueTrainer
     from src.training.decay_adaptive_trainer import DecayAdaptiveTrainer
+    from src.training.adaptive_history_trainer import AdaptiveHistoryTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -267,6 +269,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=DecayAdaptiveTrainer
+        )
+    )
+
+    # Adaptive History Agent - combines opponent stats with action history
+    registry.register(
+        id="adaptive_history",
+        agent_class=AdaptiveHistoryAgent,
+        metadata=AgentMetadata(
+            id="adaptive_history",
+            display_name="Adaptive History AI",
+            description="Combines opponent statistics with intra-hand action history encoding",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=AdaptiveHistoryTrainer
         )
     )
 
