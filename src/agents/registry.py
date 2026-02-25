@@ -156,6 +156,7 @@ def _register_builtin_agents():
     from .aux_value import AuxValueAgent
     from .cfr_agent import CFRAgent
     from .actor_critic import ActorCriticAgent
+    from .entropy_ac import EntropyACAgent
     from .history_value import HistoryValueAgent
     from .decay_adaptive import DecayAdaptiveAgent
     from .nstep_value import NStepValueAgent
@@ -165,6 +166,7 @@ def _register_builtin_agents():
     from src.training.aux_value_trainer import AuxValueTrainer
     from src.training.cfr_trainer import CFRTrainer
     from src.training.actor_critic_trainer import ActorCriticTrainer
+    from src.training.entropy_ac_trainer import EntropyACTrainer
     from src.training.history_value_trainer import HistoryValueTrainer
     from src.training.decay_adaptive_trainer import DecayAdaptiveTrainer
     from src.training.nstep_value_trainer import NStepValueTrainer
@@ -314,6 +316,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=NStepValueTrainer
+        )
+    )
+
+    # Entropy-Regularized Actor-Critic - encourages mixed strategies
+    registry.register(
+        id="entropy_ac",
+        agent_class=EntropyACAgent,
+        metadata=AgentMetadata(
+            id="entropy_ac",
+            display_name="Entropy Actor-Critic AI",
+            description="Actor-critic with entropy regularization for mixed-strategy robustness",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=EntropyACTrainer
         )
     )
 
