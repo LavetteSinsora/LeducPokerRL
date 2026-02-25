@@ -158,6 +158,7 @@ def _register_builtin_agents():
     from .actor_critic import ActorCriticAgent
     from .history_value import HistoryValueAgent
     from .decay_adaptive import DecayAdaptiveAgent
+    from .pop_adaptive import PopAdaptiveAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -166,6 +167,7 @@ def _register_builtin_agents():
     from src.training.actor_critic_trainer import ActorCriticTrainer
     from src.training.history_value_trainer import HistoryValueTrainer
     from src.training.decay_adaptive_trainer import DecayAdaptiveTrainer
+    from src.training.pop_adaptive_trainer import PopAdaptiveTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -297,6 +299,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=ActorCriticTrainer
+        )
+    )
+
+    # Population Adaptive Agent - trained against diverse opponent pool
+    registry.register(
+        id="pop_adaptive",
+        agent_class=PopAdaptiveAgent,
+        metadata=AgentMetadata(
+            id="pop_adaptive",
+            display_name="Population Adaptive AI",
+            description="Adaptive agent trained against diverse opponent population for robustness",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=PopAdaptiveTrainer
         )
     )
 
