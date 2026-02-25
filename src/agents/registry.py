@@ -158,6 +158,7 @@ def _register_builtin_agents():
     from .actor_critic import ActorCriticAgent
     from .history_value import HistoryValueAgent
     from .decay_adaptive import DecayAdaptiveAgent
+    from .nstep_value import NStepValueAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -166,6 +167,7 @@ def _register_builtin_agents():
     from src.training.actor_critic_trainer import ActorCriticTrainer
     from src.training.history_value_trainer import HistoryValueTrainer
     from src.training.decay_adaptive_trainer import DecayAdaptiveTrainer
+    from src.training.nstep_value_trainer import NStepValueTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -297,6 +299,21 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=ActorCriticTrainer
+        )
+    )
+
+    # N-Step Value Agent - value network with n-step return targets
+    registry.register(
+        id="nstep_value",
+        agent_class=NStepValueAgent,
+        metadata=AgentMetadata(
+            id="nstep_value",
+            display_name="N-Step Value AI",
+            description="Value agent using n-step returns for less biased TD targets",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=NStepValueTrainer
         )
     )
 
