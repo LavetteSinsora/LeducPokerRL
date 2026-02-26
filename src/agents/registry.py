@@ -163,6 +163,11 @@ def _register_builtin_agents():
     from .pop_adaptive import PopAdaptiveAgent
     from .adaptive_history import AdaptiveHistoryAgent
     from .target_value import TargetValueAgent
+    from .td_variant import TDVariantAgent
+    from .pruned_history import PrunedHistoryAgent
+    from .modulated_value import ModulatedValueAgent
+    from .curriculum_agent import CurriculumAgent
+    from .extended_adaptive import ExtendedAdaptiveAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -176,6 +181,10 @@ def _register_builtin_agents():
     from src.training.pop_adaptive_trainer import PopAdaptiveTrainer
     from src.training.adaptive_history_trainer import AdaptiveHistoryTrainer
     from src.training.target_value_trainer import TargetValueTrainer
+    from src.training.td_variant_trainer import TDVariantTrainer
+    from src.training.pruned_history_trainer import PrunedHistoryTrainer
+    from src.training.modulated_value_trainer import ModulatedValueTrainer
+    from src.training.curriculum_trainer import CurriculumTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -382,6 +391,83 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=TargetValueTrainer
+        )
+    )
+
+    # ── Round 3 Agents ────────────────────────────────────────────────
+
+    # TD Variant Agent - systematic TD(0)/n-step/MC comparison
+    registry.register(
+        id="td_variant",
+        agent_class=TDVariantAgent,
+        metadata=AgentMetadata(
+            id="td_variant",
+            display_name="TD Variant AI",
+            description="Value agent for systematic TD variant comparison with calibrated learning rates",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=TDVariantTrainer
+        )
+    )
+
+    # Pruned History Agent - adaptive value with pruned action history
+    registry.register(
+        id="pruned_history",
+        agent_class=PrunedHistoryAgent,
+        metadata=AgentMetadata(
+            id="pruned_history",
+            display_name="Pruned History AI",
+            description="Adaptive value agent with pruned action history encoding (12 features, no dead fold counts)",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=PrunedHistoryTrainer
+        )
+    )
+
+    # Modulated Value Agent - gated base/modulation architecture
+    registry.register(
+        id="modulated_value",
+        agent_class=ModulatedValueAgent,
+        metadata=AgentMetadata(
+            id="modulated_value",
+            display_name="Modulated Value AI",
+            description="Value agent with frozen base + confidence-gated opponent-specific modulation",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=ModulatedValueTrainer
+        )
+    )
+
+    # Curriculum Agent - block-scheduled population training with rehearsal
+    registry.register(
+        id="curriculum",
+        agent_class=CurriculumAgent,
+        metadata=AgentMetadata(
+            id="curriculum",
+            display_name="Curriculum AI",
+            description="Adaptive agent with block-scheduled opponent training and rehearsal buffer",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=CurriculumTrainer
+        )
+    )
+
+    # Extended Adaptive Agent - null hypothesis control (more training budget)
+    registry.register(
+        id="extended_adaptive",
+        agent_class=ExtendedAdaptiveAgent,
+        metadata=AgentMetadata(
+            id="extended_adaptive",
+            display_name="Extended Adaptive AI",
+            description="Adaptive value agent with 3-5x training budget (null hypothesis control)",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=AdaptiveTrainer
         )
     )
 
