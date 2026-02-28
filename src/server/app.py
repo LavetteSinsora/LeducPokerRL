@@ -93,6 +93,14 @@ class LeducAPIHandler(http.server.BaseHTTPRequestHandler):
                     self.send_header('Content-type', 'text/css')
                 elif path.endswith('.js'):
                     self.send_header('Content-type', 'application/javascript')
+                elif path.endswith('.json'):
+                    self.send_header('Content-type', 'application/json')
+                elif path.endswith('.md'):
+                    self.send_header('Content-type', 'text/markdown')
+                elif path.endswith('.png'):
+                    self.send_header('Content-type', 'image/png')
+                elif path.endswith('.svg'):
+                    self.send_header('Content-type', 'image/svg+xml')
                 self.end_headers()
                 self.wfile.write(content)
             except FileNotFoundError:

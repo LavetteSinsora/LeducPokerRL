@@ -1,0 +1,318 @@
+{
+  "nodes": [
+    {
+      "id": "heuristic",
+      "display_name": "Heuristic",
+      "round": 0,
+      "category": "baseline",
+      "avg_score": 0.604,
+      "robustness": -0.287,
+      "description": "Rule-based baseline with hand-crafted pot odds strategy"
+    },
+    {
+      "id": "value_based",
+      "display_name": "Value Based",
+      "round": 1,
+      "category": "rl",
+      "avg_score": 0.970,
+      "robustness": 0.049,
+      "description": "TD(0) value network with Boltzmann exploration, 15-dim observations"
+    },
+    {
+      "id": "actor_critic",
+      "display_name": "Actor-Critic",
+      "round": 1,
+      "category": "rl",
+      "avg_score": -0.568,
+      "robustness": -1.197,
+      "description": "REINFORCE with value baseline for variance reduction"
+    },
+    {
+      "id": "decay_adaptive",
+      "display_name": "Decay Adaptive",
+      "round": 1,
+      "category": "rl",
+      "avg_score": -0.881,
+      "robustness": -1.657,
+      "description": "EMA-weighted opponent stats — recency bias unhelpful in self-play (FAILED)"
+    },
+    {
+      "id": "history_value",
+      "display_name": "History Value",
+      "round": 1,
+      "category": "rl",
+      "avg_score": -0.512,
+      "robustness": -1.822,
+      "description": "Action history encoding, 31-dim obs — doubled input without capacity (FAILED)"
+    },
+    {
+      "id": "adaptive_value",
+      "display_name": "Adaptive Value",
+      "round": 1,
+      "category": "rl",
+      "avg_score": 1.012,
+      "robustness": -0.030,
+      "description": "Opponent statistics observation (+4 features), 19-dim obs — top agent in Rounds 1-2"
+    },
+    {
+      "id": "entropy_ac",
+      "display_name": "Entropy AC",
+      "round": 2,
+      "category": "rl",
+      "avg_score": 0.664,
+      "robustness": -0.712,
+      "description": "Entropy-regularized actor-critic — prevents policy collapse to exploitable strategies"
+    },
+    {
+      "id": "nstep_value",
+      "display_name": "N-Step Value",
+      "round": 2,
+      "category": "rl",
+      "avg_score": 0.072,
+      "robustness": -1.007,
+      "description": "N-step (n=3) TD returns — bias-variance tradeoff unfavorable in short games"
+    },
+    {
+      "id": "target_value",
+      "display_name": "Target Value",
+      "round": 2,
+      "category": "rl",
+      "avg_score": -0.296,
+      "robustness": -1.537,
+      "description": "Frozen target network for stable TD — stale targets backfire in non-stationary self-play"
+    },
+    {
+      "id": "pop_adaptive",
+      "display_name": "Pop Adaptive",
+      "round": 2,
+      "category": "rl",
+      "avg_score": -0.557,
+      "robustness": -1.771,
+      "description": "Population-trained adaptive — weak opponent pool teaches exploitation over robustness"
+    },
+    {
+      "id": "adaptive_history",
+      "display_name": "Adaptive History",
+      "round": 2,
+      "category": "rl",
+      "avg_score": 0.134,
+      "robustness": -0.917,
+      "description": "Combined adaptive + history features, 35-dim — feature concatenation without synergy"
+    },
+    {
+      "id": "aux_value",
+      "display_name": "Aux Value",
+      "round": 2,
+      "category": "rl",
+      "avg_score": -0.211,
+      "robustness": -0.986,
+      "description": "Auxiliary Bellman consistency loss — steals gradient budget from primary TD loss"
+    },
+    {
+      "id": "modulated_value",
+      "display_name": "Modulated Value",
+      "round": 3,
+      "category": "rl",
+      "avg_score": 0.967,
+      "robustness": 0.199,
+      "description": "Frozen base + gated modulation — structural protection yields #1 robustness (beats ALL opponents)"
+    },
+    {
+      "id": "td_variant",
+      "display_name": "TD Variant",
+      "round": 3,
+      "category": "rl",
+      "avg_score": -0.216,
+      "robustness": -1.729,
+      "description": "TD(3) calibrated n-step — functionally pure Monte Carlo in Leduc's short chains"
+    },
+    {
+      "id": "curriculum",
+      "display_name": "Curriculum",
+      "round": 3,
+      "category": "rl",
+      "avg_score": -0.822,
+      "robustness": -1.976,
+      "description": "Block training + rehearsal buffer — both-player chains cause catastrophic gradient interference"
+    },
+    {
+      "id": "pruned_history",
+      "display_name": "Pruned History",
+      "round": 3,
+      "category": "rl",
+      "avg_score": -0.691,
+      "robustness": -1.781,
+      "description": "Pruned history features, 31-dim — insufficient budget and undersized network"
+    },
+    {
+      "id": "extended_adaptive",
+      "display_name": "Extended Adaptive",
+      "round": 3,
+      "category": "rl",
+      "avg_score": 0.329,
+      "robustness": -0.406,
+      "description": "3x training budget null hypothesis — more training helps but can't match architectural innovation"
+    },
+    {
+      "id": "cfr",
+      "display_name": "CFR+",
+      "round": 0,
+      "category": "game_theory",
+      "avg_score": null,
+      "robustness": null,
+      "description": "Tabular CFR+ Nash equilibrium solver — game-theoretic baseline (not in RL tournaments)"
+    },
+    {
+      "id": "belief_value",
+      "display_name": "Belief Value",
+      "round": 4,
+      "category": "rl",
+      "avg_score": -0.434,
+      "robustness": -1.024,
+      "description": "Bayesian belief tracking over opponent hand — likelihood model broken by self-play bias"
+    },
+    {
+      "id": "nash_value",
+      "display_name": "Nash Value",
+      "round": 4,
+      "category": "hybrid",
+      "avg_score": -0.984,
+      "robustness": -1.221,
+      "description": "Neural net on exact CFR Nash values — perfect fit but argmax ≠ mixed strategy"
+    },
+    {
+      "id": "distributional_value",
+      "display_name": "Distributional",
+      "round": 4,
+      "category": "rl",
+      "avg_score": -0.580,
+      "robustness": -1.230,
+      "description": "Dual-head mean+variance, risk-sensitive — beta=0.5 shifts RAISE→CALL, best R4 robustness"
+    },
+    {
+      "id": "opponent_model",
+      "display_name": "Opponent Model",
+      "round": 4,
+      "category": "rl",
+      "avg_score": -1.398,
+      "robustness": -2.174,
+      "description": "2-ply search with learned opponent model — generic model amplifies aggression bias"
+    },
+    {
+      "id": "info_hiding",
+      "display_name": "Info Hiding",
+      "round": 4,
+      "category": "rl",
+      "avg_score": -0.626,
+      "robustness": -1.133,
+      "description": "Adversarial spy network for deception — gradient detached through discrete sampling"
+    }
+  ],
+  "edges": [
+    {
+      "from": "heuristic",
+      "to": "value_based",
+      "label": "TD(0) value network"
+    },
+    {
+      "from": "heuristic",
+      "to": "actor_critic",
+      "label": "policy gradient + baseline"
+    },
+    {
+      "from": "value_based",
+      "to": "adaptive_value",
+      "label": "+opponent stats"
+    },
+    {
+      "from": "value_based",
+      "to": "aux_value",
+      "label": "+auxiliary loss"
+    },
+    {
+      "from": "value_based",
+      "to": "history_value",
+      "label": "+action history"
+    },
+    {
+      "from": "adaptive_value",
+      "to": "decay_adaptive",
+      "label": "EMA weighting"
+    },
+    {
+      "from": "actor_critic",
+      "to": "entropy_ac",
+      "label": "+entropy bonus"
+    },
+    {
+      "from": "value_based",
+      "to": "nstep_value",
+      "label": "n-step returns"
+    },
+    {
+      "from": "value_based",
+      "to": "target_value",
+      "label": "+target network"
+    },
+    {
+      "from": "adaptive_value",
+      "to": "pop_adaptive",
+      "label": "+opponent pool"
+    },
+    {
+      "from": "adaptive_value",
+      "to": "adaptive_history",
+      "label": "merged features"
+    },
+    {
+      "from": "history_value",
+      "to": "adaptive_history",
+      "label": "merged features"
+    },
+    {
+      "from": "adaptive_value",
+      "to": "modulated_value",
+      "label": "+gated modulation"
+    },
+    {
+      "from": "value_based",
+      "to": "td_variant",
+      "label": "calibrated n-step/MC"
+    },
+    {
+      "from": "adaptive_value",
+      "to": "curriculum",
+      "label": "+block training"
+    },
+    {
+      "from": "adaptive_history",
+      "to": "pruned_history",
+      "label": "pruned features"
+    },
+    {
+      "from": "adaptive_value",
+      "to": "extended_adaptive",
+      "label": "3x training budget"
+    },
+    {
+      "from": "value_based",
+      "to": "distributional_value",
+      "label": "+variance head"
+    },
+    {
+      "from": "value_based",
+      "to": "opponent_model",
+      "label": "+opponent model + 2-ply"
+    },
+    {
+      "from": "actor_critic",
+      "to": "info_hiding",
+      "label": "+adversarial spy"
+    },
+    {
+      "from": "cfr",
+      "to": "nash_value",
+      "label": "Nash values → neural net"
+    }
+  ]
+}

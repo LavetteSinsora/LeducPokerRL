@@ -168,6 +168,16 @@ def _register_builtin_agents():
     from .modulated_value import ModulatedValueAgent
     from .curriculum_agent import CurriculumAgent
     from .extended_adaptive import ExtendedAdaptiveAgent
+    from .distributional_value import DistributionalValueAgent
+    from .opponent_model_agent import OpponentModelAgent
+    from .info_hiding import InfoHidingAgent
+    from .belief_value import BeliefValueAgent
+    from .nash_value import NashValueAgent
+    from .belief_cfr import BeliefCfrAgent
+    from .belief_oracle import BeliefOracleAgent
+    from .belief_modulated import BeliefModulatedAgent
+    from .belief_confident import BeliefConfidentAgent
+    from .belief_stable import BeliefStableAgent
     from src.training.value_based_trainer import SelfPlayTrainer
     from src.training.policy_gradient_trainer import PolicyGradientTrainer
     from src.training.adaptive_trainer import AdaptiveTrainer
@@ -185,6 +195,16 @@ def _register_builtin_agents():
     from src.training.pruned_history_trainer import PrunedHistoryTrainer
     from src.training.modulated_value_trainer import ModulatedValueTrainer
     from src.training.curriculum_trainer import CurriculumTrainer
+    from src.training.distributional_trainer import DistributionalTrainer
+    from src.training.opponent_model_trainer import OpponentModelTrainer
+    from src.training.info_hiding_trainer import InfoHidingTrainer
+    from src.training.belief_trainer import BeliefTrainer
+    from src.training.nash_trainer import NashTrainer
+    from src.training.belief_cfr_trainer import BeliefCfrTrainer
+    from src.training.belief_oracle_trainer import BeliefOracleTrainer
+    from src.training.belief_modulated_trainer import BeliefModulatedTrainer
+    from src.training.belief_confident_trainer import BeliefConfidentTrainer
+    from src.training.belief_stable_trainer import BeliefStableTrainer
 
     # Heuristic Agent - rule-based baseline
     registry.register(
@@ -468,6 +488,160 @@ def _register_builtin_agents():
             requires_model_path=True,
             category="rl",
             trainer_class=AdaptiveTrainer
+        )
+    )
+
+    # ── Round 4 Agents ────────────────────────────────────────────────
+
+    # Distributional Value Agent - quantile regression with risk-sensitive decisions
+    registry.register(
+        id="distributional_value",
+        agent_class=DistributionalValueAgent,
+        metadata=AgentMetadata(
+            id="distributional_value",
+            display_name="Distributional Value AI",
+            description="Risk-sensitive agent using quantile regression to learn full return distribution",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=DistributionalTrainer
+        )
+    )
+
+    # Opponent Model Agent - 2-ply lookahead with learned opponent response model
+    registry.register(
+        id="opponent_model",
+        agent_class=OpponentModelAgent,
+        metadata=AgentMetadata(
+            id="opponent_model",
+            display_name="Opponent Model AI",
+            description="2-ply lookahead agent with learned opponent model for response planning",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=OpponentModelTrainer
+        )
+    )
+
+    # Information-Hiding Agent - adversarial spy for deceptive play
+    registry.register(
+        id="info_hiding",
+        agent_class=InfoHidingAgent,
+        metadata=AgentMetadata(
+            id="info_hiding",
+            display_name="Info-Hiding AI",
+            description="Actor-critic with adversarial spy network for hand-unpredictable deceptive play",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=InfoHidingTrainer
+        )
+    )
+
+    # Bayesian Belief Agent - explicit belief tracking over opponent hand
+    registry.register(
+        id="belief_value",
+        agent_class=BeliefValueAgent,
+        metadata=AgentMetadata(
+            id="belief_value",
+            display_name="Bayesian Belief AI",
+            description="Maintains explicit belief distribution over opponent hand with learned likelihood model",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=BeliefTrainer
+        )
+    )
+
+    # Nash Value Agent - neural value net trained on exact CFR equilibrium values
+    registry.register(
+        id="nash_value",
+        agent_class=NashValueAgent,
+        metadata=AgentMetadata(
+            id="nash_value",
+            display_name="Nash Value AI",
+            description="Value network trained on exact Nash equilibrium values from CFR (supervised, not self-play)",
+            is_trainable=True,
+            requires_model_path=True,
+            category="game_theory",
+            trainer_class=NashTrainer
+        )
+    )
+
+    # ── Round 5 Agents ────────────────────────────────────────────────
+
+    # Belief-CFR Agent - belief tracking with CFR Nash likelihood model
+    registry.register(
+        id="belief_cfr",
+        agent_class=BeliefCfrAgent,
+        metadata=AgentMetadata(
+            id="belief_cfr",
+            display_name="Belief-CFR AI",
+            description="Bayesian belief agent using frozen CFR Nash equilibrium as likelihood model for belief updates",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=BeliefCfrTrainer
+        )
+    )
+
+    # Belief Oracle Agent - perfect-info value function with belief-weighted action selection
+    registry.register(
+        id="belief_oracle",
+        agent_class=BeliefOracleAgent,
+        metadata=AgentMetadata(
+            id="belief_oracle",
+            display_name="Belief Oracle AI",
+            description="Perfect-information value function V(s, my_hand, opp_hand) with belief-weighted action selection",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=BeliefOracleTrainer
+        )
+    )
+
+    # Belief-Modulated Agent - CFR Nash base + learned gated modulation
+    registry.register(
+        id="belief_modulated",
+        agent_class=BeliefModulatedAgent,
+        metadata=AgentMetadata(
+            id="belief_modulated",
+            display_name="Belief-Modulated AI",
+            description="Bayesian belief agent with CFR Nash base likelihood + learned gated modulation from opponent stats",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=BeliefModulatedTrainer
+        )
+    )
+
+    # Belief Confident Agent - belief + confidence score for trust calibration
+    registry.register(
+        id="belief_confident",
+        agent_class=BeliefConfidentAgent,
+        metadata=AgentMetadata(
+            id="belief_confident",
+            display_name="Belief Confident AI",
+            description="Bayesian belief agent with confidence score indicating belief reliability (15-dim input)",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=BeliefConfidentTrainer
+        )
+    )
+
+    # Belief Stable Agent - stable belief TD targets (b_t instead of b_{t+1})
+    registry.register(
+        id="belief_stable",
+        agent_class=BeliefStableAgent,
+        metadata=AgentMetadata(
+            id="belief_stable",
+            display_name="Belief Stable AI",
+            description="Bayesian belief agent with stable TD targets using old belief to avoid noisy information-gain signals",
+            is_trainable=True,
+            requires_model_path=True,
+            category="rl",
+            trainer_class=BeliefStableTrainer
         )
     )
 

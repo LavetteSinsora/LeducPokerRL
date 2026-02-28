@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(launchctl list:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Read(//Users/chrishe/Downloads/**)",
+      "Bash(git worktree:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
