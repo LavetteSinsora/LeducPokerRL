@@ -1,0 +1,1196 @@
+{
+  "gate_distribution": {
+    "n_decisions": 612,
+    "mean": 0.4022,
+    "std": 0.0177,
+    "min": 0.3923,
+    "max": 0.4765,
+    "percentiles": {
+      "p5": 0.3925,
+      "p25": 0.3929,
+      "p50": 0.394,
+      "p75": 0.3957,
+      "p95": 0.4468
+    },
+    "by_round": {
+      "round_0": {
+        "mean": 0.4023,
+        "n": 321
+      },
+      "round_1": {
+        "mean": 0.4021,
+        "n": 291
+      }
+    },
+    "by_pair": {
+      "has_pair": {
+        "mean": 0.4029,
+        "n": 46
+      },
+      "no_pair": {
+        "mean": 0.4021,
+        "n": 566
+      }
+    },
+    "histogram": {
+      "bins": [
+        0.3923,
+        0.4007,
+        0.4091,
+        0.4176,
+        0.426,
+        0.4344,
+        0.4428,
+        0.4512,
+        0.4597,
+        0.4681,
+        0.4765
+      ],
+      "counts": [
+        475,
+        21,
+        16,
+        16,
+        13,
+        18,
+        45,
+        7,
+        0,
+        1
+      ]
+    }
+  },
+  "extreme_modulations": {
+    "most_negative_delta": [
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1725,
+        "gate": 0.449,
+        "eff_mod": -0.0774,
+        "final": -0.2646,
+        "stats": [
+          0.0,
+          0.8333,
+          0.5,
+          0.06
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1722,
+        "gate": 0.4446,
+        "eff_mod": -0.0766,
+        "final": -0.2638,
+        "stats": [
+          0.0,
+          1.0,
+          0.5,
+          0.02
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1719,
+        "gate": 0.448,
+        "eff_mod": -0.077,
+        "final": -0.2642,
+        "stats": [
+          0.0,
+          0.8,
+          0.5,
+          0.1
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1717,
+        "gate": 0.4452,
+        "eff_mod": -0.0764,
+        "final": -0.2636,
+        "stats": [
+          0.0,
+          0.7143,
+          0.0,
+          0.14
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1709,
+        "gate": 0.4529,
+        "eff_mod": -0.0774,
+        "final": -0.2646,
+        "stats": [
+          0.0625,
+          0.625,
+          0.3333,
+          0.16
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1697,
+        "gate": 0.4507,
+        "eff_mod": -0.0765,
+        "final": -0.2637,
+        "stats": [
+          0.05,
+          0.6,
+          0.25,
+          0.2
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.165,
+        "gate": 0.4437,
+        "eff_mod": -0.0732,
+        "final": -0.2604,
+        "stats": [
+          0.0667,
+          0.5333,
+          0.25,
+          0.34
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1642,
+        "gate": 0.4422,
+        "eff_mod": -0.0726,
+        "final": -0.2598,
+        "stats": [
+          0.0625,
+          0.5312,
+          0.25,
+          0.36
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1596,
+        "gate": 0.4306,
+        "eff_mod": -0.0687,
+        "final": -0.2559,
+        "stats": [
+          0.0638,
+          0.5106,
+          0.2143,
+          0.52
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1585,
+        "gate": 0.423,
+        "eff_mod": -0.067,
+        "final": -0.2542,
+        "stats": [
+          0.0727,
+          0.5455,
+          0.2353,
+          0.6
+        ]
+      }
+    ],
+    "most_positive_delta": [
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0309,
+        "gate": 0.3924,
+        "eff_mod": 0.0121,
+        "final": -2.5664,
+        "stats": [
+          0.0854,
+          0.5665,
+          0.2547,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0309,
+        "gate": 0.3926,
+        "eff_mod": 0.0121,
+        "final": -2.5664,
+        "stats": [
+          0.0909,
+          0.5673,
+          0.266,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0305,
+        "gate": 0.3933,
+        "eff_mod": 0.012,
+        "final": -2.5665,
+        "stats": [
+          0.0896,
+          0.5522,
+          0.2667,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0301,
+        "gate": 0.3941,
+        "eff_mod": 0.0119,
+        "final": -2.5667,
+        "stats": [
+          0.0938,
+          0.5391,
+          0.2727,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0281,
+        "gate": 0.4457,
+        "eff_mod": 0.0125,
+        "final": -2.566,
+        "stats": [
+          0.0,
+          1.0,
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0274,
+        "gate": 0.4186,
+        "eff_mod": 0.0114,
+        "final": -2.5671,
+        "stats": [
+          0.0656,
+          0.5574,
+          0.2222,
+          0.64
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0273,
+        "gate": 0.4492,
+        "eff_mod": 0.0122,
+        "final": -2.5663,
+        "stats": [
+          0.0,
+          0.8,
+          0.5,
+          0.08
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0272,
+        "gate": 0.4501,
+        "eff_mod": 0.0122,
+        "final": -2.5663,
+        "stats": [
+          0.0,
+          0.8333,
+          0.5,
+          0.04
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -1.2363,
+        "delta": -0.0011,
+        "gate": 0.3934,
+        "eff_mod": -0.0005,
+        "final": -1.2368,
+        "stats": [
+          0.0982,
+          0.558,
+          0.2785,
+          1.0
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -1.2363,
+        "delta": -0.0011,
+        "gate": 0.3946,
+        "eff_mod": -0.0004,
+        "final": -1.2368,
+        "stats": [
+          0.1016,
+          0.5348,
+          0.2794,
+          1.0
+        ]
+      }
+    ],
+    "most_negative_effective": [
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1725,
+        "gate": 0.449,
+        "eff_mod": -0.0774,
+        "final": -0.2646,
+        "stats": [
+          0.0,
+          0.8333,
+          0.5,
+          0.06
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1709,
+        "gate": 0.4529,
+        "eff_mod": -0.0774,
+        "final": -0.2646,
+        "stats": [
+          0.0625,
+          0.625,
+          0.3333,
+          0.16
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1719,
+        "gate": 0.448,
+        "eff_mod": -0.077,
+        "final": -0.2642,
+        "stats": [
+          0.0,
+          0.8,
+          0.5,
+          0.1
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1722,
+        "gate": 0.4446,
+        "eff_mod": -0.0766,
+        "final": -0.2638,
+        "stats": [
+          0.0,
+          1.0,
+          0.5,
+          0.02
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1697,
+        "gate": 0.4507,
+        "eff_mod": -0.0765,
+        "final": -0.2637,
+        "stats": [
+          0.05,
+          0.6,
+          0.25,
+          0.2
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1717,
+        "gate": 0.4452,
+        "eff_mod": -0.0764,
+        "final": -0.2636,
+        "stats": [
+          0.0,
+          0.7143,
+          0.0,
+          0.14
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.165,
+        "gate": 0.4437,
+        "eff_mod": -0.0732,
+        "final": -0.2604,
+        "stats": [
+          0.0667,
+          0.5333,
+          0.25,
+          0.34
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1642,
+        "gate": 0.4422,
+        "eff_mod": -0.0726,
+        "final": -0.2598,
+        "stats": [
+          0.0625,
+          0.5312,
+          0.25,
+          0.36
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1596,
+        "gate": 0.4306,
+        "eff_mod": -0.0687,
+        "final": -0.2559,
+        "stats": [
+          0.0638,
+          0.5106,
+          0.2143,
+          0.52
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "\u2014",
+        "has_pair": false,
+        "round": 0,
+        "pot": "1:1",
+        "raises": 0,
+        "v_base": -0.1872,
+        "delta": -0.1585,
+        "gate": 0.423,
+        "eff_mod": -0.067,
+        "final": -0.2542,
+        "stats": [
+          0.0727,
+          0.5455,
+          0.2353,
+          0.6
+        ]
+      }
+    ],
+    "most_positive_effective": [
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0281,
+        "gate": 0.4457,
+        "eff_mod": 0.0125,
+        "final": -2.566,
+        "stats": [
+          0.0,
+          1.0,
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0273,
+        "gate": 0.4492,
+        "eff_mod": 0.0122,
+        "final": -2.5663,
+        "stats": [
+          0.0,
+          0.8,
+          0.5,
+          0.08
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0272,
+        "gate": 0.4501,
+        "eff_mod": 0.0122,
+        "final": -2.5663,
+        "stats": [
+          0.0,
+          0.8333,
+          0.5,
+          0.04
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0309,
+        "gate": 0.3924,
+        "eff_mod": 0.0121,
+        "final": -2.5664,
+        "stats": [
+          0.0854,
+          0.5665,
+          0.2547,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0309,
+        "gate": 0.3926,
+        "eff_mod": 0.0121,
+        "final": -2.5664,
+        "stats": [
+          0.0909,
+          0.5673,
+          0.266,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0305,
+        "gate": 0.3933,
+        "eff_mod": 0.012,
+        "final": -2.5665,
+        "stats": [
+          0.0896,
+          0.5522,
+          0.2667,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0301,
+        "gate": 0.3941,
+        "eff_mod": 0.0119,
+        "final": -2.5667,
+        "stats": [
+          0.0938,
+          0.5391,
+          0.2727,
+          1.0
+        ]
+      },
+      {
+        "hand": "J",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -2.5785,
+        "delta": 0.0274,
+        "gate": 0.4186,
+        "eff_mod": 0.0114,
+        "final": -2.5671,
+        "stats": [
+          0.0656,
+          0.5574,
+          0.2222,
+          0.64
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -1.2363,
+        "delta": -0.0011,
+        "gate": 0.3946,
+        "eff_mod": -0.0004,
+        "final": -1.2368,
+        "stats": [
+          0.1016,
+          0.5348,
+          0.2794,
+          1.0
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": "K",
+        "has_pair": false,
+        "round": 1,
+        "pot": "3:7",
+        "raises": 1,
+        "v_base": -1.2363,
+        "delta": -0.0012,
+        "gate": 0.3926,
+        "eff_mod": -0.0005,
+        "final": -1.2368,
+        "stats": [
+          0.0827,
+          0.56,
+          0.252,
+          1.0
+        ]
+      }
+    ]
+  },
+  "state_conditioned": {
+    "passive": {
+      "gate": 0.4279,
+      "stats_vec": [
+        0.6,
+        0.1,
+        0.7,
+        1.0
+      ],
+      "by_state_category": {
+        "preflop_J": {
+          "mean": -0.1782,
+          "std": 0.0119,
+          "min": -0.1818,
+          "max": -0.1243,
+          "range": 0.0576,
+          "n": 50
+        },
+        "preflop_Q": {
+          "mean": -0.1629,
+          "std": 0.014,
+          "min": -0.1693,
+          "max": -0.1262,
+          "range": 0.0431,
+          "n": 50
+        },
+        "preflop_K": {
+          "mean": -0.1826,
+          "std": 0.0115,
+          "min": -0.1866,
+          "max": -0.1364,
+          "range": 0.0502,
+          "n": 50
+        },
+        "postflop_pair": {
+          "mean": -0.0376,
+          "std": 0.0326,
+          "min": -0.0872,
+          "max": 0.0543,
+          "range": 0.1415,
+          "n": 50
+        },
+        "postflop_no_pair_high": {
+          "mean": -0.0788,
+          "std": 0.0247,
+          "min": -0.107,
+          "max": -0.0028,
+          "range": 0.1042,
+          "n": 50
+        },
+        "postflop_no_pair_low": {
+          "mean": -0.0188,
+          "std": 0.0231,
+          "min": -0.0445,
+          "max": 0.0554,
+          "range": 0.0999,
+          "n": 50
+        }
+      },
+      "cross_category_std": 0.0674,
+      "cross_category_range": 0.1638
+    },
+    "aggressive": {
+      "gate": 0.3915,
+      "stats_vec": [
+        0.1,
+        0.6,
+        0.2,
+        1.0
+      ],
+      "by_state_category": {
+        "preflop_J": {
+          "mean": -0.133,
+          "std": 0.013,
+          "min": -0.1374,
+          "max": -0.0789,
+          "range": 0.0585,
+          "n": 50
+        },
+        "preflop_Q": {
+          "mean": -0.1411,
+          "std": 0.0197,
+          "min": -0.1504,
+          "max": -0.0908,
+          "range": 0.0596,
+          "n": 50
+        },
+        "preflop_K": {
+          "mean": -0.1527,
+          "std": 0.011,
+          "min": -0.1564,
+          "max": -0.1068,
+          "range": 0.0495,
+          "n": 50
+        },
+        "postflop_pair": {
+          "mean": -0.0227,
+          "std": 0.0292,
+          "min": -0.0656,
+          "max": 0.0712,
+          "range": 0.1368,
+          "n": 50
+        },
+        "postflop_no_pair_high": {
+          "mean": -0.0574,
+          "std": 0.0228,
+          "min": -0.0768,
+          "max": 0.0113,
+          "range": 0.0882,
+          "n": 50
+        },
+        "postflop_no_pair_low": {
+          "mean": 0.0064,
+          "std": 0.0231,
+          "min": -0.02,
+          "max": 0.0777,
+          "range": 0.0978,
+          "n": 50
+        }
+      },
+      "cross_category_std": 0.0619,
+      "cross_category_range": 0.1591
+    },
+    "balanced": {
+      "gate": 0.4182,
+      "stats_vec": [
+        0.33,
+        0.33,
+        0.5,
+        1.0
+      ],
+      "by_state_category": {
+        "preflop_J": {
+          "mean": -0.1555,
+          "std": 0.0119,
+          "min": -0.1595,
+          "max": -0.1055,
+          "range": 0.0541,
+          "n": 50
+        },
+        "preflop_Q": {
+          "mean": -0.1501,
+          "std": 0.0144,
+          "min": -0.1568,
+          "max": -0.1126,
+          "range": 0.0441,
+          "n": 50
+        },
+        "preflop_K": {
+          "mean": -0.1671,
+          "std": 0.01,
+          "min": -0.1705,
+          "max": -0.1274,
+          "range": 0.0431,
+          "n": 50
+        },
+        "postflop_pair": {
+          "mean": -0.0316,
+          "std": 0.0329,
+          "min": -0.0808,
+          "max": 0.0623,
+          "range": 0.1431,
+          "n": 50
+        },
+        "postflop_no_pair_high": {
+          "mean": -0.066,
+          "std": 0.0235,
+          "min": -0.0926,
+          "max": 0.0043,
+          "range": 0.0969,
+          "n": 50
+        },
+        "postflop_no_pair_low": {
+          "mean": -0.004,
+          "std": 0.0237,
+          "min": -0.0317,
+          "max": 0.0679,
+          "range": 0.0997,
+          "n": 50
+        }
+      },
+      "cross_category_std": 0.0646,
+      "cross_category_range": 0.1631
+    },
+    "summary": {
+      "avg_cross_category_range": 0.162,
+      "avg_within_category_std": 0.0196,
+      "state_matters": "True",
+      "interpretation": "The delta network produces DIFFERENT modulations for different game states even with the SAME opponent profile. A gate that sees game state could selectively apply or suppress these state-dependent adjustments."
+    }
+  },
+  "gate_improvement": {
+    "passive": {
+      "learned_gate": 0.4279,
+      "oracle_gate_mean": 0.4577,
+      "oracle_gate_std": 0.4982,
+      "oracle_gate_range": [
+        0.0,
+        1.0
+      ],
+      "mse_base_only": 7.3622,
+      "mse_learned_gate": 7.3953,
+      "mse_oracle_gate": 7.1372,
+      "improvement_potential": 0.2581,
+      "n_points": 745
+    },
+    "aggressive": {
+      "learned_gate": 0.3915,
+      "oracle_gate_mean": 0.4483,
+      "oracle_gate_std": 0.4973,
+      "oracle_gate_range": [
+        0.0,
+        1.0
+      ],
+      "mse_base_only": 7.3622,
+      "mse_learned_gate": 7.3869,
+      "mse_oracle_gate": 7.182,
+      "improvement_potential": 0.2049,
+      "n_points": 745
+    },
+    "balanced": {
+      "learned_gate": 0.4182,
+      "oracle_gate_mean": 0.4483,
+      "oracle_gate_std": 0.4973,
+      "oracle_gate_range": [
+        0.0,
+        1.0
+      ],
+      "mse_base_only": 7.3622,
+      "mse_learned_gate": 7.3915,
+      "mse_oracle_gate": 7.1621,
+      "improvement_potential": 0.2294,
+      "n_points": 745
+    },
+    "summary": {
+      "avg_improvement_potential": 0.2308,
+      "avg_oracle_gate_variability": 0.4976,
+      "state_aware_gate_would_help": "True",
+      "recommendation": "A state-aware gate (taking game state + opponent stats) could meaningfully reduce prediction error. Future work should try GateNetwork(19->16->1->sigmoid) with the full 19-dim input."
+    }
+  },
+  "opponent_profiles": {
+    "heuristic": {
+      "n_decisions": 151,
+      "final_stats": [
+        0.0753,
+        0.5484,
+        0.2414,
+        0.98
+      ],
+      "gate": {
+        "start_avg": 0.4516,
+        "end_avg": 0.395,
+        "overall_mean": 0.4284
+      },
+      "delta": {
+        "mean": -0.0888,
+        "std": 0.053
+      },
+      "effective_modulation": {
+        "mean": -0.038,
+        "std": 0.0228
+      },
+      "gate_evolution_by_hand": [
+        0.4534,
+        0.4446,
+        0.4516,
+        0.4483,
+        0.4501,
+        0.4475,
+        0.4464,
+        0.4461,
+        0.4521,
+        0.4506,
+        "...",
+        0.3996,
+        0.398,
+        0.3965,
+        0.3952,
+        0.3942
+      ]
+    },
+    "value_based": {
+      "n_decisions": 129,
+      "final_stats": [
+        0.1319,
+        0.3187,
+        0.2857,
+        0.98
+      ],
+      "gate": {
+        "start_avg": 0.4516,
+        "end_avg": 0.4094,
+        "overall_mean": 0.4389
+      },
+      "delta": {
+        "mean": -0.0964,
+        "std": 0.0493
+      },
+      "effective_modulation": {
+        "mean": -0.0424,
+        "std": 0.0217
+      },
+      "gate_evolution_by_hand": [
+        0.4534,
+        0.4506,
+        0.4566,
+        0.4569,
+        0.4575,
+        0.4575,
+        0.4561,
+        0.4562,
+        0.455,
+        0.4526,
+        "...",
+        0.4175,
+        0.4154,
+        0.4133,
+        0.4115,
+        0.409
+      ]
+    },
+    "adaptive_value": {
+      "n_decisions": 129,
+      "final_stats": [
+        0.0769,
+        0.3187,
+        0.25,
+        0.98
+      ],
+      "gate": {
+        "start_avg": 0.4516,
+        "end_avg": 0.4064,
+        "overall_mean": 0.4367
+      },
+      "delta": {
+        "mean": -0.0952,
+        "std": 0.0489
+      },
+      "effective_modulation": {
+        "mean": -0.0417,
+        "std": 0.0214
+      },
+      "gate_evolution_by_hand": [
+        0.4534,
+        0.4506,
+        0.4566,
+        0.4569,
+        0.4575,
+        0.4575,
+        0.4561,
+        0.4562,
+        0.455,
+        0.4526,
+        "...",
+        0.4142,
+        0.4121,
+        0.4099,
+        0.4084,
+        0.406
+      ]
+    }
+  }
+}

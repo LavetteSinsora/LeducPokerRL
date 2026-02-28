@@ -1,0 +1,591 @@
+{
+  "gate_analysis": {
+    "confidence_sweep": [
+      {
+        "confidence": 0.0,
+        "gate": 0.4765,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.0
+        ]
+      },
+      {
+        "confidence": 0.05,
+        "gate": 0.4732,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.667,
+          0.04
+        ]
+      },
+      {
+        "confidence": 0.1,
+        "gate": 0.4696,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.667,
+          0.1
+        ]
+      },
+      {
+        "confidence": 0.15,
+        "gate": 0.4679,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.14
+        ]
+      },
+      {
+        "confidence": 0.2,
+        "gate": 0.4643,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.2
+        ]
+      },
+      {
+        "confidence": 0.25,
+        "gate": 0.4615,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.571,
+          0.24
+        ]
+      },
+      {
+        "confidence": 0.3,
+        "gate": 0.4586,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.444,
+          0.3
+        ]
+      },
+      {
+        "confidence": 0.35,
+        "gate": 0.4559,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.34
+        ]
+      },
+      {
+        "confidence": 0.4,
+        "gate": 0.4527,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.4
+        ]
+      },
+      {
+        "confidence": 0.45,
+        "gate": 0.4509,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.462,
+          0.44
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "gate": 0.447,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.533,
+          0.5
+        ]
+      },
+      {
+        "confidence": 0.55,
+        "gate": 0.4452,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.54
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "gate": 0.442,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.6
+        ]
+      },
+      {
+        "confidence": 0.65,
+        "gate": 0.4396,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.526,
+          0.64
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "gate": 0.4369,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.476,
+          0.7
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "gate": 0.4345,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.74
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "gate": 0.4313,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.8
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "gate": 0.4289,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.48,
+          0.84
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "gate": 0.4238,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.519,
+          0.9
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "gate": 0.4211,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.94
+        ]
+      },
+      {
+        "confidence": 1.0,
+        "gate": 0.4163,
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          1.0
+        ]
+      }
+    ],
+    "gate_increases_with_confidence": false,
+    "avg_gate_low_conf": 0.4703,
+    "avg_gate_high_conf": 0.4243,
+    "vpip_agg_grid": [
+      [
+        0.4342,
+        0.4233,
+        0.407,
+        0.3866
+      ],
+      [
+        0.4305,
+        0.4233,
+        0.407,
+        0.3866
+      ],
+      [
+        0.4258,
+        0.4175,
+        0.407,
+        0.3866
+      ],
+      [
+        0.4195,
+        0.4085,
+        0.3976,
+        0.3866
+      ]
+    ],
+    "vpip_agg_grid_labels": {
+      "rows": "VPIP [0.2, 0.4, 0.6, 0.8]",
+      "cols": "AGG [0.2, 0.4, 0.6, 0.8]"
+    },
+    "gate_range_at_full_conf": {
+      "min": 0.3866,
+      "max": 0.4342,
+      "spread": 0.0476
+    },
+    "gate_zero_conf_raw": 0.4765,
+    "gate_full_conf_raw": 0.4163
+  },
+  "delta_analysis": {
+    "per_profile": {
+      "no_stats": {
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.5,
+          0.0
+        ],
+        "gate_output": 0.4765,
+        "v_base": {
+          "mean": -0.6314,
+          "std": 1.1209,
+          "abs_mean": 0.7796
+        },
+        "delta": {
+          "mean": -0.1086,
+          "std": 0.0617,
+          "abs_mean": 0.1136,
+          "min": -0.185,
+          "max": 0.0814
+        },
+        "delta_to_vbase_ratio": {
+          "mean": 0.5283,
+          "median": 0.2682
+        },
+        "modulated_value": {
+          "mean": -0.6831,
+          "std": 1.105
+        }
+      },
+      "passive_low_conf": {
+        "stats_vec": [
+          0.7,
+          0.2,
+          0.5,
+          0.2
+        ],
+        "gate_output": 0.4802,
+        "v_base": {
+          "mean": -0.6314,
+          "std": 1.1209,
+          "abs_mean": 0.7796
+        },
+        "delta": {
+          "mean": -0.119,
+          "std": 0.0617,
+          "abs_mean": 0.1231,
+          "min": -0.1835,
+          "max": 0.0673
+        },
+        "delta_to_vbase_ratio": {
+          "mean": 0.5628,
+          "median": 0.316
+        },
+        "modulated_value": {
+          "mean": -0.6885,
+          "std": 1.1048
+        }
+      },
+      "passive_high_conf": {
+        "stats_vec": [
+          0.7,
+          0.2,
+          0.5,
+          1.0
+        ],
+        "gate_output": 0.4323,
+        "v_base": {
+          "mean": -0.6314,
+          "std": 1.1209,
+          "abs_mean": 0.7796
+        },
+        "delta": {
+          "mean": -0.118,
+          "std": 0.0694,
+          "abs_mean": 0.1247,
+          "min": -0.1874,
+          "max": 0.0737
+        },
+        "delta_to_vbase_ratio": {
+          "mean": 0.5849,
+          "median": 0.3551
+        },
+        "modulated_value": {
+          "mean": -0.6824,
+          "std": 1.1057
+        }
+      },
+      "aggressive_low_conf": {
+        "stats_vec": [
+          0.2,
+          0.7,
+          0.5,
+          0.2
+        ],
+        "gate_output": 0.4508,
+        "v_base": {
+          "mean": -0.6314,
+          "std": 1.1209,
+          "abs_mean": 0.7796
+        },
+        "delta": {
+          "mean": -0.0964,
+          "std": 0.0625,
+          "abs_mean": 0.1038,
+          "min": -0.1747,
+          "max": 0.0997
+        },
+        "delta_to_vbase_ratio": {
+          "mean": 0.4928,
+          "median": 0.2411
+        },
+        "modulated_value": {
+          "mean": -0.6748,
+          "std": 1.1057
+        }
+      },
+      "aggressive_high_conf": {
+        "stats_vec": [
+          0.2,
+          0.7,
+          0.5,
+          1.0
+        ],
+        "gate_output": 0.3922,
+        "v_base": {
+          "mean": -0.6314,
+          "std": 1.1209,
+          "abs_mean": 0.7796
+        },
+        "delta": {
+          "mean": -0.0981,
+          "std": 0.0675,
+          "abs_mean": 0.1078,
+          "min": -0.1681,
+          "max": 0.0902
+        },
+        "delta_to_vbase_ratio": {
+          "mean": 0.5182,
+          "median": 0.2981
+        },
+        "modulated_value": {
+          "mean": -0.6699,
+          "std": 1.1073
+        }
+      },
+      "balanced_mid_conf": {
+        "stats_vec": [
+          0.5,
+          0.5,
+          0.533,
+          0.5
+        ],
+        "gate_output": 0.447,
+        "v_base": {
+          "mean": -0.6314,
+          "std": 1.1209,
+          "abs_mean": 0.7796
+        },
+        "delta": {
+          "mean": -0.1107,
+          "std": 0.0654,
+          "abs_mean": 0.1174,
+          "min": -0.1731,
+          "max": 0.0877
+        },
+        "delta_to_vbase_ratio": {
+          "mean": 0.5513,
+          "median": 0.3061
+        },
+        "modulated_value": {
+          "mean": -0.6808,
+          "std": 1.1049
+        }
+      }
+    },
+    "global_summary": {
+      "v_base_abs_mean": 0.7796,
+      "delta_abs_mean": 0.115,
+      "delta_to_vbase_ratio_mean": 0.5397,
+      "delta_to_vbase_ratio_median": 0.3061,
+      "interpretation": "moderate_adjustments"
+    }
+  },
+  "ablation": {
+    "full_model (V_base + gate*delta)": {
+      "heuristic": 0.313,
+      "value_based": 0.06,
+      "adaptive_value": 0.077,
+      "average": 0.15
+    },
+    "base_only (gate=0, V_base only)": {
+      "heuristic": 0.473,
+      "value_based": -0.079,
+      "adaptive_value": 0.095,
+      "average": 0.163
+    },
+    "no_gating (gate=1, V_base+delta)": {
+      "heuristic": 0.423,
+      "value_based": 0.033,
+      "adaptive_value": 0.094,
+      "average": 0.1833
+    },
+    "plain_value_based (pretrained base)": {
+      "heuristic": 0.33,
+      "value_based": -0.053,
+      "adaptive_value": -0.072,
+      "average": 0.0683
+    },
+    "insights": {
+      "modulation_contribution": -0.013,
+      "gating_contribution": -0.0333,
+      "full_vs_pretrained_base": 0.0817,
+      "base_quality": "good",
+      "gating_helps": false,
+      "modulation_helps": false
+    }
+  },
+  "head_to_head": {
+    "matchups": {
+      "heuristic": 0.186,
+      "value_based": 0.126,
+      "adaptive_value": 0.16,
+      "aux_value": 0.875,
+      "actor_critic": 1.173,
+      "history_value": 1.347,
+      "decay_adaptive": 1.092,
+      "nstep_value": 0.933,
+      "entropy_ac": 0.657,
+      "pop_adaptive": 1.597,
+      "adaptive_history": 1.003,
+      "target_value": 1.624,
+      "td_variant": 1.504,
+      "pruned_history": 1.05,
+      "curriculum": 1.579,
+      "extended_adaptive": 0.567
+    },
+    "robustness_metrics": {
+      "avg": 0.9671,
+      "worst_case": 0.126,
+      "best_case": 1.624,
+      "std": 0.5123,
+      "robustness": 0.1987,
+      "n_opponents": 16
+    },
+    "category_analysis": {
+      "rule_based": {
+        "avg": 0.186,
+        "min": 0.186,
+        "max": 0.186,
+        "agents": {
+          "heuristic": 0.186
+        }
+      },
+      "round1_rl": {
+        "avg": 0.7955,
+        "min": 0.126,
+        "max": 1.347,
+        "agents": {
+          "value_based": 0.126,
+          "adaptive_value": 0.16,
+          "aux_value": 0.875,
+          "actor_critic": 1.173,
+          "history_value": 1.347,
+          "decay_adaptive": 1.092
+        }
+      },
+      "round2_rl": {
+        "avg": 1.1628,
+        "min": 0.657,
+        "max": 1.624,
+        "agents": {
+          "nstep_value": 0.933,
+          "entropy_ac": 0.657,
+          "pop_adaptive": 1.597,
+          "adaptive_history": 1.003,
+          "target_value": 1.624
+        }
+      },
+      "round3_rl": {
+        "avg": 1.175,
+        "min": 0.567,
+        "max": 1.579,
+        "agents": {
+          "td_variant": 1.504,
+          "pruned_history": 1.05,
+          "curriculum": 1.579,
+          "extended_adaptive": 0.567
+        }
+      }
+    },
+    "hardest_opponent": {
+      "name": "value_based",
+      "score": 0.126
+    },
+    "easiest_opponent": {
+      "name": "target_value",
+      "score": 1.624
+    },
+    "beats_all_opponents": true
+  },
+  "weight_analysis": {
+    "gate_input_importance": {
+      "fold_rate": 0.2037,
+      "raise_rate": 0.2682,
+      "fold_to_raise": 0.2642,
+      "confidence": 0.2829
+    },
+    "gate_most_attended_input": "confidence",
+    "mod_net_weight_analysis": {
+      "game_state_avg_weight": 0.1147,
+      "opponent_stats_avg_weight": 0.12,
+      "ratio_stats_to_game": 1.0469
+    },
+    "parameter_norms": {
+      "base_network": 20.8922,
+      "modulation_network": 8.6529,
+      "gate_network": 4.0881
+    },
+    "parameter_counts": {
+      "base_network": 5249,
+      "modulation_network": 1729,
+      "gate_network": 97,
+      "total": 7075,
+      "trainable (mod+gate)": 1826
+    }
+  },
+  "findings": [
+    "1. GATE BEHAVIOR: Gate does NOT increase monotonically with confidence (low conf: 0.470, high conf: 0.424). The gate may have learned a different strategy than expected.",
+    "2. DELTA MAGNITUDE: Deltas are moderate_adjustments (|delta|/|V_base| ratio = 0.540). The modulation network provides meaningful opponent-specific adjustments that meaningfully change the value estimate.",
+    "3. ABLATION: Modulation contributes -0.0130 chips/round on average. Gating contributes -0.0333. Base alone: good. Gating helps: False. Modulation helps: False.",
+    "4. TOURNAMENT DOMINANCE: Beats ALL 16 opponents with positive margin. Hardest opponent: value_based (+0.126), easiest: target_value (+1.624)."
+  ],
+  "elapsed_seconds": 6.6
+}

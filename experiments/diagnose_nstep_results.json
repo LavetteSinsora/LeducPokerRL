@@ -1,0 +1,314 @@
+{
+  "TD0_original": {
+    "final_score": -0.34,
+    "loss_mean": 17.74330358627515,
+    "loss_std": 3.7535532125928035,
+    "loss_stats": {
+      "rolling_var_mean": 13.439457315159004,
+      "rolling_var_max": 26.78966937442518,
+      "rolling_var_last10": 17.680599241138403
+    },
+    "eval_history": [
+      {
+        "episode": 500,
+        "avg_chips": -0.555
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.14
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.84
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -0.925
+      },
+      {
+        "episode": 2500,
+        "avg_chips": -0.88
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -0.215
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.06
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -1.205
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -1.405
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -0.665
+      }
+    ]
+  },
+  "n=1": {
+    "final_score": -0.34,
+    "loss_mean": 17.74330358627515,
+    "loss_std": 3.7535532125928035,
+    "loss_stats": {
+      "rolling_var_mean": 13.439457315159004,
+      "rolling_var_max": 26.78966937442518,
+      "rolling_var_last10": 17.680599241138403
+    },
+    "eval_history": [
+      {
+        "episode": 500,
+        "avg_chips": -0.555
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.14
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.84
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -0.925
+      },
+      {
+        "episode": 2500,
+        "avg_chips": -0.88
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -0.215
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.06
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -1.205
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -1.405
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -0.665
+      }
+    ]
+  },
+  "n=2": {
+    "final_score": -1.65,
+    "loss_mean": 35.44548454040136,
+    "loss_std": 7.299506675400086,
+    "loss_stats": {
+      "rolling_var_mean": 51.77191875358852,
+      "rolling_var_max": 133.7143592265742,
+      "rolling_var_last10": 108.03283290762693
+    },
+    "eval_history": [
+      {
+        "episode": 500,
+        "avg_chips": -0.21
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.595
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.925
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -0.555
+      },
+      {
+        "episode": 2500,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -0.855
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.98
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -0.87
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -0.545
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -1.55
+      }
+    ]
+  },
+  "n=3": {
+    "final_score": -0.76,
+    "loss_mean": 46.218478655203796,
+    "loss_std": 10.982356346653177,
+    "loss_stats": {
+      "rolling_var_mean": 111.70190573708099,
+      "rolling_var_max": 211.28871574280205,
+      "rolling_var_last10": 110.62755457867613
+    },
+    "eval_history": [
+      {
+        "episode": 500,
+        "avg_chips": -0.65
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.445
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.48
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -1.185
+      },
+      {
+        "episode": 2500,
+        "avg_chips": -0.83
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -0.58
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.41
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -1.16
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -0.425
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -1.58
+      }
+    ]
+  },
+  "n=4": {
+    "final_score": -0.91,
+    "loss_mean": 49.846895425747604,
+    "loss_std": 11.983565263213968,
+    "loss_stats": {
+      "rolling_var_mean": 134.3276173133752,
+      "rolling_var_max": 256.06893049706184,
+      "rolling_var_last10": 129.27804069644725
+    },
+    "eval_history": [
+      {
+        "episode": 500,
+        "avg_chips": -0.65
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.285
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.555
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -0.575
+      },
+      {
+        "episode": 2500,
+        "avg_chips": -1.125
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -1.045
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.175
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -1.16
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -1.63
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -1.06
+      }
+    ]
+  },
+  "MC": {
+    "final_score": -0.91,
+    "loss_mean": 49.846895425747604,
+    "loss_std": 11.983565263213968,
+    "loss_stats": {
+      "rolling_var_mean": 134.3276173133752,
+      "rolling_var_max": 256.06893049706184,
+      "rolling_var_last10": 129.27804069644725
+    },
+    "eval_history": [
+      {
+        "episode": 500,
+        "avg_chips": -0.65
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.285
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.555
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -0.575
+      },
+      {
+        "episode": 2500,
+        "avg_chips": -1.125
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -1.045
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.175
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -1.16
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -1.63
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -1.06
+      }
+    ]
+  }
+}

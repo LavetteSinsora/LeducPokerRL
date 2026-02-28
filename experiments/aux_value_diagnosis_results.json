@@ -1,0 +1,164 @@
+{
+  "experiment_a": {
+    "value_based": [
+      {
+        "episode": 0,
+        "mean_value": 0.08528103239834309,
+        "max_value": 0.13740146160125732,
+        "min_value": 0.033981889486312866,
+        "std_value": 0.024823830316666202
+      },
+      {
+        "episode": 800,
+        "mean_value": 0.06187221206724644,
+        "max_value": 0.127297505736351,
+        "min_value": 0.013215597718954086,
+        "std_value": 0.022962348162716015
+      },
+      {
+        "episode": 1600,
+        "mean_value": 0.03696555458009243,
+        "max_value": 0.11908629536628723,
+        "min_value": -0.009221278131008148,
+        "std_value": 0.024717508656469357
+      },
+      {
+        "episode": 2400,
+        "mean_value": 0.014119242317974567,
+        "max_value": 0.11421163380146027,
+        "min_value": -0.029648685827851295,
+        "std_value": 0.028704901836475005
+      },
+      {
+        "episode": 3200,
+        "mean_value": -0.010681091621518136,
+        "max_value": 0.11020778864622116,
+        "min_value": -0.05853686481714249,
+        "std_value": 0.03540972077388952
+      },
+      {
+        "episode": 4000,
+        "mean_value": -0.04038999823853374,
+        "max_value": 0.10421933978796005,
+        "min_value": -0.10300006717443466,
+        "std_value": 0.04455313611082928
+      },
+      {
+        "episode": 4800,
+        "mean_value": -0.07436030743643642,
+        "max_value": 0.1095573678612709,
+        "min_value": -0.1506839543581009,
+        "std_value": 0.05545081773992034
+      }
+    ],
+    "aux_value_max": [
+      {
+        "episode": 0,
+        "mean_value": 0.08528103239834309,
+        "max_value": 0.13740146160125732,
+        "min_value": 0.033981889486312866,
+        "std_value": 0.024823830316666202
+      },
+      {
+        "episode": 800,
+        "mean_value": 0.06850331671535968,
+        "max_value": 0.13203610479831696,
+        "min_value": 0.022566765546798706,
+        "std_value": 0.021530276281517952
+      },
+      {
+        "episode": 1600,
+        "mean_value": 0.052455359399318696,
+        "max_value": 0.1287863850593567,
+        "min_value": 0.012927966192364693,
+        "std_value": 0.021497984778743488
+      },
+      {
+        "episode": 2400,
+        "mean_value": 0.03735020726919174,
+        "max_value": 0.12974439561367035,
+        "min_value": 0.0028220284730196,
+        "std_value": 0.0243797699892642
+      },
+      {
+        "episode": 3200,
+        "mean_value": 0.02223504401743412,
+        "max_value": 0.13396987318992615,
+        "min_value": -0.02261902578175068,
+        "std_value": 0.030578860622966917
+      },
+      {
+        "episode": 4000,
+        "mean_value": 0.007650563828647137,
+        "max_value": 0.13769091665744781,
+        "min_value": -0.04852942377328873,
+        "std_value": 0.03973944792449252
+      },
+      {
+        "episode": 4800,
+        "mean_value": -0.008219223320484161,
+        "max_value": 0.1461019366979599,
+        "min_value": -0.07653039693832397,
+        "std_value": 0.05027642037211988
+      }
+    ]
+  },
+  "experiment_b": {
+    "plain_td0": {
+      "value_snapshots": [
+        {
+          "episode": 4000,
+          "mean_value": -0.09923948578536511
+        }
+      ],
+      "final_mean_value": -0.10675903469324112,
+      "eval_vs_heuristic": -1.745
+    },
+    "aux_max": {
+      "value_snapshots": [
+        {
+          "episode": 4000,
+          "mean_value": -0.09058109544217587
+        }
+      ],
+      "final_mean_value": -0.09096887551248073,
+      "eval_vs_heuristic": -1.98
+    },
+    "aux_mean": {
+      "value_snapshots": [
+        {
+          "episode": 4000,
+          "mean_value": -0.10273134239017963
+        }
+      ],
+      "final_mean_value": -0.10814000025391579,
+      "eval_vs_heuristic": -2.005
+    },
+    "on_policy_chain": {
+      "value_snapshots": [
+        {
+          "episode": 4000,
+          "mean_value": -0.0938683370500803
+        }
+      ],
+      "final_mean_value": -0.09703130245208741,
+      "eval_vs_heuristic": -2.385
+    }
+  },
+  "experiment_c": {
+    "value_based": {
+      "mean_signed_error": 0.3003,
+      "mean_abs_error": 1.6836,
+      "mean_prediction": 0.0143,
+      "mean_actual": -0.286,
+      "n_samples": 2140
+    },
+    "aux_value": {
+      "mean_signed_error": -0.5213,
+      "mean_abs_error": 7.1856,
+      "mean_prediction": -0.2127,
+      "mean_actual": 0.3086,
+      "n_samples": 2573
+    }
+  }
+}
