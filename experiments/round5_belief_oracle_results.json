@@ -1,0 +1,233 @@
+{
+  "agent": "belief_oracle",
+  "timestamp": "2026-02-28 00:38:46",
+  "config": {
+    "train_episodes": 40000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "eval_rounds": 500
+  },
+  "training_mc": {
+    "method": "mc",
+    "training_time_s": 85.0,
+    "num_updates": 1250,
+    "final_loss": 50.698856353759766,
+    "final_eval_vs_heuristic": -0.59,
+    "eval_history": [
+      {
+        "episode": 39550,
+        "avg_chips": -0.25
+      },
+      {
+        "episode": 39600,
+        "avg_chips": -1.3
+      },
+      {
+        "episode": 39650,
+        "avg_chips": 0.03
+      },
+      {
+        "episode": 39700,
+        "avg_chips": -0.33
+      },
+      {
+        "episode": 39750,
+        "avg_chips": -0.88
+      },
+      {
+        "episode": 39800,
+        "avg_chips": -0.95
+      },
+      {
+        "episode": 39850,
+        "avg_chips": 0.15
+      },
+      {
+        "episode": 39900,
+        "avg_chips": -0.2
+      },
+      {
+        "episode": 39950,
+        "avg_chips": 0.23
+      },
+      {
+        "episode": 40000,
+        "avg_chips": -0.59
+      }
+    ]
+  },
+  "training_td": {
+    "method": "td",
+    "training_time_s": 92.1,
+    "num_updates": 1250,
+    "final_loss": 10.812577247619629,
+    "final_eval_vs_heuristic": -0.75,
+    "eval_history": [
+      {
+        "episode": 39550,
+        "avg_chips": -0.57
+      },
+      {
+        "episode": 39600,
+        "avg_chips": 0.17
+      },
+      {
+        "episode": 39650,
+        "avg_chips": -0.15
+      },
+      {
+        "episode": 39700,
+        "avg_chips": -0.58
+      },
+      {
+        "episode": 39750,
+        "avg_chips": -0.36
+      },
+      {
+        "episode": 39800,
+        "avg_chips": -0.33
+      },
+      {
+        "episode": 39850,
+        "avg_chips": -1.0
+      },
+      {
+        "episode": 39900,
+        "avg_chips": -0.68
+      },
+      {
+        "episode": 39950,
+        "avg_chips": -1.26
+      },
+      {
+        "episode": 40000,
+        "avg_chips": -0.75
+      }
+    ]
+  },
+  "evaluation_mc": {
+    "heuristic": -0.518,
+    "value_based": -0.742,
+    "adaptive_value": -1.016,
+    "modulated_value": -0.866,
+    "entropy_ac": 0.424,
+    "cfr": -0.524
+  },
+  "robustness_mc": {
+    "avg": -0.5403,
+    "worst_case": -1.016,
+    "best_case": 0.424,
+    "std": 0.5106,
+    "robustness": -1.3063,
+    "n_opponents": 6
+  },
+  "evaluation_td": {
+    "heuristic": -0.326,
+    "value_based": -0.834,
+    "adaptive_value": -0.51,
+    "modulated_value": -0.908,
+    "entropy_ac": 0.054,
+    "cfr": -0.402
+  },
+  "robustness_td": {
+    "avg": -0.4877,
+    "worst_case": -0.908,
+    "best_case": 0.054,
+    "std": 0.3533,
+    "robustness": -1.0176,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "state_coverage": {
+      "unique_tuples_seen": 241,
+      "num_games": 5000
+    },
+    "value_accuracy": {
+      "mc_mse": 12.2836,
+      "td_mse": 10.7748,
+      "advantage_mc": -1.5089,
+      "num_games": 2000
+    },
+    "value_ordering": {
+      "preflop_values": {
+        "J_vs_J": 0.014,
+        "J_vs_Q": -1.0669,
+        "J_vs_K": -2.6925,
+        "Q_vs_J": 1.096,
+        "Q_vs_Q": -0.172,
+        "Q_vs_K": -2.6598,
+        "K_vs_J": 2.9435,
+        "K_vs_Q": 2.5535,
+        "K_vs_K": 0.2672
+      },
+      "flop_values_board_Q": {
+        "J_vs_J": -0.2329,
+        "J_vs_Q": -2.3619,
+        "J_vs_K": -3.8717,
+        "Q_vs_J": 1.6924,
+        "Q_vs_Q": -0.0602,
+        "Q_vs_K": -1.7913,
+        "K_vs_J": 3.562,
+        "K_vs_Q": 1.8609,
+        "K_vs_K": -0.0441
+      },
+      "ordering_correct": 6,
+      "ordering_total": 7,
+      "ordering_pct": 0.8571
+    },
+    "action_distribution": {
+      "J": {
+        "preflop": {
+          "FOLD": 1.0
+        },
+        "preflop_n": 671
+      },
+      "Q": {
+        "preflop": {
+          "CALL": 0.2908,
+          "RAISE": 0.7092
+        },
+        "preflop_n": 894,
+        "flop": {
+          "CALL": 0.3284,
+          "RAISE": 0.6716
+        },
+        "flop_n": 944
+      },
+      "K": {
+        "preflop": {
+          "CALL": 0.1657,
+          "RAISE": 0.8343
+        },
+        "preflop_n": 833,
+        "flop": {
+          "CALL": 0.1657,
+          "RAISE": 0.8343
+        },
+        "flop_n": 833
+      }
+    },
+    "belief_quality": {
+      "per_step": {
+        "step_0": {
+          "mean_p_true": 0.3616,
+          "n": 1000
+        },
+        "step_1": {
+          "mean_p_true": 0.4472,
+          "n": 673
+        },
+        "step_2": {
+          "mean_p_true": 0.3221,
+          "n": 312
+        },
+        "step_3": {
+          "mean_p_true": 0.401,
+          "n": 101
+        }
+      },
+      "overall_mean_p_true": 0.3852,
+      "num_games": 1000
+    }
+  }
+}

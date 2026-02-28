@@ -1,0 +1,56 @@
+{
+  "agent": "belief_stable",
+  "experiment": "E2d",
+  "timestamp": "2026-02-28 00:49:46",
+  "config": {
+    "train_episodes": 40000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "likelihood_lr": 0.0005
+  },
+  "training": {
+    "training_time_s": 114.8,
+    "num_updates": 1250,
+    "final_loss": 5.759761
+  },
+  "evaluation": {
+    "heuristic": -0.414,
+    "value_based": -0.548,
+    "adaptive_value": -0.472,
+    "modulated_value": -0.814,
+    "entropy_ac": 0.11,
+    "cfr": -0.53
+  },
+  "robustness": {
+    "avg": -0.4447,
+    "worst_case": -0.814,
+    "best_case": 0.11,
+    "std": 0.3045,
+    "robustness": -0.9015,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "belief_shift": {
+      "belief_correctness": 0.648,
+      "avg_total_shift_l1": 0.1407,
+      "avg_per_step_jump": 0.2916
+    },
+    "action_distribution": {
+      "J": {
+        "FOLD": 1.0,
+        "CALL": 0.0,
+        "RAISE": 0.0
+      },
+      "Q": {
+        "FOLD": 0.062,
+        "CALL": 0.399,
+        "RAISE": 0.54
+      },
+      "K": {
+        "FOLD": 0.0,
+        "CALL": 0.181,
+        "RAISE": 0.819
+      }
+    }
+  }
+}

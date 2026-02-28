@@ -1,0 +1,163 @@
+{
+  "agent": "belief_cfr",
+  "experiment": "E1a",
+  "timestamp": "2026-02-28 00:14:36",
+  "config": {
+    "train_episodes": 40000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "eval_rounds": 500,
+    "cfr_path": "models/cfr_agent.pt",
+    "description": "Belief agent with frozen CFR Nash likelihood (no learned likelihood model)"
+  },
+  "training": {
+    "training_time_s": 90.4,
+    "num_updates": 1250,
+    "final_loss": 15.070919036865234,
+    "final_eval_vs_heuristic": -0.12,
+    "eval_history": [
+      {
+        "episode": 39550,
+        "avg_chips": -0.47
+      },
+      {
+        "episode": 39600,
+        "avg_chips": -0.64
+      },
+      {
+        "episode": 39650,
+        "avg_chips": -0.28
+      },
+      {
+        "episode": 39700,
+        "avg_chips": 0.06
+      },
+      {
+        "episode": 39750,
+        "avg_chips": -1.16
+      },
+      {
+        "episode": 39800,
+        "avg_chips": -0.88
+      },
+      {
+        "episode": 39850,
+        "avg_chips": -0.34
+      },
+      {
+        "episode": 39900,
+        "avg_chips": 0.45
+      },
+      {
+        "episode": 39950,
+        "avg_chips": -0.31
+      },
+      {
+        "episode": 40000,
+        "avg_chips": -0.12
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": -0.386,
+    "value_based": -0.898,
+    "adaptive_value": -0.784,
+    "modulated_value": -1.118,
+    "entropy_ac": -0.54,
+    "cfr": -0.616
+  },
+  "robustness": {
+    "avg": -0.7237,
+    "worst_case": -1.118,
+    "best_case": -0.386,
+    "std": 0.2641,
+    "robustness": -1.1199,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "nash_likelihood_accuracy": {
+      "avg_log_likelihood": -1.5761,
+      "top1_accuracy": 0.7146,
+      "total_actions": 2386,
+      "avg_nash_prob_per_action": {
+        "FOLD": 0.7794,
+        "CALL": 0.5613,
+        "RAISE": 0.6165
+      }
+    },
+    "belief_shift": {
+      "avg_l1_shift": 0.2812,
+      "total_updates": 706,
+      "per_round": {
+        "round_0": {
+          "avg_shift": 0.5624,
+          "count": 353
+        },
+        "round_1": {
+          "avg_shift": 0.0,
+          "count": 353
+        }
+      }
+    },
+    "belief_correctness": {
+      "avg_true_hand_prob": 0.4206,
+      "avg_belief_entropy": 0.937,
+      "total_decisions": 1044
+    },
+    "action_distribution": {
+      "overall": {
+        "J": {
+          "FOLD": 1.0,
+          "CALL": 0.0,
+          "RAISE": 0.0
+        },
+        "Q": {
+          "FOLD": 0.0,
+          "CALL": 0.632,
+          "RAISE": 0.368
+        },
+        "K": {
+          "FOLD": 0.0,
+          "CALL": 0.166,
+          "RAISE": 0.834
+        }
+      },
+      "per_round": {
+        "preflop": {
+          "J": {
+            "FOLD": 1.0,
+            "CALL": 0.0,
+            "RAISE": 0.0
+          },
+          "Q": {
+            "FOLD": 0.0,
+            "CALL": 0.289,
+            "RAISE": 0.711
+          },
+          "K": {
+            "FOLD": 0.0,
+            "CALL": 0.16,
+            "RAISE": 0.84
+          }
+        },
+        "flop": {
+          "J": {
+            "FOLD": 0.0,
+            "CALL": 0.0,
+            "RAISE": 0.0
+          },
+          "Q": {
+            "FOLD": 0.0,
+            "CALL": 0.928,
+            "RAISE": 0.072
+          },
+          "K": {
+            "FOLD": 0.0,
+            "CALL": 0.171,
+            "RAISE": 0.829
+          }
+        }
+      }
+    }
+  }
+}

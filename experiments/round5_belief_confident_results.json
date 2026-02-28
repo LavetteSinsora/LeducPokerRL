@@ -1,0 +1,162 @@
+{
+  "agent": "belief_confident",
+  "experiment": "E2c",
+  "timestamp": "2026-02-28 00:43:40",
+  "config": {
+    "train_sessions": 2000,
+    "hands_per_session": 30,
+    "total_hands": 60000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "likelihood_lr": 0.0005,
+    "rotate_every": 100,
+    "confidence_cap": 30,
+    "eval_rounds": 500
+  },
+  "training": {
+    "training_time_s": 79.5,
+    "num_updates": 1875,
+    "final_loss": 3.661097,
+    "eval_history": [
+      {
+        "session": 1100,
+        "avg_chips": -0.74
+      },
+      {
+        "session": 1200,
+        "avg_chips": 0.17
+      },
+      {
+        "session": 1300,
+        "avg_chips": -1.03
+      },
+      {
+        "session": 1400,
+        "avg_chips": -0.33
+      },
+      {
+        "session": 1500,
+        "avg_chips": -0.18
+      },
+      {
+        "session": 1600,
+        "avg_chips": -0.37
+      },
+      {
+        "session": 1700,
+        "avg_chips": -0.07
+      },
+      {
+        "session": 1800,
+        "avg_chips": -0.22
+      },
+      {
+        "session": 1900,
+        "avg_chips": 0.51
+      },
+      {
+        "session": 2000,
+        "avg_chips": 0.23
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": -0.184,
+    "value_based": -0.192,
+    "adaptive_value": -0.28,
+    "modulated_value": -0.168,
+    "entropy_ac": -0.316,
+    "cfr": -0.138
+  },
+  "robustness": {
+    "avg": -0.213,
+    "worst_case": -0.316,
+    "best_case": -0.138,
+    "std": 0.0693,
+    "robustness": -0.317,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "confidence_effect": {
+      "action_dist_confidence_0": {
+        "FOLD": 0.2611,
+        "CALL": 0.7389,
+        "RAISE": 0.0
+      },
+      "action_dist_confidence_1": {
+        "FOLD": 0.4415,
+        "CALL": 0.5585,
+        "RAISE": 0.0
+      },
+      "total_variation_distance": 0.1804,
+      "total_decisions": 1762
+    },
+    "belief_correctness": {
+      "avg_true_hand_prob": 0.3874,
+      "avg_belief_entropy": 0.8232,
+      "total_decisions": 1042
+    },
+    "ablation_confidence_levels": {
+      "conf_0.0": 0.014,
+      "conf_0.5": -0.206,
+      "conf_1.0": -0.28,
+      "delta_high_minus_low": -0.294,
+      "num_games": 500
+    },
+    "action_distribution": {
+      "overall": {
+        "J": {
+          "FOLD": 1.0,
+          "CALL": 0.0,
+          "RAISE": 0.0
+        },
+        "Q": {
+          "FOLD": 0.392,
+          "CALL": 0.608,
+          "RAISE": 0.0
+        },
+        "K": {
+          "FOLD": 0.105,
+          "CALL": 0.895,
+          "RAISE": 0.0
+        }
+      },
+      "per_round": {
+        "preflop": {
+          "J": {
+            "FOLD": 1.0,
+            "CALL": 0.0,
+            "RAISE": 0.0
+          },
+          "Q": {
+            "FOLD": 0.414,
+            "CALL": 0.586,
+            "RAISE": 0.0
+          },
+          "K": {
+            "FOLD": 0.0,
+            "CALL": 1.0,
+            "RAISE": 0.0
+          }
+        },
+        "flop": {
+          "J": {
+            "FOLD": 0.0,
+            "CALL": 0.0,
+            "RAISE": 0.0
+          },
+          "Q": {
+            "FOLD": 0.286,
+            "CALL": 0.714,
+            "RAISE": 0.0
+          },
+          "K": {
+            "FOLD": 0.211,
+            "CALL": 0.789,
+            "RAISE": 0.0
+          }
+        }
+      }
+    }
+  }
+}

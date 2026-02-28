@@ -1,0 +1,254 @@
+{
+  "agent": "belief_modulated",
+  "experiment": "E1b",
+  "timestamp": "2026-02-28 00:14:40",
+  "config": {
+    "train_episodes": 40000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "modulation_lr": 0.0005,
+    "hands_per_session": 30,
+    "rotate_every": 100,
+    "eval_rounds": 500,
+    "cfr_model_path": "models/cfr_agent.pt"
+  },
+  "training": {
+    "training_time_s": 6534.0,
+    "num_updates": 20000,
+    "final_loss": 6.693873274326324,
+    "final_eval_vs_heuristic": 1.12,
+    "eval_history": [
+      {
+        "episode": 1199730,
+        "avg_chips": 1.25
+      },
+      {
+        "episode": 1199760,
+        "avg_chips": 0.18
+      },
+      {
+        "episode": 1199790,
+        "avg_chips": 0.66
+      },
+      {
+        "episode": 1199820,
+        "avg_chips": 0.32
+      },
+      {
+        "episode": 1199850,
+        "avg_chips": 0.25
+      },
+      {
+        "episode": 1199880,
+        "avg_chips": 0.21
+      },
+      {
+        "episode": 1199910,
+        "avg_chips": 1.31
+      },
+      {
+        "episode": 1199940,
+        "avg_chips": 1.36
+      },
+      {
+        "episode": 1199970,
+        "avg_chips": 0.55
+      },
+      {
+        "episode": 1200000,
+        "avg_chips": 1.12
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": 0.776,
+    "value_based": 0.002,
+    "adaptive_value": -0.14,
+    "modulated_value": 0.186,
+    "entropy_ac": 1.082,
+    "cfr": -0.016
+  },
+  "robustness": {
+    "avg": 0.315,
+    "worst_case": -0.14,
+    "best_case": 1.082,
+    "std": 0.4964,
+    "robustness": -0.4296,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "likelihood_accuracy": {
+      "nash_accuracy": 0.776,
+      "modulated_accuracy": 0.665,
+      "improvement": -0.111,
+      "total_predictions": 1000,
+      "nash_per_action": {
+        "FOLD": 1.0,
+        "CALL": 0.5963,
+        "RAISE": 0.8145
+      },
+      "modulated_per_action": {
+        "FOLD": 0.6667,
+        "CALL": 0.6728,
+        "RAISE": 0.6593
+      }
+    },
+    "gate_activations": {
+      "heuristic": {
+        "avg_gate": 0.5781,
+        "std_gate": 0.0226,
+        "n_samples": 1773,
+        "gate_evolution": {
+          "hands_0-4": 0.5888,
+          "hands_5-9": 0.5814,
+          "hands_10-14": 0.5758,
+          "hands_15-19": 0.5745,
+          "hands_20-24": 0.5747,
+          "hands_25-29": 0.5731
+        }
+      },
+      "value_based": {
+        "avg_gate": 0.5418,
+        "std_gate": 0.0172,
+        "n_samples": 1512,
+        "gate_evolution": {
+          "hands_0-4": 0.5516,
+          "hands_5-9": 0.5429,
+          "hands_10-14": 0.5407,
+          "hands_15-19": 0.5389,
+          "hands_20-24": 0.5379,
+          "hands_25-29": 0.5384
+        }
+      },
+      "adaptive_value": {
+        "avg_gate": 0.5351,
+        "std_gate": 0.0179,
+        "n_samples": 1478,
+        "gate_evolution": {
+          "hands_0-4": 0.544,
+          "hands_5-9": 0.5351,
+          "hands_10-14": 0.5328,
+          "hands_15-19": 0.5326,
+          "hands_20-24": 0.533,
+          "hands_25-29": 0.5334
+        }
+      }
+    },
+    "delta_magnitudes": {
+      "passive_folder": {
+        "gate": 0.5235,
+        "raw_delta": [
+          -0.9608,
+          0.8572,
+          -0.5728
+        ],
+        "effective_delta": [
+          -0.503,
+          0.4488,
+          -0.2999
+        ],
+        "delta_l2_norm": 0.7378
+      },
+      "calling_station": {
+        "gate": 0.5245,
+        "raw_delta": [
+          -0.7803,
+          1.0071,
+          -0.7879
+        ],
+        "effective_delta": [
+          -0.4093,
+          0.5282,
+          -0.4133
+        ],
+        "delta_l2_norm": 0.7857
+      },
+      "aggressive_raiser": {
+        "gate": 0.6045,
+        "raw_delta": [
+          -1.3268,
+          2.0166,
+          -1.4488
+        ],
+        "effective_delta": [
+          -0.802,
+          1.219,
+          -0.8758
+        ],
+        "delta_l2_norm": 1.7018
+      },
+      "balanced_nash": {
+        "gate": 0.5533,
+        "raw_delta": [
+          -1.0766,
+          1.3441,
+          -0.9655
+        ],
+        "effective_delta": [
+          -0.5957,
+          0.7437,
+          -0.5343
+        ],
+        "delta_l2_norm": 1.0924
+      },
+      "uninformative": {
+        "gate": 0.5398,
+        "raw_delta": [
+          -0.8502,
+          0.9401,
+          -0.7314
+        ],
+        "effective_delta": [
+          -0.459,
+          0.5075,
+          -0.3949
+        ],
+        "delta_l2_norm": 0.79
+      }
+    },
+    "belief_shift": {
+      "belief_correctness": 0.514,
+      "avg_belief_shift_l1": 0.5328,
+      "std_belief_shift_l1": 0.2824,
+      "total_hands": 500
+    },
+    "action_distribution": {
+      "J": {
+        "Preflop": {
+          "FOLD": 0.0,
+          "CALL": 1.0,
+          "RAISE": 0.0
+        },
+        "Flop": {
+          "FOLD": 0.306,
+          "CALL": 0.287,
+          "RAISE": 0.408
+        }
+      },
+      "Q": {
+        "Preflop": {
+          "FOLD": 0.0,
+          "CALL": 1.0,
+          "RAISE": 0.0
+        },
+        "Flop": {
+          "FOLD": 0.332,
+          "CALL": 0.407,
+          "RAISE": 0.261
+        }
+      },
+      "K": {
+        "Preflop": {
+          "FOLD": 0.0,
+          "CALL": 0.17,
+          "RAISE": 0.83
+        },
+        "Flop": {
+          "FOLD": 0.186,
+          "CALL": 0.343,
+          "RAISE": 0.47
+        }
+      }
+    }
+  }
+}
