@@ -23,3 +23,6 @@ venv/
 
 # pytest
 .pytest_cache/
+
+# Conversation history exports (generated, potentially sensitive)
+conversation_history/
