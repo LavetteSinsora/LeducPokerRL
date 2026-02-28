@@ -1,0 +1,369 @@
+{
+  "agent": "belief_value",
+  "timestamp": "2026-02-27 08:35:21",
+  "config": {
+    "train_episodes": 30000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "likelihood_lr": 0.0005,
+    "eval_rounds": 500
+  },
+  "training": {
+    "training_time_s": 136.9,
+    "num_updates": 937,
+    "final_loss": 8.955528789758683,
+    "final_eval_vs_heuristic": 0.56,
+    "eval_history": [
+      {
+        "episode": 29550,
+        "avg_chips": -0.69
+      },
+      {
+        "episode": 29600,
+        "avg_chips": -0.9
+      },
+      {
+        "episode": 29650,
+        "avg_chips": -0.73
+      },
+      {
+        "episode": 29700,
+        "avg_chips": -0.77
+      },
+      {
+        "episode": 29750,
+        "avg_chips": -0.38
+      },
+      {
+        "episode": 29800,
+        "avg_chips": -0.36
+      },
+      {
+        "episode": 29850,
+        "avg_chips": -0.21
+      },
+      {
+        "episode": 29900,
+        "avg_chips": -0.71
+      },
+      {
+        "episode": 29950,
+        "avg_chips": -0.02
+      },
+      {
+        "episode": 30000,
+        "avg_chips": 0.56
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": -0.338,
+    "value_based": -0.708,
+    "adaptive_value": -0.626,
+    "modulated_value": -0.862,
+    "entropy_ac": 0.24,
+    "cfr": -0.31
+  },
+  "robustness": {
+    "avg": -0.434,
+    "worst_case": -0.862,
+    "best_case": 0.24,
+    "std": 0.3934,
+    "robustness": -1.0242,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "likelihood_accuracy": {
+      "overall_accuracy": 0.5412,
+      "per_action_accuracy": {
+        "FOLD": 0.027,
+        "CALL": 0.3221,
+        "RAISE": 0.8827
+      },
+      "total_predictions": 2356
+    },
+    "belief_evolution_examples": [
+      {
+        "belief_agent_hand": "K",
+        "opponent_hand": "J",
+        "board": "Q",
+        "rewards": [
+          3,
+          -3
+        ],
+        "num_steps": 4,
+        "steps": [
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.4000000059604645,
+              0.4000000059604645,
+              0.20000000298023224
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -1.0,
+              "CALL": 1.556,
+              "RAISE": 1.956
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "CALL"
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.5,
+              0.25,
+              0.25
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -3.0,
+              "CALL": 1.627,
+              "RAISE": 2.08
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "FOLD"
+          }
+        ]
+      },
+      {
+        "belief_agent_hand": "Q",
+        "opponent_hand": "J",
+        "board": "Q",
+        "rewards": [
+          3,
+          -3
+        ],
+        "num_steps": 4,
+        "steps": [
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.4000000059604645,
+              0.20000000298023224,
+              0.4000000059604645
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -1.0,
+              "CALL": -0.468,
+              "RAISE": -0.284
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "CALL"
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.5,
+              0.0,
+              0.5
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -3.0,
+              "CALL": 0.066,
+              "RAISE": 0.414
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "FOLD"
+          }
+        ]
+      },
+      {
+        "belief_agent_hand": "K",
+        "opponent_hand": "K",
+        "board": "J",
+        "rewards": [
+          0,
+          0
+        ],
+        "num_steps": 5,
+        "steps": [
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.4000000059604645,
+              0.4000000059604645,
+              0.20000000298023224
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -1.0,
+              "CALL": 1.556,
+              "RAISE": 1.956
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "RAISE"
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.2431684481592615,
+              0.4552186114698376,
+              0.30161294037090086
+            ],
+            "action": "CALL",
+            "values": {
+              "FOLD": -3.0,
+              "CALL": 2.096
+            }
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.25,
+              0.5,
+              0.25
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -5.0,
+              "CALL": 1.827,
+              "RAISE": 2.07
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "CALL"
+          }
+        ]
+      },
+      {
+        "belief_agent_hand": "Q",
+        "opponent_hand": "J",
+        "board": "K",
+        "rewards": [
+          3,
+          -3
+        ],
+        "num_steps": 4,
+        "steps": [
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.4000000059604645,
+              0.20000000298023224,
+              0.4000000059604645
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -1.0,
+              "CALL": -0.468,
+              "RAISE": -0.284
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "CALL"
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.5,
+              0.25,
+              0.25
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -3.0,
+              "CALL": 0.075,
+              "RAISE": 0.283
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "FOLD"
+          }
+        ]
+      },
+      {
+        "belief_agent_hand": "K",
+        "opponent_hand": "K",
+        "board": "Q",
+        "rewards": [
+          0,
+          0
+        ],
+        "num_steps": 5,
+        "steps": [
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.4000000059604645,
+              0.4000000059604645,
+              0.20000000298023224
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -1.0,
+              "CALL": 1.556,
+              "RAISE": 1.956
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "RAISE"
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.2431684481592615,
+              0.4552186114698376,
+              0.30161294037090086
+            ],
+            "action": "CALL",
+            "values": {
+              "FOLD": -3.0,
+              "CALL": 2.096
+            }
+          },
+          {
+            "player": "belief_agent",
+            "belief": [
+              0.5,
+              0.25,
+              0.25
+            ],
+            "action": "RAISE",
+            "values": {
+              "FOLD": -5.0,
+              "CALL": 1.689,
+              "RAISE": 2.13
+            }
+          },
+          {
+            "player": "opponent",
+            "action": "CALL"
+          }
+        ]
+      }
+    ],
+    "bluff_catching": {
+      "belief_accuracy": 0.2546,
+      "total_facing_raise": 432,
+      "decisions": {
+        "fold_when_behind": 0,
+        "fold_when_ahead": 0,
+        "call_when_ahead": 110,
+        "call_when_behind": 322,
+        "raise_when_ahead": 0,
+        "raise_when_behind": 0,
+        "total_facing_raise": 432
+      },
+      "value_based_accuracy": 0.5085,
+      "value_based_total": 997
+    }
+  }
+}

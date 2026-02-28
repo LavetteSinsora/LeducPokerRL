@@ -1,0 +1,3349 @@
+{
+  "timestamp": "2026-02-27 12:18:48",
+  "config": {
+    "training_episodes": 30000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "eval_rounds": 500,
+    "beta_sweep": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.5,
+      0.7,
+      1.0
+    ],
+    "n_quantiles": 11
+  },
+  "training": {
+    "training_time_s": 85.4,
+    "num_updates": 937,
+    "final_loss": 1158.363956451416,
+    "final_eval_vs_heuristic": -1.15,
+    "eval_history": [
+      {
+        "episode": 50,
+        "avg_chips": -1.3
+      },
+      {
+        "episode": 100,
+        "avg_chips": -0.69
+      },
+      {
+        "episode": 150,
+        "avg_chips": -0.85
+      },
+      {
+        "episode": 200,
+        "avg_chips": -2.16
+      },
+      {
+        "episode": 250,
+        "avg_chips": -0.08
+      },
+      {
+        "episode": 300,
+        "avg_chips": -0.91
+      },
+      {
+        "episode": 350,
+        "avg_chips": -1.28
+      },
+      {
+        "episode": 400,
+        "avg_chips": -0.39
+      },
+      {
+        "episode": 450,
+        "avg_chips": -1.48
+      },
+      {
+        "episode": 500,
+        "avg_chips": -1.25
+      },
+      {
+        "episode": 550,
+        "avg_chips": -1.56
+      },
+      {
+        "episode": 600,
+        "avg_chips": 0.74
+      },
+      {
+        "episode": 650,
+        "avg_chips": -1.27
+      },
+      {
+        "episode": 700,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 750,
+        "avg_chips": -2.53
+      },
+      {
+        "episode": 800,
+        "avg_chips": -0.21
+      },
+      {
+        "episode": 850,
+        "avg_chips": -1.35
+      },
+      {
+        "episode": 900,
+        "avg_chips": -1.11
+      },
+      {
+        "episode": 950,
+        "avg_chips": -0.9
+      },
+      {
+        "episode": 1000,
+        "avg_chips": -0.03
+      },
+      {
+        "episode": 1050,
+        "avg_chips": -0.86
+      },
+      {
+        "episode": 1100,
+        "avg_chips": -3.06
+      },
+      {
+        "episode": 1150,
+        "avg_chips": 0.99
+      },
+      {
+        "episode": 1200,
+        "avg_chips": -0.74
+      },
+      {
+        "episode": 1250,
+        "avg_chips": -1.67
+      },
+      {
+        "episode": 1300,
+        "avg_chips": -2.03
+      },
+      {
+        "episode": 1350,
+        "avg_chips": 0.42
+      },
+      {
+        "episode": 1400,
+        "avg_chips": 0.3
+      },
+      {
+        "episode": 1450,
+        "avg_chips": -1.0
+      },
+      {
+        "episode": 1500,
+        "avg_chips": -0.4
+      },
+      {
+        "episode": 1550,
+        "avg_chips": -0.08
+      },
+      {
+        "episode": 1600,
+        "avg_chips": -0.24
+      },
+      {
+        "episode": 1650,
+        "avg_chips": -0.28
+      },
+      {
+        "episode": 1700,
+        "avg_chips": -1.95
+      },
+      {
+        "episode": 1750,
+        "avg_chips": -0.73
+      },
+      {
+        "episode": 1800,
+        "avg_chips": 0.27
+      },
+      {
+        "episode": 1850,
+        "avg_chips": -2.11
+      },
+      {
+        "episode": 1900,
+        "avg_chips": -1.51
+      },
+      {
+        "episode": 1950,
+        "avg_chips": -1.17
+      },
+      {
+        "episode": 2000,
+        "avg_chips": -1.93
+      },
+      {
+        "episode": 2050,
+        "avg_chips": -0.02
+      },
+      {
+        "episode": 2100,
+        "avg_chips": -1.31
+      },
+      {
+        "episode": 2150,
+        "avg_chips": -1.38
+      },
+      {
+        "episode": 2200,
+        "avg_chips": -2.31
+      },
+      {
+        "episode": 2250,
+        "avg_chips": 1.12
+      },
+      {
+        "episode": 2300,
+        "avg_chips": -1.08
+      },
+      {
+        "episode": 2350,
+        "avg_chips": -3.34
+      },
+      {
+        "episode": 2400,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 2450,
+        "avg_chips": -1.69
+      },
+      {
+        "episode": 2500,
+        "avg_chips": 0.67
+      },
+      {
+        "episode": 2550,
+        "avg_chips": -0.47
+      },
+      {
+        "episode": 2600,
+        "avg_chips": -1.93
+      },
+      {
+        "episode": 2650,
+        "avg_chips": -1.18
+      },
+      {
+        "episode": 2700,
+        "avg_chips": -1.83
+      },
+      {
+        "episode": 2750,
+        "avg_chips": -1.2
+      },
+      {
+        "episode": 2800,
+        "avg_chips": -0.74
+      },
+      {
+        "episode": 2850,
+        "avg_chips": -0.82
+      },
+      {
+        "episode": 2900,
+        "avg_chips": -2.15
+      },
+      {
+        "episode": 2950,
+        "avg_chips": -1.48
+      },
+      {
+        "episode": 3000,
+        "avg_chips": -1.22
+      },
+      {
+        "episode": 3050,
+        "avg_chips": -2.57
+      },
+      {
+        "episode": 3100,
+        "avg_chips": -0.11
+      },
+      {
+        "episode": 3150,
+        "avg_chips": -2.63
+      },
+      {
+        "episode": 3200,
+        "avg_chips": -1.94
+      },
+      {
+        "episode": 3250,
+        "avg_chips": -0.1
+      },
+      {
+        "episode": 3300,
+        "avg_chips": -0.74
+      },
+      {
+        "episode": 3350,
+        "avg_chips": -1.55
+      },
+      {
+        "episode": 3400,
+        "avg_chips": -0.54
+      },
+      {
+        "episode": 3450,
+        "avg_chips": -1.39
+      },
+      {
+        "episode": 3500,
+        "avg_chips": -0.71
+      },
+      {
+        "episode": 3550,
+        "avg_chips": -1.44
+      },
+      {
+        "episode": 3600,
+        "avg_chips": -1.46
+      },
+      {
+        "episode": 3650,
+        "avg_chips": -2.17
+      },
+      {
+        "episode": 3700,
+        "avg_chips": -0.82
+      },
+      {
+        "episode": 3750,
+        "avg_chips": -0.81
+      },
+      {
+        "episode": 3800,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 3850,
+        "avg_chips": -2.9
+      },
+      {
+        "episode": 3900,
+        "avg_chips": -2.05
+      },
+      {
+        "episode": 3950,
+        "avg_chips": -1.16
+      },
+      {
+        "episode": 4000,
+        "avg_chips": -0.79
+      },
+      {
+        "episode": 4050,
+        "avg_chips": -1.79
+      },
+      {
+        "episode": 4100,
+        "avg_chips": -1.08
+      },
+      {
+        "episode": 4150,
+        "avg_chips": 0.17
+      },
+      {
+        "episode": 4200,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 4250,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 4300,
+        "avg_chips": -1.2
+      },
+      {
+        "episode": 4350,
+        "avg_chips": -0.6
+      },
+      {
+        "episode": 4400,
+        "avg_chips": 0.27
+      },
+      {
+        "episode": 4450,
+        "avg_chips": -3.04
+      },
+      {
+        "episode": 4500,
+        "avg_chips": -1.84
+      },
+      {
+        "episode": 4550,
+        "avg_chips": -0.28
+      },
+      {
+        "episode": 4600,
+        "avg_chips": -1.2
+      },
+      {
+        "episode": 4650,
+        "avg_chips": -1.81
+      },
+      {
+        "episode": 4700,
+        "avg_chips": -1.19
+      },
+      {
+        "episode": 4750,
+        "avg_chips": -0.75
+      },
+      {
+        "episode": 4800,
+        "avg_chips": -1.75
+      },
+      {
+        "episode": 4850,
+        "avg_chips": -0.93
+      },
+      {
+        "episode": 4900,
+        "avg_chips": 0.11
+      },
+      {
+        "episode": 4950,
+        "avg_chips": -3.13
+      },
+      {
+        "episode": 5000,
+        "avg_chips": -0.71
+      },
+      {
+        "episode": 5050,
+        "avg_chips": -1.23
+      },
+      {
+        "episode": 5100,
+        "avg_chips": -1.01
+      },
+      {
+        "episode": 5150,
+        "avg_chips": -1.59
+      },
+      {
+        "episode": 5200,
+        "avg_chips": -2.26
+      },
+      {
+        "episode": 5250,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 5300,
+        "avg_chips": -1.74
+      },
+      {
+        "episode": 5350,
+        "avg_chips": -1.98
+      },
+      {
+        "episode": 5400,
+        "avg_chips": -2.3
+      },
+      {
+        "episode": 5450,
+        "avg_chips": -0.42
+      },
+      {
+        "episode": 5500,
+        "avg_chips": -0.73
+      },
+      {
+        "episode": 5550,
+        "avg_chips": -0.66
+      },
+      {
+        "episode": 5600,
+        "avg_chips": -0.1
+      },
+      {
+        "episode": 5650,
+        "avg_chips": -2.33
+      },
+      {
+        "episode": 5700,
+        "avg_chips": -1.93
+      },
+      {
+        "episode": 5750,
+        "avg_chips": -1.38
+      },
+      {
+        "episode": 5800,
+        "avg_chips": -0.51
+      },
+      {
+        "episode": 5850,
+        "avg_chips": -0.64
+      },
+      {
+        "episode": 5900,
+        "avg_chips": -1.47
+      },
+      {
+        "episode": 5950,
+        "avg_chips": -0.55
+      },
+      {
+        "episode": 6000,
+        "avg_chips": -0.29
+      },
+      {
+        "episode": 6050,
+        "avg_chips": -1.83
+      },
+      {
+        "episode": 6100,
+        "avg_chips": -1.25
+      },
+      {
+        "episode": 6150,
+        "avg_chips": 1.12
+      },
+      {
+        "episode": 6200,
+        "avg_chips": -0.52
+      },
+      {
+        "episode": 6250,
+        "avg_chips": -2.85
+      },
+      {
+        "episode": 6300,
+        "avg_chips": -0.45
+      },
+      {
+        "episode": 6350,
+        "avg_chips": -2.07
+      },
+      {
+        "episode": 6400,
+        "avg_chips": 0.43
+      },
+      {
+        "episode": 6450,
+        "avg_chips": -2.31
+      },
+      {
+        "episode": 6500,
+        "avg_chips": -0.56
+      },
+      {
+        "episode": 6550,
+        "avg_chips": -2.11
+      },
+      {
+        "episode": 6600,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 6650,
+        "avg_chips": -2.81
+      },
+      {
+        "episode": 6700,
+        "avg_chips": -0.97
+      },
+      {
+        "episode": 6750,
+        "avg_chips": -1.12
+      },
+      {
+        "episode": 6800,
+        "avg_chips": -1.35
+      },
+      {
+        "episode": 6850,
+        "avg_chips": 0.09
+      },
+      {
+        "episode": 6900,
+        "avg_chips": -1.67
+      },
+      {
+        "episode": 6950,
+        "avg_chips": -0.13
+      },
+      {
+        "episode": 7000,
+        "avg_chips": -1.35
+      },
+      {
+        "episode": 7050,
+        "avg_chips": 0.53
+      },
+      {
+        "episode": 7100,
+        "avg_chips": -1.55
+      },
+      {
+        "episode": 7150,
+        "avg_chips": -1.78
+      },
+      {
+        "episode": 7200,
+        "avg_chips": -1.51
+      },
+      {
+        "episode": 7250,
+        "avg_chips": -1.67
+      },
+      {
+        "episode": 7300,
+        "avg_chips": -1.11
+      },
+      {
+        "episode": 7350,
+        "avg_chips": -2.61
+      },
+      {
+        "episode": 7400,
+        "avg_chips": -0.72
+      },
+      {
+        "episode": 7450,
+        "avg_chips": -1.03
+      },
+      {
+        "episode": 7500,
+        "avg_chips": -1.38
+      },
+      {
+        "episode": 7550,
+        "avg_chips": -1.28
+      },
+      {
+        "episode": 7600,
+        "avg_chips": -0.14
+      },
+      {
+        "episode": 7650,
+        "avg_chips": -1.72
+      },
+      {
+        "episode": 7700,
+        "avg_chips": -1.53
+      },
+      {
+        "episode": 7750,
+        "avg_chips": -0.61
+      },
+      {
+        "episode": 7800,
+        "avg_chips": -0.51
+      },
+      {
+        "episode": 7850,
+        "avg_chips": -1.41
+      },
+      {
+        "episode": 7900,
+        "avg_chips": -0.99
+      },
+      {
+        "episode": 7950,
+        "avg_chips": -1.38
+      },
+      {
+        "episode": 8000,
+        "avg_chips": 0.45
+      },
+      {
+        "episode": 8050,
+        "avg_chips": -1.71
+      },
+      {
+        "episode": 8100,
+        "avg_chips": -1.55
+      },
+      {
+        "episode": 8150,
+        "avg_chips": -2.52
+      },
+      {
+        "episode": 8200,
+        "avg_chips": -1.97
+      },
+      {
+        "episode": 8250,
+        "avg_chips": -1.13
+      },
+      {
+        "episode": 8300,
+        "avg_chips": -1.21
+      },
+      {
+        "episode": 8350,
+        "avg_chips": -2.82
+      },
+      {
+        "episode": 8400,
+        "avg_chips": -0.86
+      },
+      {
+        "episode": 8450,
+        "avg_chips": -1.98
+      },
+      {
+        "episode": 8500,
+        "avg_chips": -2.31
+      },
+      {
+        "episode": 8550,
+        "avg_chips": -1.25
+      },
+      {
+        "episode": 8600,
+        "avg_chips": 0.52
+      },
+      {
+        "episode": 8650,
+        "avg_chips": -2.15
+      },
+      {
+        "episode": 8700,
+        "avg_chips": -1.27
+      },
+      {
+        "episode": 8750,
+        "avg_chips": -1.12
+      },
+      {
+        "episode": 8800,
+        "avg_chips": -1.8
+      },
+      {
+        "episode": 8850,
+        "avg_chips": -0.22
+      },
+      {
+        "episode": 8900,
+        "avg_chips": -2.75
+      },
+      {
+        "episode": 8950,
+        "avg_chips": -3.16
+      },
+      {
+        "episode": 9000,
+        "avg_chips": -1.01
+      },
+      {
+        "episode": 9050,
+        "avg_chips": -0.11
+      },
+      {
+        "episode": 9100,
+        "avg_chips": -0.62
+      },
+      {
+        "episode": 9150,
+        "avg_chips": -1.12
+      },
+      {
+        "episode": 9200,
+        "avg_chips": -0.97
+      },
+      {
+        "episode": 9250,
+        "avg_chips": -1.92
+      },
+      {
+        "episode": 9300,
+        "avg_chips": -1.86
+      },
+      {
+        "episode": 9350,
+        "avg_chips": -1.6
+      },
+      {
+        "episode": 9400,
+        "avg_chips": -0.51
+      },
+      {
+        "episode": 9450,
+        "avg_chips": -0.06
+      },
+      {
+        "episode": 9500,
+        "avg_chips": -0.79
+      },
+      {
+        "episode": 9550,
+        "avg_chips": -1.65
+      },
+      {
+        "episode": 9600,
+        "avg_chips": -2.68
+      },
+      {
+        "episode": 9650,
+        "avg_chips": -0.2
+      },
+      {
+        "episode": 9700,
+        "avg_chips": -1.51
+      },
+      {
+        "episode": 9750,
+        "avg_chips": -3.17
+      },
+      {
+        "episode": 9800,
+        "avg_chips": -1.08
+      },
+      {
+        "episode": 9850,
+        "avg_chips": -0.44
+      },
+      {
+        "episode": 9900,
+        "avg_chips": -2.48
+      },
+      {
+        "episode": 9950,
+        "avg_chips": -0.06
+      },
+      {
+        "episode": 10000,
+        "avg_chips": -0.71
+      },
+      {
+        "episode": 10050,
+        "avg_chips": -0.5
+      },
+      {
+        "episode": 10100,
+        "avg_chips": -0.53
+      },
+      {
+        "episode": 10150,
+        "avg_chips": -1.27
+      },
+      {
+        "episode": 10200,
+        "avg_chips": -1.86
+      },
+      {
+        "episode": 10250,
+        "avg_chips": 0.28
+      },
+      {
+        "episode": 10300,
+        "avg_chips": -0.67
+      },
+      {
+        "episode": 10350,
+        "avg_chips": -1.65
+      },
+      {
+        "episode": 10400,
+        "avg_chips": -0.18
+      },
+      {
+        "episode": 10450,
+        "avg_chips": -1.58
+      },
+      {
+        "episode": 10500,
+        "avg_chips": -2.68
+      },
+      {
+        "episode": 10550,
+        "avg_chips": -2.68
+      },
+      {
+        "episode": 10600,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 10650,
+        "avg_chips": -1.28
+      },
+      {
+        "episode": 10700,
+        "avg_chips": -0.13
+      },
+      {
+        "episode": 10750,
+        "avg_chips": -0.93
+      },
+      {
+        "episode": 10800,
+        "avg_chips": -0.47
+      },
+      {
+        "episode": 10850,
+        "avg_chips": -0.91
+      },
+      {
+        "episode": 10900,
+        "avg_chips": -0.81
+      },
+      {
+        "episode": 10950,
+        "avg_chips": -1.23
+      },
+      {
+        "episode": 11000,
+        "avg_chips": -0.52
+      },
+      {
+        "episode": 11050,
+        "avg_chips": -1.04
+      },
+      {
+        "episode": 11100,
+        "avg_chips": 0.1
+      },
+      {
+        "episode": 11150,
+        "avg_chips": -1.18
+      },
+      {
+        "episode": 11200,
+        "avg_chips": -2.06
+      },
+      {
+        "episode": 11250,
+        "avg_chips": -0.43
+      },
+      {
+        "episode": 11300,
+        "avg_chips": -1.65
+      },
+      {
+        "episode": 11350,
+        "avg_chips": -1.74
+      },
+      {
+        "episode": 11400,
+        "avg_chips": -0.61
+      },
+      {
+        "episode": 11450,
+        "avg_chips": -1.71
+      },
+      {
+        "episode": 11500,
+        "avg_chips": -0.54
+      },
+      {
+        "episode": 11550,
+        "avg_chips": -0.69
+      },
+      {
+        "episode": 11600,
+        "avg_chips": -1.61
+      },
+      {
+        "episode": 11650,
+        "avg_chips": -1.04
+      },
+      {
+        "episode": 11700,
+        "avg_chips": -1.76
+      },
+      {
+        "episode": 11750,
+        "avg_chips": -1.37
+      },
+      {
+        "episode": 11800,
+        "avg_chips": -1.64
+      },
+      {
+        "episode": 11850,
+        "avg_chips": -2.55
+      },
+      {
+        "episode": 11900,
+        "avg_chips": 0.79
+      },
+      {
+        "episode": 11950,
+        "avg_chips": -0.37
+      },
+      {
+        "episode": 12000,
+        "avg_chips": -0.82
+      },
+      {
+        "episode": 12050,
+        "avg_chips": -1.58
+      },
+      {
+        "episode": 12100,
+        "avg_chips": -0.28
+      },
+      {
+        "episode": 12150,
+        "avg_chips": -1.1
+      },
+      {
+        "episode": 12200,
+        "avg_chips": 0.49
+      },
+      {
+        "episode": 12250,
+        "avg_chips": -0.07
+      },
+      {
+        "episode": 12300,
+        "avg_chips": -1.1
+      },
+      {
+        "episode": 12350,
+        "avg_chips": 0.1
+      },
+      {
+        "episode": 12400,
+        "avg_chips": -0.54
+      },
+      {
+        "episode": 12450,
+        "avg_chips": -1.01
+      },
+      {
+        "episode": 12500,
+        "avg_chips": -1.3
+      },
+      {
+        "episode": 12550,
+        "avg_chips": -2.42
+      },
+      {
+        "episode": 12600,
+        "avg_chips": -0.99
+      },
+      {
+        "episode": 12650,
+        "avg_chips": 0.91
+      },
+      {
+        "episode": 12700,
+        "avg_chips": -0.65
+      },
+      {
+        "episode": 12750,
+        "avg_chips": 0.26
+      },
+      {
+        "episode": 12800,
+        "avg_chips": -2.07
+      },
+      {
+        "episode": 12850,
+        "avg_chips": -1.24
+      },
+      {
+        "episode": 12900,
+        "avg_chips": -0.27
+      },
+      {
+        "episode": 12950,
+        "avg_chips": -0.8
+      },
+      {
+        "episode": 13000,
+        "avg_chips": -1.33
+      },
+      {
+        "episode": 13050,
+        "avg_chips": -1.42
+      },
+      {
+        "episode": 13100,
+        "avg_chips": 0.48
+      },
+      {
+        "episode": 13150,
+        "avg_chips": -2.19
+      },
+      {
+        "episode": 13200,
+        "avg_chips": -0.37
+      },
+      {
+        "episode": 13250,
+        "avg_chips": -1.62
+      },
+      {
+        "episode": 13300,
+        "avg_chips": -0.82
+      },
+      {
+        "episode": 13350,
+        "avg_chips": -1.66
+      },
+      {
+        "episode": 13400,
+        "avg_chips": -0.6
+      },
+      {
+        "episode": 13450,
+        "avg_chips": -0.66
+      },
+      {
+        "episode": 13500,
+        "avg_chips": -1.38
+      },
+      {
+        "episode": 13550,
+        "avg_chips": -0.72
+      },
+      {
+        "episode": 13600,
+        "avg_chips": -1.9
+      },
+      {
+        "episode": 13650,
+        "avg_chips": -0.87
+      },
+      {
+        "episode": 13700,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 13750,
+        "avg_chips": -0.84
+      },
+      {
+        "episode": 13800,
+        "avg_chips": 0.18
+      },
+      {
+        "episode": 13850,
+        "avg_chips": -1.11
+      },
+      {
+        "episode": 13900,
+        "avg_chips": 0.75
+      },
+      {
+        "episode": 13950,
+        "avg_chips": -1.07
+      },
+      {
+        "episode": 14000,
+        "avg_chips": -0.98
+      },
+      {
+        "episode": 14050,
+        "avg_chips": -1.1
+      },
+      {
+        "episode": 14100,
+        "avg_chips": -2.79
+      },
+      {
+        "episode": 14150,
+        "avg_chips": 0.32
+      },
+      {
+        "episode": 14200,
+        "avg_chips": -2.37
+      },
+      {
+        "episode": 14250,
+        "avg_chips": -2.07
+      },
+      {
+        "episode": 14300,
+        "avg_chips": -2.59
+      },
+      {
+        "episode": 14350,
+        "avg_chips": -0.5
+      },
+      {
+        "episode": 14400,
+        "avg_chips": -0.01
+      },
+      {
+        "episode": 14450,
+        "avg_chips": 0.06
+      },
+      {
+        "episode": 14500,
+        "avg_chips": -0.72
+      },
+      {
+        "episode": 14550,
+        "avg_chips": -0.9
+      },
+      {
+        "episode": 14600,
+        "avg_chips": -2.18
+      },
+      {
+        "episode": 14650,
+        "avg_chips": -1.72
+      },
+      {
+        "episode": 14700,
+        "avg_chips": -2.19
+      },
+      {
+        "episode": 14750,
+        "avg_chips": -0.12
+      },
+      {
+        "episode": 14800,
+        "avg_chips": -1.99
+      },
+      {
+        "episode": 14850,
+        "avg_chips": -1.87
+      },
+      {
+        "episode": 14900,
+        "avg_chips": -0.07
+      },
+      {
+        "episode": 14950,
+        "avg_chips": -1.14
+      },
+      {
+        "episode": 15000,
+        "avg_chips": -1.24
+      },
+      {
+        "episode": 15050,
+        "avg_chips": -1.73
+      },
+      {
+        "episode": 15100,
+        "avg_chips": -1.58
+      },
+      {
+        "episode": 15150,
+        "avg_chips": -0.59
+      },
+      {
+        "episode": 15200,
+        "avg_chips": -1.08
+      },
+      {
+        "episode": 15250,
+        "avg_chips": -1.77
+      },
+      {
+        "episode": 15300,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 15350,
+        "avg_chips": -0.48
+      },
+      {
+        "episode": 15400,
+        "avg_chips": -1.11
+      },
+      {
+        "episode": 15450,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 15500,
+        "avg_chips": 0.38
+      },
+      {
+        "episode": 15550,
+        "avg_chips": 0.7
+      },
+      {
+        "episode": 15600,
+        "avg_chips": -0.92
+      },
+      {
+        "episode": 15650,
+        "avg_chips": -1.19
+      },
+      {
+        "episode": 15700,
+        "avg_chips": -2.28
+      },
+      {
+        "episode": 15750,
+        "avg_chips": -1.33
+      },
+      {
+        "episode": 15800,
+        "avg_chips": -1.36
+      },
+      {
+        "episode": 15850,
+        "avg_chips": -2.35
+      },
+      {
+        "episode": 15900,
+        "avg_chips": 0.62
+      },
+      {
+        "episode": 15950,
+        "avg_chips": -0.17
+      },
+      {
+        "episode": 16000,
+        "avg_chips": -0.23
+      },
+      {
+        "episode": 16050,
+        "avg_chips": -2.19
+      },
+      {
+        "episode": 16100,
+        "avg_chips": -2.2
+      },
+      {
+        "episode": 16150,
+        "avg_chips": -0.97
+      },
+      {
+        "episode": 16200,
+        "avg_chips": -2.14
+      },
+      {
+        "episode": 16250,
+        "avg_chips": 0.62
+      },
+      {
+        "episode": 16300,
+        "avg_chips": -0.86
+      },
+      {
+        "episode": 16350,
+        "avg_chips": -3.13
+      },
+      {
+        "episode": 16400,
+        "avg_chips": -1.79
+      },
+      {
+        "episode": 16450,
+        "avg_chips": -1.21
+      },
+      {
+        "episode": 16500,
+        "avg_chips": -1.61
+      },
+      {
+        "episode": 16550,
+        "avg_chips": 0.41
+      },
+      {
+        "episode": 16600,
+        "avg_chips": -1.67
+      },
+      {
+        "episode": 16650,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 16700,
+        "avg_chips": -1.15
+      },
+      {
+        "episode": 16750,
+        "avg_chips": -1.99
+      },
+      {
+        "episode": 16800,
+        "avg_chips": -1.17
+      },
+      {
+        "episode": 16850,
+        "avg_chips": -2.01
+      },
+      {
+        "episode": 16900,
+        "avg_chips": -2.3
+      },
+      {
+        "episode": 16950,
+        "avg_chips": -1.22
+      },
+      {
+        "episode": 17000,
+        "avg_chips": -0.94
+      },
+      {
+        "episode": 17050,
+        "avg_chips": -1.11
+      },
+      {
+        "episode": 17100,
+        "avg_chips": -2.25
+      },
+      {
+        "episode": 17150,
+        "avg_chips": -1.83
+      },
+      {
+        "episode": 17200,
+        "avg_chips": -1.38
+      },
+      {
+        "episode": 17250,
+        "avg_chips": -1.79
+      },
+      {
+        "episode": 17300,
+        "avg_chips": -1.75
+      },
+      {
+        "episode": 17350,
+        "avg_chips": -2.24
+      },
+      {
+        "episode": 17400,
+        "avg_chips": 0.12
+      },
+      {
+        "episode": 17450,
+        "avg_chips": -0.15
+      },
+      {
+        "episode": 17500,
+        "avg_chips": -0.34
+      },
+      {
+        "episode": 17550,
+        "avg_chips": 0.18
+      },
+      {
+        "episode": 17600,
+        "avg_chips": -1.56
+      },
+      {
+        "episode": 17650,
+        "avg_chips": -2.33
+      },
+      {
+        "episode": 17700,
+        "avg_chips": -2.41
+      },
+      {
+        "episode": 17750,
+        "avg_chips": -1.84
+      },
+      {
+        "episode": 17800,
+        "avg_chips": -0.22
+      },
+      {
+        "episode": 17850,
+        "avg_chips": -3.63
+      },
+      {
+        "episode": 17900,
+        "avg_chips": -1.85
+      },
+      {
+        "episode": 17950,
+        "avg_chips": -0.1
+      },
+      {
+        "episode": 18000,
+        "avg_chips": -2.9
+      },
+      {
+        "episode": 18050,
+        "avg_chips": -1.59
+      },
+      {
+        "episode": 18100,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 18150,
+        "avg_chips": -1.63
+      },
+      {
+        "episode": 18200,
+        "avg_chips": -2.0
+      },
+      {
+        "episode": 18250,
+        "avg_chips": -1.16
+      },
+      {
+        "episode": 18300,
+        "avg_chips": -1.17
+      },
+      {
+        "episode": 18350,
+        "avg_chips": -1.84
+      },
+      {
+        "episode": 18400,
+        "avg_chips": -0.74
+      },
+      {
+        "episode": 18450,
+        "avg_chips": -2.15
+      },
+      {
+        "episode": 18500,
+        "avg_chips": 0.12
+      },
+      {
+        "episode": 18550,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 18600,
+        "avg_chips": -0.15
+      },
+      {
+        "episode": 18650,
+        "avg_chips": -1.1
+      },
+      {
+        "episode": 18700,
+        "avg_chips": -0.23
+      },
+      {
+        "episode": 18750,
+        "avg_chips": -1.18
+      },
+      {
+        "episode": 18800,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 18850,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 18900,
+        "avg_chips": -2.4
+      },
+      {
+        "episode": 18950,
+        "avg_chips": -0.22
+      },
+      {
+        "episode": 19000,
+        "avg_chips": -0.35
+      },
+      {
+        "episode": 19050,
+        "avg_chips": -2.19
+      },
+      {
+        "episode": 19100,
+        "avg_chips": -2.83
+      },
+      {
+        "episode": 19150,
+        "avg_chips": -2.57
+      },
+      {
+        "episode": 19200,
+        "avg_chips": -2.09
+      },
+      {
+        "episode": 19250,
+        "avg_chips": -1.7
+      },
+      {
+        "episode": 19300,
+        "avg_chips": -1.66
+      },
+      {
+        "episode": 19350,
+        "avg_chips": -0.5
+      },
+      {
+        "episode": 19400,
+        "avg_chips": -1.61
+      },
+      {
+        "episode": 19450,
+        "avg_chips": -1.91
+      },
+      {
+        "episode": 19500,
+        "avg_chips": -0.62
+      },
+      {
+        "episode": 19550,
+        "avg_chips": -0.26
+      },
+      {
+        "episode": 19600,
+        "avg_chips": -1.03
+      },
+      {
+        "episode": 19650,
+        "avg_chips": -1.41
+      },
+      {
+        "episode": 19700,
+        "avg_chips": -1.87
+      },
+      {
+        "episode": 19750,
+        "avg_chips": -0.65
+      },
+      {
+        "episode": 19800,
+        "avg_chips": -1.18
+      },
+      {
+        "episode": 19850,
+        "avg_chips": -1.48
+      },
+      {
+        "episode": 19900,
+        "avg_chips": -0.93
+      },
+      {
+        "episode": 19950,
+        "avg_chips": -1.97
+      },
+      {
+        "episode": 20000,
+        "avg_chips": -0.65
+      },
+      {
+        "episode": 20050,
+        "avg_chips": -1.72
+      },
+      {
+        "episode": 20100,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 20150,
+        "avg_chips": -0.57
+      },
+      {
+        "episode": 20200,
+        "avg_chips": -0.66
+      },
+      {
+        "episode": 20250,
+        "avg_chips": 0.37
+      },
+      {
+        "episode": 20300,
+        "avg_chips": -1.47
+      },
+      {
+        "episode": 20350,
+        "avg_chips": -0.87
+      },
+      {
+        "episode": 20400,
+        "avg_chips": -0.58
+      },
+      {
+        "episode": 20450,
+        "avg_chips": -0.87
+      },
+      {
+        "episode": 20500,
+        "avg_chips": -0.54
+      },
+      {
+        "episode": 20550,
+        "avg_chips": -1.62
+      },
+      {
+        "episode": 20600,
+        "avg_chips": -0.77
+      },
+      {
+        "episode": 20650,
+        "avg_chips": -0.73
+      },
+      {
+        "episode": 20700,
+        "avg_chips": -1.31
+      },
+      {
+        "episode": 20750,
+        "avg_chips": -1.6
+      },
+      {
+        "episode": 20800,
+        "avg_chips": -0.57
+      },
+      {
+        "episode": 20850,
+        "avg_chips": -1.25
+      },
+      {
+        "episode": 20900,
+        "avg_chips": -0.89
+      },
+      {
+        "episode": 20950,
+        "avg_chips": 0.34
+      },
+      {
+        "episode": 21000,
+        "avg_chips": -1.18
+      },
+      {
+        "episode": 21050,
+        "avg_chips": -1.69
+      },
+      {
+        "episode": 21100,
+        "avg_chips": -0.92
+      },
+      {
+        "episode": 21150,
+        "avg_chips": 0.14
+      },
+      {
+        "episode": 21200,
+        "avg_chips": -0.44
+      },
+      {
+        "episode": 21250,
+        "avg_chips": -2.99
+      },
+      {
+        "episode": 21300,
+        "avg_chips": -1.85
+      },
+      {
+        "episode": 21350,
+        "avg_chips": -1.17
+      },
+      {
+        "episode": 21400,
+        "avg_chips": -0.86
+      },
+      {
+        "episode": 21450,
+        "avg_chips": -1.93
+      },
+      {
+        "episode": 21500,
+        "avg_chips": -2.02
+      },
+      {
+        "episode": 21550,
+        "avg_chips": -1.68
+      },
+      {
+        "episode": 21600,
+        "avg_chips": -1.08
+      },
+      {
+        "episode": 21650,
+        "avg_chips": -1.84
+      },
+      {
+        "episode": 21700,
+        "avg_chips": -1.07
+      },
+      {
+        "episode": 21750,
+        "avg_chips": -2.15
+      },
+      {
+        "episode": 21800,
+        "avg_chips": -2.6
+      },
+      {
+        "episode": 21850,
+        "avg_chips": -1.42
+      },
+      {
+        "episode": 21900,
+        "avg_chips": -1.32
+      },
+      {
+        "episode": 21950,
+        "avg_chips": -1.96
+      },
+      {
+        "episode": 22000,
+        "avg_chips": -0.25
+      },
+      {
+        "episode": 22050,
+        "avg_chips": -0.27
+      },
+      {
+        "episode": 22100,
+        "avg_chips": -1.69
+      },
+      {
+        "episode": 22150,
+        "avg_chips": -0.09
+      },
+      {
+        "episode": 22200,
+        "avg_chips": -1.58
+      },
+      {
+        "episode": 22250,
+        "avg_chips": -2.64
+      },
+      {
+        "episode": 22300,
+        "avg_chips": -0.71
+      },
+      {
+        "episode": 22350,
+        "avg_chips": -2.11
+      },
+      {
+        "episode": 22400,
+        "avg_chips": -1.29
+      },
+      {
+        "episode": 22450,
+        "avg_chips": -2.39
+      },
+      {
+        "episode": 22500,
+        "avg_chips": -2.26
+      },
+      {
+        "episode": 22550,
+        "avg_chips": -1.15
+      },
+      {
+        "episode": 22600,
+        "avg_chips": -0.69
+      },
+      {
+        "episode": 22650,
+        "avg_chips": -0.5
+      },
+      {
+        "episode": 22700,
+        "avg_chips": -0.58
+      },
+      {
+        "episode": 22750,
+        "avg_chips": -1.53
+      },
+      {
+        "episode": 22800,
+        "avg_chips": -1.0
+      },
+      {
+        "episode": 22850,
+        "avg_chips": -0.48
+      },
+      {
+        "episode": 22900,
+        "avg_chips": -0.62
+      },
+      {
+        "episode": 22950,
+        "avg_chips": -2.62
+      },
+      {
+        "episode": 23000,
+        "avg_chips": -0.69
+      },
+      {
+        "episode": 23050,
+        "avg_chips": 0.42
+      },
+      {
+        "episode": 23100,
+        "avg_chips": -1.44
+      },
+      {
+        "episode": 23150,
+        "avg_chips": -0.67
+      },
+      {
+        "episode": 23200,
+        "avg_chips": -0.98
+      },
+      {
+        "episode": 23250,
+        "avg_chips": -1.68
+      },
+      {
+        "episode": 23300,
+        "avg_chips": -0.67
+      },
+      {
+        "episode": 23350,
+        "avg_chips": -0.09
+      },
+      {
+        "episode": 23400,
+        "avg_chips": -0.83
+      },
+      {
+        "episode": 23450,
+        "avg_chips": -3.45
+      },
+      {
+        "episode": 23500,
+        "avg_chips": -1.54
+      },
+      {
+        "episode": 23550,
+        "avg_chips": -1.5
+      },
+      {
+        "episode": 23600,
+        "avg_chips": -1.03
+      },
+      {
+        "episode": 23650,
+        "avg_chips": -0.62
+      },
+      {
+        "episode": 23700,
+        "avg_chips": 0.83
+      },
+      {
+        "episode": 23750,
+        "avg_chips": -1.17
+      },
+      {
+        "episode": 23800,
+        "avg_chips": -1.83
+      },
+      {
+        "episode": 23850,
+        "avg_chips": -1.67
+      },
+      {
+        "episode": 23900,
+        "avg_chips": -0.59
+      },
+      {
+        "episode": 23950,
+        "avg_chips": -1.35
+      },
+      {
+        "episode": 24000,
+        "avg_chips": -2.13
+      },
+      {
+        "episode": 24050,
+        "avg_chips": -1.4
+      },
+      {
+        "episode": 24100,
+        "avg_chips": -1.41
+      },
+      {
+        "episode": 24150,
+        "avg_chips": -1.02
+      },
+      {
+        "episode": 24200,
+        "avg_chips": -1.68
+      },
+      {
+        "episode": 24250,
+        "avg_chips": -0.63
+      },
+      {
+        "episode": 24300,
+        "avg_chips": -0.93
+      },
+      {
+        "episode": 24350,
+        "avg_chips": -1.17
+      },
+      {
+        "episode": 24400,
+        "avg_chips": -2.34
+      },
+      {
+        "episode": 24450,
+        "avg_chips": -2.11
+      },
+      {
+        "episode": 24500,
+        "avg_chips": -0.6
+      },
+      {
+        "episode": 24550,
+        "avg_chips": -0.64
+      },
+      {
+        "episode": 24600,
+        "avg_chips": -1.7
+      },
+      {
+        "episode": 24650,
+        "avg_chips": -1.77
+      },
+      {
+        "episode": 24700,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 24750,
+        "avg_chips": -0.93
+      },
+      {
+        "episode": 24800,
+        "avg_chips": -1.9
+      },
+      {
+        "episode": 24850,
+        "avg_chips": -2.63
+      },
+      {
+        "episode": 24900,
+        "avg_chips": 0.36
+      },
+      {
+        "episode": 24950,
+        "avg_chips": -2.41
+      },
+      {
+        "episode": 25000,
+        "avg_chips": -2.42
+      },
+      {
+        "episode": 25050,
+        "avg_chips": 1.02
+      },
+      {
+        "episode": 25100,
+        "avg_chips": -1.85
+      },
+      {
+        "episode": 25150,
+        "avg_chips": -1.15
+      },
+      {
+        "episode": 25200,
+        "avg_chips": -0.23
+      },
+      {
+        "episode": 25250,
+        "avg_chips": -0.48
+      },
+      {
+        "episode": 25300,
+        "avg_chips": -1.09
+      },
+      {
+        "episode": 25350,
+        "avg_chips": -0.47
+      },
+      {
+        "episode": 25400,
+        "avg_chips": -1.31
+      },
+      {
+        "episode": 25450,
+        "avg_chips": -1.68
+      },
+      {
+        "episode": 25500,
+        "avg_chips": -0.05
+      },
+      {
+        "episode": 25550,
+        "avg_chips": -0.76
+      },
+      {
+        "episode": 25600,
+        "avg_chips": -1.22
+      },
+      {
+        "episode": 25650,
+        "avg_chips": -1.51
+      },
+      {
+        "episode": 25700,
+        "avg_chips": -1.19
+      },
+      {
+        "episode": 25750,
+        "avg_chips": -0.23
+      },
+      {
+        "episode": 25800,
+        "avg_chips": -1.72
+      },
+      {
+        "episode": 25850,
+        "avg_chips": -1.59
+      },
+      {
+        "episode": 25900,
+        "avg_chips": -1.36
+      },
+      {
+        "episode": 25950,
+        "avg_chips": 0.17
+      },
+      {
+        "episode": 26000,
+        "avg_chips": -0.33
+      },
+      {
+        "episode": 26050,
+        "avg_chips": -0.72
+      },
+      {
+        "episode": 26100,
+        "avg_chips": -0.02
+      },
+      {
+        "episode": 26150,
+        "avg_chips": -0.85
+      },
+      {
+        "episode": 26200,
+        "avg_chips": -0.42
+      },
+      {
+        "episode": 26250,
+        "avg_chips": -0.97
+      },
+      {
+        "episode": 26300,
+        "avg_chips": 0.18
+      },
+      {
+        "episode": 26350,
+        "avg_chips": -1.59
+      },
+      {
+        "episode": 26400,
+        "avg_chips": -1.53
+      },
+      {
+        "episode": 26450,
+        "avg_chips": -0.06
+      },
+      {
+        "episode": 26500,
+        "avg_chips": -0.6
+      },
+      {
+        "episode": 26550,
+        "avg_chips": -1.43
+      },
+      {
+        "episode": 26600,
+        "avg_chips": -2.04
+      },
+      {
+        "episode": 26650,
+        "avg_chips": 0.17
+      },
+      {
+        "episode": 26700,
+        "avg_chips": -0.86
+      },
+      {
+        "episode": 26750,
+        "avg_chips": -2.08
+      },
+      {
+        "episode": 26800,
+        "avg_chips": 0.18
+      },
+      {
+        "episode": 26850,
+        "avg_chips": -1.84
+      },
+      {
+        "episode": 26900,
+        "avg_chips": -1.46
+      },
+      {
+        "episode": 26950,
+        "avg_chips": -1.66
+      },
+      {
+        "episode": 27000,
+        "avg_chips": -0.87
+      },
+      {
+        "episode": 27050,
+        "avg_chips": -0.29
+      },
+      {
+        "episode": 27100,
+        "avg_chips": -0.5
+      },
+      {
+        "episode": 27150,
+        "avg_chips": -0.27
+      },
+      {
+        "episode": 27200,
+        "avg_chips": -1.12
+      },
+      {
+        "episode": 27250,
+        "avg_chips": -1.23
+      },
+      {
+        "episode": 27300,
+        "avg_chips": -0.17
+      },
+      {
+        "episode": 27350,
+        "avg_chips": 0.27
+      },
+      {
+        "episode": 27400,
+        "avg_chips": -1.55
+      },
+      {
+        "episode": 27450,
+        "avg_chips": -1.5
+      },
+      {
+        "episode": 27500,
+        "avg_chips": -1.6
+      },
+      {
+        "episode": 27550,
+        "avg_chips": -0.54
+      },
+      {
+        "episode": 27600,
+        "avg_chips": 1.13
+      },
+      {
+        "episode": 27650,
+        "avg_chips": -0.2
+      },
+      {
+        "episode": 27700,
+        "avg_chips": -0.37
+      },
+      {
+        "episode": 27750,
+        "avg_chips": -1.33
+      },
+      {
+        "episode": 27800,
+        "avg_chips": -0.29
+      },
+      {
+        "episode": 27850,
+        "avg_chips": 0.19
+      },
+      {
+        "episode": 27900,
+        "avg_chips": -0.34
+      },
+      {
+        "episode": 27950,
+        "avg_chips": -1.5
+      },
+      {
+        "episode": 28000,
+        "avg_chips": -1.05
+      },
+      {
+        "episode": 28050,
+        "avg_chips": -1.43
+      },
+      {
+        "episode": 28100,
+        "avg_chips": -1.26
+      },
+      {
+        "episode": 28150,
+        "avg_chips": -0.53
+      },
+      {
+        "episode": 28200,
+        "avg_chips": -1.71
+      },
+      {
+        "episode": 28250,
+        "avg_chips": -0.73
+      },
+      {
+        "episode": 28300,
+        "avg_chips": -1.5
+      },
+      {
+        "episode": 28350,
+        "avg_chips": -0.37
+      },
+      {
+        "episode": 28400,
+        "avg_chips": -0.88
+      },
+      {
+        "episode": 28450,
+        "avg_chips": -0.44
+      },
+      {
+        "episode": 28500,
+        "avg_chips": -1.21
+      },
+      {
+        "episode": 28550,
+        "avg_chips": -1.07
+      },
+      {
+        "episode": 28600,
+        "avg_chips": -1.4
+      },
+      {
+        "episode": 28650,
+        "avg_chips": -0.1
+      },
+      {
+        "episode": 28700,
+        "avg_chips": 0.03
+      },
+      {
+        "episode": 28750,
+        "avg_chips": -0.44
+      },
+      {
+        "episode": 28800,
+        "avg_chips": -1.83
+      },
+      {
+        "episode": 28850,
+        "avg_chips": -1.35
+      },
+      {
+        "episode": 28900,
+        "avg_chips": -1.6
+      },
+      {
+        "episode": 28950,
+        "avg_chips": -1.84
+      },
+      {
+        "episode": 29000,
+        "avg_chips": -0.81
+      },
+      {
+        "episode": 29050,
+        "avg_chips": -0.54
+      },
+      {
+        "episode": 29100,
+        "avg_chips": 0.82
+      },
+      {
+        "episode": 29150,
+        "avg_chips": -1.04
+      },
+      {
+        "episode": 29200,
+        "avg_chips": -0.62
+      },
+      {
+        "episode": 29250,
+        "avg_chips": -0.19
+      },
+      {
+        "episode": 29300,
+        "avg_chips": 0.02
+      },
+      {
+        "episode": 29350,
+        "avg_chips": 0.16
+      },
+      {
+        "episode": 29400,
+        "avg_chips": -1.1
+      },
+      {
+        "episode": 29450,
+        "avg_chips": -0.97
+      },
+      {
+        "episode": 29500,
+        "avg_chips": -1.37
+      },
+      {
+        "episode": 29550,
+        "avg_chips": -0.08
+      },
+      {
+        "episode": 29600,
+        "avg_chips": -0.6
+      },
+      {
+        "episode": 29650,
+        "avg_chips": 0.12
+      },
+      {
+        "episode": 29700,
+        "avg_chips": -1.39
+      },
+      {
+        "episode": 29750,
+        "avg_chips": -1.04
+      },
+      {
+        "episode": 29800,
+        "avg_chips": -0.7
+      },
+      {
+        "episode": 29850,
+        "avg_chips": -1.39
+      },
+      {
+        "episode": 29900,
+        "avg_chips": -1.67
+      },
+      {
+        "episode": 29950,
+        "avg_chips": -0.16
+      },
+      {
+        "episode": 30000,
+        "avg_chips": -1.15
+      }
+    ],
+    "loss_samples": [
+      {
+        "episode": 32,
+        "loss": 1965.2944660186768
+      },
+      {
+        "episode": 1632,
+        "loss": 2857.252342224121
+      },
+      {
+        "episode": 3232,
+        "loss": 721.7283029556274
+      },
+      {
+        "episode": 4832,
+        "loss": 1093.3427381515503
+      },
+      {
+        "episode": 6432,
+        "loss": 1696.0437355041504
+      },
+      {
+        "episode": 8032,
+        "loss": 773.0163459777832
+      },
+      {
+        "episode": 9632,
+        "loss": 1665.9834613800049
+      },
+      {
+        "episode": 11232,
+        "loss": 1776.9899101257324
+      },
+      {
+        "episode": 12832,
+        "loss": 3270.3355960845947
+      },
+      {
+        "episode": 14432,
+        "loss": 1847.7501544952393
+      },
+      {
+        "episode": 16032,
+        "loss": 1072.730004310608
+      },
+      {
+        "episode": 17632,
+        "loss": 773.0709714889526
+      },
+      {
+        "episode": 19232,
+        "loss": 2287.9233570098877
+      },
+      {
+        "episode": 20832,
+        "loss": 1056.1922283172607
+      },
+      {
+        "episode": 22432,
+        "loss": 1548.4598560333252
+      },
+      {
+        "episode": 24032,
+        "loss": 661.494086265564
+      },
+      {
+        "episode": 25632,
+        "loss": 1316.1076412200928
+      },
+      {
+        "episode": 27232,
+        "loss": 578.602837562561
+      },
+      {
+        "episode": 28832,
+        "loss": 1734.1161823272705
+      }
+    ]
+  },
+  "evaluation": {
+    "scores": {
+      "heuristic": -0.202,
+      "value_based": -0.914,
+      "adaptive_value": -0.744,
+      "modulated_value": -1.038,
+      "entropy_ac": 0.076,
+      "cfr": -0.666
+    },
+    "per_matchup": {
+      "heuristic": {
+        "avg": -0.202,
+        "std": 4.96,
+        "total_rounds": 500
+      },
+      "value_based": {
+        "avg": -0.914,
+        "std": 2.9282,
+        "total_rounds": 500
+      },
+      "adaptive_value": {
+        "avg": -0.744,
+        "std": 2.8345,
+        "total_rounds": 500
+      },
+      "modulated_value": {
+        "avg": -1.038,
+        "std": 3.3777,
+        "total_rounds": 500
+      },
+      "entropy_ac": {
+        "avg": 0.076,
+        "std": 3.9978,
+        "total_rounds": 500
+      },
+      "cfr": {
+        "avg": -0.666,
+        "std": 3.266,
+        "total_rounds": 500
+      }
+    },
+    "robustness": {
+      "avg": -0.5813,
+      "worst_case": -1.038,
+      "best_case": 0.076,
+      "std": 0.431,
+      "robustness": -1.2278,
+      "n_opponents": 6
+    }
+  },
+  "beta_sweep": {
+    "sweep": {
+      "0.0": {
+        "scores": {
+          "heuristic": -0.936,
+          "value_based": -0.538,
+          "adaptive_value": -1.102,
+          "modulated_value": -1.318,
+          "entropy_ac": -0.62,
+          "cfr": -0.646
+        },
+        "metrics": {
+          "avg": -0.86,
+          "worst_case": -1.318,
+          "best_case": -0.538,
+          "std": 0.3102,
+          "robustness": -1.3253,
+          "n_opponents": 6
+        }
+      },
+      "0.1": {
+        "scores": {
+          "heuristic": -0.854,
+          "value_based": -1.184,
+          "adaptive_value": -0.494,
+          "modulated_value": -1.26,
+          "entropy_ac": -0.4,
+          "cfr": -0.596
+        },
+        "metrics": {
+          "avg": -0.798,
+          "worst_case": -1.26,
+          "best_case": -0.4,
+          "std": 0.3625,
+          "robustness": -1.3418,
+          "n_opponents": 6
+        }
+      },
+      "0.2": {
+        "scores": {
+          "heuristic": -0.418,
+          "value_based": -0.942,
+          "adaptive_value": -0.756,
+          "modulated_value": -1.042,
+          "entropy_ac": -0.084,
+          "cfr": -0.482
+        },
+        "metrics": {
+          "avg": -0.6207,
+          "worst_case": -1.042,
+          "best_case": -0.084,
+          "std": 0.3598,
+          "robustness": -1.1604,
+          "n_opponents": 6
+        }
+      },
+      "0.3": {
+        "scores": {
+          "heuristic": 0.138,
+          "value_based": -0.696,
+          "adaptive_value": -0.508,
+          "modulated_value": -1.182,
+          "entropy_ac": -0.172,
+          "cfr": -0.172
+        },
+        "metrics": {
+          "avg": -0.432,
+          "worst_case": -1.182,
+          "best_case": 0.138,
+          "std": 0.4686,
+          "robustness": -1.1349,
+          "n_opponents": 6
+        }
+      },
+      "0.5": {
+        "scores": {
+          "heuristic": 0.022,
+          "value_based": -0.748,
+          "adaptive_value": -0.682,
+          "modulated_value": -0.59,
+          "entropy_ac": -0.088,
+          "cfr": -0.12
+        },
+        "metrics": {
+          "avg": -0.3677,
+          "worst_case": -0.748,
+          "best_case": 0.022,
+          "std": 0.3418,
+          "robustness": -0.8804,
+          "n_opponents": 6
+        }
+      },
+      "0.7": {
+        "scores": {
+          "heuristic": -0.33,
+          "value_based": -0.844,
+          "adaptive_value": -0.854,
+          "modulated_value": -0.922,
+          "entropy_ac": -0.882,
+          "cfr": -0.726
+        },
+        "metrics": {
+          "avg": -0.7597,
+          "worst_case": -0.922,
+          "best_case": -0.33,
+          "std": 0.2205,
+          "robustness": -1.0904,
+          "n_opponents": 6
+        }
+      },
+      "1.0": {
+        "scores": {
+          "heuristic": -1.0,
+          "value_based": -1.0,
+          "adaptive_value": -1.0,
+          "modulated_value": -1.0,
+          "entropy_ac": -1.0,
+          "cfr": -1.0
+        },
+        "metrics": {
+          "avg": -1.0,
+          "worst_case": -1.0,
+          "best_case": -1.0,
+          "std": 0.0,
+          "robustness": -1.0,
+          "n_opponents": 6
+        }
+      }
+    },
+    "optimal_beta": 0.5
+  },
+  "diagnosis": {
+    "J_preflop": {
+      "state_mean": -1.2514,
+      "state_std": 2.5648,
+      "actions": {
+        "FOLD": {
+          "risk_score": -1.0,
+          "mean": -1.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -2.5697,
+          "mean": -1.0306,
+          "std": 3.0781
+        },
+        "RAISE": {
+          "risk_score": -2.8348,
+          "mean": -1.13,
+          "std": 3.4096
+        }
+      },
+      "selected_action": "FOLD"
+    },
+    "Q_preflop": {
+      "state_mean": -0.5166,
+      "state_std": 2.5702,
+      "actions": {
+        "FOLD": {
+          "risk_score": -1.0,
+          "mean": -1.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -1.4861,
+          "mean": 0.0147,
+          "std": 3.0016
+        },
+        "RAISE": {
+          "risk_score": -1.7145,
+          "mean": -0.042,
+          "std": 3.345
+        }
+      },
+      "selected_action": "FOLD"
+    },
+    "K_preflop": {
+      "state_mean": 0.9828,
+      "state_std": 2.7794,
+      "actions": {
+        "FOLD": {
+          "risk_score": -1.0,
+          "mean": -1.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -0.1577,
+          "mean": 1.4586,
+          "std": 3.2327
+        },
+        "RAISE": {
+          "risk_score": -0.0876,
+          "mean": 1.6785,
+          "std": 3.5323
+        }
+      },
+      "selected_action": "RAISE"
+    },
+    "K_pair_K": {
+      "state_mean": 3.7089,
+      "state_std": 3.8411,
+      "actions": {
+        "FOLD": {
+          "risk_score": -3.0,
+          "mean": -3.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": 1.8749,
+          "mean": 3.9711,
+          "std": 4.1923
+        },
+        "RAISE": {
+          "risk_score": 1.9735,
+          "mean": 4.2262,
+          "std": 4.5054
+        }
+      },
+      "selected_action": "RAISE"
+    },
+    "K_nopair_J": {
+      "state_mean": 0.8952,
+      "state_std": 3.5359,
+      "actions": {
+        "FOLD": {
+          "risk_score": -3.0,
+          "mean": -3.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -0.8487,
+          "mean": 1.1164,
+          "std": 3.9302
+        },
+        "RAISE": {
+          "risk_score": -0.9215,
+          "mean": 1.2109,
+          "std": 4.265
+        }
+      },
+      "selected_action": "CALL"
+    },
+    "J_pair_J": {
+      "state_mean": 0.6265,
+      "state_std": 3.7382,
+      "actions": {
+        "FOLD": {
+          "risk_score": -3.0,
+          "mean": -3.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -1.215,
+          "mean": 0.8091,
+          "std": 4.0482
+        },
+        "RAISE": {
+          "risk_score": -1.3968,
+          "mean": 0.7897,
+          "std": 4.373
+        }
+      },
+      "selected_action": "CALL"
+    },
+    "J_nopair_K": {
+      "state_mean": -2.1005,
+      "state_std": 3.4509,
+      "actions": {
+        "FOLD": {
+          "risk_score": -3.0,
+          "mean": -3.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -4.1613,
+          "mean": -2.2416,
+          "std": 3.8395
+        },
+        "RAISE": {
+          "risk_score": -4.5942,
+          "mean": -2.5039,
+          "std": 4.1805
+        }
+      },
+      "selected_action": "FOLD"
+    },
+    "K_preflop_raised": {
+      "state_mean": 1.2137,
+      "state_std": 3.1504,
+      "actions": {
+        "FOLD": {
+          "risk_score": -3.0,
+          "mean": -3.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -0.0768,
+          "mean": 1.7281,
+          "std": 3.6099
+        },
+        "RAISE": {
+          "risk_score": -0.0035,
+          "mean": 1.9519,
+          "std": 3.9107
+        }
+      },
+      "selected_action": "RAISE"
+    },
+    "J_preflop_raised": {
+      "state_mean": -1.3889,
+      "state_std": 2.9878,
+      "actions": {
+        "FOLD": {
+          "risk_score": -3.0,
+          "mean": -3.0,
+          "std": 0.0
+        },
+        "CALL": {
+          "risk_score": -2.9238,
+          "mean": -1.1775,
+          "std": 3.4927
+        },
+        "RAISE": {
+          "risk_score": -3.2,
+          "mean": -1.3001,
+          "std": 3.7997
+        }
+      },
+      "selected_action": "CALL"
+    },
+    "_pair_vs_nopair": {
+      "avg_pair_std": 3.7896,
+      "avg_nopair_std": 3.4934,
+      "ratio": 0.9218
+    }
+  },
+  "scalar_comparison": {
+    "agreements": 94,
+    "disagreements": 218,
+    "total_decisions": 312,
+    "agreement_rate": 0.3013,
+    "disagreement_examples": [
+      {
+        "hand": "J",
+        "board": null,
+        "pot": [
+          1,
+          1
+        ],
+        "round": 0,
+        "raises": 0,
+        "dist_action": "FOLD",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -1.0,
+            "mean": -1.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -2.5697,
+            "mean": -1.0306,
+            "std": 3.0781
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -2.8348,
+            "mean": -1.13,
+            "std": 3.4096
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -1.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.6542
+          },
+          {
+            "action": "RAISE",
+            "value": -1.2908
+          }
+        ]
+      },
+      {
+        "hand": "K",
+        "board": "Q",
+        "pot": [
+          5,
+          5
+        ],
+        "round": 1,
+        "raises": 0,
+        "dist_action": "RAISE",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -5.0,
+            "mean": -5.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.3803,
+            "mean": 0.9602,
+            "std": 4.6809
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -1.0413,
+            "mean": 1.2442,
+            "std": 4.571
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -5.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.0802
+          },
+          {
+            "action": "RAISE",
+            "value": -0.7186
+          }
+        ]
+      },
+      {
+        "hand": "K",
+        "board": "Q",
+        "pot": [
+          5,
+          9
+        ],
+        "round": 1,
+        "raises": 1,
+        "dist_action": "RAISE",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -5.0,
+            "mean": -5.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.3673,
+            "mean": 1.0438,
+            "std": 4.8221
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -1.0106,
+            "mean": 1.3492,
+            "std": 4.7196
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -5.0
+          },
+          {
+            "action": "CALL",
+            "value": -4.8789
+          },
+          {
+            "action": "RAISE",
+            "value": -5.8294
+          }
+        ]
+      },
+      {
+        "hand": "K",
+        "board": "Q",
+        "pot": [
+          13,
+          9
+        ],
+        "round": 1,
+        "raises": 2,
+        "dist_action": "CALL",
+        "scalar_action": "FOLD",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -9.0,
+            "mean": -9.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.9106,
+            "mean": 0.813,
+            "std": 5.4473
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -9.0
+          },
+          {
+            "action": "CALL",
+            "value": -9.5342
+          }
+        ]
+      },
+      {
+        "hand": "J",
+        "board": null,
+        "pot": [
+          1,
+          1
+        ],
+        "round": 0,
+        "raises": 0,
+        "dist_action": "FOLD",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -1.0,
+            "mean": -1.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -2.5697,
+            "mean": -1.0306,
+            "std": 3.0781
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -2.8348,
+            "mean": -1.13,
+            "std": 3.4096
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -1.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.6542
+          },
+          {
+            "action": "RAISE",
+            "value": -1.2908
+          }
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": null,
+        "pot": [
+          1,
+          1
+        ],
+        "round": 0,
+        "raises": 0,
+        "dist_action": "FOLD",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -1.0,
+            "mean": -1.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.4861,
+            "mean": 0.0147,
+            "std": 3.0016
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -1.7145,
+            "mean": -0.042,
+            "std": 3.345
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -1.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.0021
+          },
+          {
+            "action": "RAISE",
+            "value": -0.221
+          }
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": null,
+        "pot": [
+          3,
+          1
+        ],
+        "round": 0,
+        "raises": 1,
+        "dist_action": "FOLD",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -1.0,
+            "mean": -1.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -2.2491,
+            "mean": -0.2672,
+            "std": 3.9638
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -2.2389,
+            "mean": -0.2044,
+            "std": 4.0689
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -1.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.2343
+          },
+          {
+            "action": "RAISE",
+            "value": -0.3651
+          }
+        ]
+      },
+      {
+        "hand": "Q",
+        "board": null,
+        "pot": [
+          1,
+          1
+        ],
+        "round": 0,
+        "raises": 0,
+        "dist_action": "FOLD",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -1.0,
+            "mean": -1.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.4861,
+            "mean": 0.0147,
+            "std": 3.0016
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -1.7145,
+            "mean": -0.042,
+            "std": 3.345
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -1.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.0021
+          },
+          {
+            "action": "RAISE",
+            "value": -0.221
+          }
+        ]
+      },
+      {
+        "hand": "K",
+        "board": "Q",
+        "pot": [
+          5,
+          5
+        ],
+        "round": 1,
+        "raises": 0,
+        "dist_action": "RAISE",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -5.0,
+            "mean": -5.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.3803,
+            "mean": 0.9602,
+            "std": 4.6809
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -1.0413,
+            "mean": 1.2442,
+            "std": 4.571
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -5.0
+          },
+          {
+            "action": "CALL",
+            "value": -0.0802
+          },
+          {
+            "action": "RAISE",
+            "value": -0.7186
+          }
+        ]
+      },
+      {
+        "hand": "K",
+        "board": "Q",
+        "pot": [
+          5,
+          9
+        ],
+        "round": 1,
+        "raises": 1,
+        "dist_action": "RAISE",
+        "scalar_action": "CALL",
+        "dist_evals": [
+          {
+            "action": "FOLD",
+            "risk_score": -5.0,
+            "mean": -5.0,
+            "std": 0.0
+          },
+          {
+            "action": "CALL",
+            "risk_score": -1.3673,
+            "mean": 1.0438,
+            "std": 4.8221
+          },
+          {
+            "action": "RAISE",
+            "risk_score": -1.0106,
+            "mean": 1.3492,
+            "std": 4.7196
+          }
+        ],
+        "scalar_evals": [
+          {
+            "action": "FOLD",
+            "value": -5.0
+          },
+          {
+            "action": "CALL",
+            "value": -4.8789
+          },
+          {
+            "action": "RAISE",
+            "value": -5.8294
+          }
+        ]
+      }
+    ]
+  }
+}

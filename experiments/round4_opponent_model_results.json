@@ -1,0 +1,345 @@
+{
+  "experiment": "round4_opponent_model",
+  "timestamp": "2026-02-27 08:35:34",
+  "config": {
+    "train_episodes": 30000,
+    "batch_size": 32,
+    "lr": 0.0001,
+    "eval_rounds": 500
+  },
+  "training": {
+    "training_time_s": 81.8,
+    "num_updates": 937,
+    "final_loss": 14.468381345272064,
+    "final_eval_vs_heuristic": -1.62,
+    "eval_history": [
+      {
+        "episode": 29550,
+        "avg_chips": -1.33
+      },
+      {
+        "episode": 29600,
+        "avg_chips": -2.54
+      },
+      {
+        "episode": 29650,
+        "avg_chips": -2.95
+      },
+      {
+        "episode": 29700,
+        "avg_chips": -0.7
+      },
+      {
+        "episode": 29750,
+        "avg_chips": -1.9
+      },
+      {
+        "episode": 29800,
+        "avg_chips": -0.42
+      },
+      {
+        "episode": 29850,
+        "avg_chips": -0.48
+      },
+      {
+        "episode": 29900,
+        "avg_chips": -2.63
+      },
+      {
+        "episode": 29950,
+        "avg_chips": -0.1
+      },
+      {
+        "episode": 30000,
+        "avg_chips": -1.62
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": -1.406,
+    "value_based": -1.476,
+    "adaptive_value": -1.794,
+    "modulated_value": -1.304,
+    "entropy_ac": -1.642,
+    "cfr": -0.768
+  },
+  "diagnosis_accuracy": {
+    "heuristic": {
+      "accuracy": 0.6597,
+      "total_predictions": 529,
+      "actual_distribution": {
+        "CALL": 0.5558,
+        "FOLD": 0.0964,
+        "RAISE": 0.3478
+      },
+      "predicted_distribution": {
+        "CALL": 0.4785,
+        "FOLD": 0.1489,
+        "RAISE": 0.3727
+      }
+    },
+    "value_based": {
+      "accuracy": 0.7612,
+      "total_predictions": 402,
+      "actual_distribution": {
+        "CALL": 0.6294,
+        "FOLD": 0.1542,
+        "RAISE": 0.2164
+      },
+      "predicted_distribution": {
+        "CALL": 0.4666,
+        "FOLD": 0.1539,
+        "RAISE": 0.3796
+      }
+    },
+    "adaptive_value": {
+      "accuracy": 0.7568,
+      "total_predictions": 407,
+      "actual_distribution": {
+        "CALL": 0.6241,
+        "FOLD": 0.1376,
+        "RAISE": 0.2383
+      },
+      "predicted_distribution": {
+        "CALL": 0.4659,
+        "FOLD": 0.1527,
+        "RAISE": 0.3814
+      }
+    },
+    "modulated_value": {
+      "accuracy": 0.7584,
+      "total_predictions": 385,
+      "actual_distribution": {
+        "CALL": 0.639,
+        "FOLD": 0.1247,
+        "RAISE": 0.2364
+      },
+      "predicted_distribution": {
+        "CALL": 0.4643,
+        "FOLD": 0.1538,
+        "RAISE": 0.3818
+      }
+    },
+    "entropy_ac": {
+      "accuracy": 0.7352,
+      "total_predictions": 525,
+      "actual_distribution": {
+        "CALL": 0.6495,
+        "RAISE": 0.3505
+      },
+      "predicted_distribution": {
+        "CALL": 0.4812,
+        "FOLD": 0.1505,
+        "RAISE": 0.3683
+      }
+    },
+    "cfr": {
+      "accuracy": 0.5797,
+      "total_predictions": 502,
+      "actual_distribution": {
+        "CALL": 0.498,
+        "FOLD": 0.1554,
+        "RAISE": 0.3466
+      },
+      "predicted_distribution": {
+        "CALL": 0.4765,
+        "FOLD": 0.1533,
+        "RAISE": 0.3702
+      }
+    }
+  },
+  "diagnosis_1ply_vs_2ply": {
+    "total_decisions": 2555,
+    "changed_decisions": 467,
+    "change_rate": 0.1828,
+    "by_round": {
+      "round_0": {
+        "total": 1449,
+        "changed": 260,
+        "rate": 0.1794
+      },
+      "round_1": {
+        "total": 1106,
+        "changed": 207,
+        "rate": 0.1872
+      }
+    },
+    "by_hand": {
+      "Q": {
+        "total": 644,
+        "changed": 148,
+        "rate": 0.2298
+      },
+      "J": {
+        "total": 698,
+        "changed": 232,
+        "rate": 0.3324
+      },
+      "K": {
+        "total": 1213,
+        "changed": 87,
+        "rate": 0.0717
+      }
+    },
+    "action_changes": {
+      "FOLD->RAISE": 134,
+      "CALL->RAISE": 241,
+      "RAISE->CALL": 92
+    },
+    "value_improvement": {
+      "mean": 0.9931,
+      "median": 0.788,
+      "std": 0.8806
+    },
+    "examples": [
+      {
+        "hand": "J",
+        "board": null,
+        "pot": [
+          1,
+          3
+        ],
+        "round": 0,
+        "1ply_action": "FOLD",
+        "1ply_value": -1.0,
+        "2ply_action": "RAISE",
+        "2ply_value": -0.1104,
+        "opp_probs": {
+          "FOLD": 0.19153262674808502,
+          "CALL": 0.49902743101119995
+        }
+      },
+      {
+        "hand": "J",
+        "board": "Q",
+        "pot": [
+          5,
+          9
+        ],
+        "round": 1,
+        "1ply_action": "CALL",
+        "1ply_value": -3.9883,
+        "2ply_action": "RAISE",
+        "2ply_value": -1.7583,
+        "opp_probs": {
+          "FOLD": 0.13259555399417877,
+          "CALL": 0.5536873936653137
+        }
+      },
+      {
+        "hand": "Q",
+        "board": null,
+        "pot": [
+          1,
+          1
+        ],
+        "round": 0,
+        "1ply_action": "RAISE",
+        "1ply_value": -0.6092,
+        "2ply_action": "CALL",
+        "2ply_value": -0.5962,
+        "opp_probs": {
+          "FOLD": 0.17660170793533325,
+          "CALL": 0.4454229176044464,
+          "RAISE": 0.37797534465789795
+        }
+      },
+      {
+        "hand": "J",
+        "board": null,
+        "pot": [
+          1,
+          3
+        ],
+        "round": 0,
+        "1ply_action": "FOLD",
+        "1ply_value": -1.0,
+        "2ply_action": "RAISE",
+        "2ply_value": -0.1104,
+        "opp_probs": {
+          "FOLD": 0.19153262674808502,
+          "CALL": 0.49902743101119995
+        }
+      },
+      {
+        "hand": "J",
+        "board": "Q",
+        "pot": [
+          5,
+          9
+        ],
+        "round": 1,
+        "1ply_action": "CALL",
+        "1ply_value": -3.9883,
+        "2ply_action": "RAISE",
+        "2ply_value": -1.7583,
+        "opp_probs": {
+          "FOLD": 0.13259555399417877,
+          "CALL": 0.5536873936653137
+        }
+      }
+    ]
+  },
+  "diagnosis_predictions": {
+    "by_round": {
+      "0": {
+        "fold_prob": 0.2015,
+        "call_prob": 0.4585,
+        "raise_prob": 0.34,
+        "count": 861
+      },
+      "1": {
+        "fold_prob": 0.1258,
+        "call_prob": 0.5299,
+        "raise_prob": 0.3444,
+        "count": 665
+      }
+    },
+    "by_hand": {
+      "J": {
+        "fold_prob": 0.1667,
+        "call_prob": 0.4762,
+        "raise_prob": 0.3571,
+        "count": 410
+      },
+      "K": {
+        "fold_prob": 0.1693,
+        "call_prob": 0.5056,
+        "raise_prob": 0.3251,
+        "count": 736
+      },
+      "Q": {
+        "fold_prob": 0.1689,
+        "call_prob": 0.4732,
+        "raise_prob": 0.3579,
+        "count": 380
+      }
+    },
+    "by_board": {
+      "J": {
+        "fold_prob": 0.1156,
+        "call_prob": 0.5327,
+        "raise_prob": 0.3516,
+        "count": 287
+      },
+      "K": {
+        "fold_prob": 0.125,
+        "call_prob": 0.5423,
+        "raise_prob": 0.3328,
+        "count": 181
+      },
+      "None": {
+        "fold_prob": 0.2015,
+        "call_prob": 0.4585,
+        "raise_prob": 0.34,
+        "count": 861
+      },
+      "Q": {
+        "fold_prob": 0.1413,
+        "call_prob": 0.5143,
+        "raise_prob": 0.3445,
+        "count": 197
+      }
+    }
+  }
+}

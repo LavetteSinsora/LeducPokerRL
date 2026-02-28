@@ -1,0 +1,528 @@
+{
+  "experiment": "round4_nash_value_network",
+  "timestamp": "2026-02-27 08:35:53",
+  "config": {
+    "cfr_iterations": 10000,
+    "training_epochs": 10000,
+    "learning_rate": 0.001,
+    "eval_rounds_per_position": 500,
+    "model_architecture": "15 -> 64 -> 64 -> 1"
+  },
+  "training": {
+    "cfr": {
+      "final_exploitability": 0.0031362575139942672,
+      "num_infosets": 288,
+      "exploitability_log": [
+        {
+          "iteration": 1,
+          "exploitability": 4.661728395061728
+        },
+        {
+          "iteration": 1000,
+          "exploitability": 0.015833702231041025
+        },
+        {
+          "iteration": 2000,
+          "exploitability": 0.007914258908910565
+        },
+        {
+          "iteration": 3000,
+          "exploitability": 0.00566966368270011
+        },
+        {
+          "iteration": 4000,
+          "exploitability": 0.005222597810934593
+        },
+        {
+          "iteration": 5000,
+          "exploitability": 0.0045004506700667135
+        },
+        {
+          "iteration": 6000,
+          "exploitability": 0.004157679223040722
+        },
+        {
+          "iteration": 7000,
+          "exploitability": 0.003976982208936719
+        },
+        {
+          "iteration": 8000,
+          "exploitability": 0.0036399007209529377
+        },
+        {
+          "iteration": 9000,
+          "exploitability": 0.0033640356811074357
+        },
+        {
+          "iteration": 10000,
+          "exploitability": 0.0031362575139942672
+        }
+      ]
+    },
+    "num_infosets": 288,
+    "dataset_size": 288,
+    "final_mse": 0.3240005671977997,
+    "loss_log": [
+      {
+        "epoch": 1,
+        "loss": 41.02287292480469
+      },
+      {
+        "epoch": 1000,
+        "loss": 0.5366490483283997
+      },
+      {
+        "epoch": 2000,
+        "loss": 0.39992833137512207
+      },
+      {
+        "epoch": 3000,
+        "loss": 0.35898256301879883
+      },
+      {
+        "epoch": 4000,
+        "loss": 0.34265756607055664
+      },
+      {
+        "epoch": 5000,
+        "loss": 0.33371201157569885
+      },
+      {
+        "epoch": 6000,
+        "loss": 0.329419881105423
+      },
+      {
+        "epoch": 7000,
+        "loss": 0.32710447907447815
+      },
+      {
+        "epoch": 8000,
+        "loss": 0.3273252844810486
+      },
+      {
+        "epoch": 9000,
+        "loss": 0.32777178287506104
+      },
+      {
+        "epoch": 10000,
+        "loss": 0.3240005671977997
+      }
+    ]
+  },
+  "nash_value_analysis": {
+    "overall": {
+      "count": 288,
+      "mean": 0.125929,
+      "std": 6.395716,
+      "min": -9.971608,
+      "max": 13.0,
+      "median": -1.01084
+    },
+    "per_hand": {
+      "J": {
+        "count": 96,
+        "mean": -0.203927,
+        "min": -9.004985,
+        "max": 13.0
+      },
+      "Q": {
+        "count": 96,
+        "mean": -0.077116,
+        "min": -9.971608,
+        "max": 13.0
+      },
+      "K": {
+        "count": 96,
+        "mean": 0.658831,
+        "min": -9.39689,
+        "max": 13.0
+      }
+    },
+    "per_round": {
+      "preflop": {
+        "count": 18,
+        "mean": -0.272411
+      },
+      "flop": {
+        "count": 270,
+        "mean": 0.152485
+      }
+    }
+  },
+  "approximation_diagnosis": {
+    "mse": 0.32375044,
+    "mae": 0.2363,
+    "max_error": 3.440183,
+    "worst_10": [
+      {
+        "key": "K:J:rc/crr",
+        "true": -6.988092,
+        "pred": -3.547909,
+        "error": 3.440183
+      },
+      {
+        "key": "K:J:crc/crr",
+        "true": -0.114044,
+        "pred": -3.547909,
+        "error": 3.433865
+      },
+      {
+        "key": "K:J:rc/cr",
+        "true": -2.750347,
+        "pred": 0.174321,
+        "error": 2.924668
+      },
+      {
+        "key": "K:J:crc/cr",
+        "true": 3.076748,
+        "pred": 0.174321,
+        "error": 2.902427
+      },
+      {
+        "key": "K:J:crrc/crr",
+        "true": -7.800053,
+        "pred": -4.919402,
+        "error": 2.880651
+      },
+      {
+        "key": "K:J:rrc/crr",
+        "true": -2.09183,
+        "pred": -4.919402,
+        "error": 2.827573
+      },
+      {
+        "key": "J:K:crrc/c",
+        "true": -5.295207,
+        "pred": -3.387959,
+        "error": 1.907248
+      },
+      {
+        "key": "J:K:rrc/c",
+        "true": -1.497143,
+        "pred": -3.387959,
+        "error": 1.890817
+      },
+      {
+        "key": "J:K:rrc/",
+        "true": -4.994776,
+        "pred": -3.609152,
+        "error": 1.385624
+      },
+      {
+        "key": "J:K:crrc/",
+        "true": -2.256583,
+        "pred": -3.609152,
+        "error": 1.352569
+      }
+    ],
+    "best_10": [
+      {
+        "key": "K:c",
+        "true": 1.061712,
+        "pred": 1.063607,
+        "error": 0.001895
+      },
+      {
+        "key": "J:J:rc/",
+        "true": 4.370645,
+        "pred": 4.372364,
+        "error": 0.001719
+      },
+      {
+        "key": "Q:K:cc/",
+        "true": 0.9284,
+        "pred": 0.926708,
+        "error": 0.001691
+      },
+      {
+        "key": "J:K:crc/crr",
+        "true": -7.000027,
+        "pred": -6.99848,
+        "error": 0.001547
+      },
+      {
+        "key": "J:K:rc/crr",
+        "true": -7.000012,
+        "pred": -6.99848,
+        "error": 0.001533
+      },
+      {
+        "key": "Q:Q:cc/",
+        "true": 1.285571,
+        "pred": 1.286845,
+        "error": 0.001274
+      },
+      {
+        "key": "K:K:crrc/r",
+        "true": 9.00002,
+        "pred": 9.00043,
+        "error": 0.00041
+      },
+      {
+        "key": "K:K:rrc/r",
+        "true": 9.000057,
+        "pred": 9.00043,
+        "error": 0.000373
+      },
+      {
+        "key": "Q:Q:rc/r",
+        "true": 7.000028,
+        "pred": 7.000169,
+        "error": 0.000141
+      },
+      {
+        "key": "Q:Q:crc/r",
+        "true": 7.000101,
+        "pred": 7.000169,
+        "error": 6.8e-05
+      }
+    ]
+  },
+  "nash_vs_selfplay": {
+    "avg_divergence": 2.673482,
+    "max_divergence": 9.372887,
+    "avg_preflop_divergence": 0.864306,
+    "avg_flop_divergence": 2.794094,
+    "num_preflop_infosets": 18,
+    "num_flop_infosets": 270,
+    "top_10_divergent": [
+      {
+        "key": "K:K:cc/cr",
+        "nash_true": 8.420437,
+        "nash_pred": 7.609761,
+        "other_pred": -0.95245,
+        "nash_error": 0.810676,
+        "divergence": 9.372887
+      },
+      {
+        "key": "K:K:crc/crr",
+        "nash_true": 11.0,
+        "nash_pred": 10.912387,
+        "other_pred": 2.492486,
+        "nash_error": 0.087613,
+        "divergence": 8.507514
+      },
+      {
+        "key": "K:K:rc/crr",
+        "nash_true": 11.0,
+        "nash_pred": 10.912387,
+        "other_pred": 2.492486,
+        "nash_error": 0.087613,
+        "divergence": 8.507514
+      },
+      {
+        "key": "K:K:crrc/crr",
+        "nash_true": 13.0,
+        "nash_pred": 13.037355,
+        "other_pred": 4.499601,
+        "nash_error": 0.037355,
+        "divergence": 8.500399
+      },
+      {
+        "key": "K:K:rrc/crr",
+        "nash_true": 13.0,
+        "nash_pred": 13.037355,
+        "other_pred": 4.499601,
+        "nash_error": 0.037355,
+        "divergence": 8.500399
+      },
+      {
+        "key": "K:K:cc/crr",
+        "nash_true": 8.999906,
+        "nash_pred": 9.147847,
+        "other_pred": 0.615167,
+        "nash_error": 0.147942,
+        "divergence": 8.384738
+      },
+      {
+        "key": "J:J:rrc/cr",
+        "nash_true": 12.984777,
+        "nash_pred": 12.809847,
+        "other_pred": 4.684775,
+        "nash_error": 0.174931,
+        "divergence": 8.300003
+      },
+      {
+        "key": "J:J:crrc/cr",
+        "nash_true": 12.625989,
+        "nash_pred": 12.809847,
+        "other_pred": 4.684775,
+        "nash_error": 0.183858,
+        "divergence": 7.941214
+      },
+      {
+        "key": "K:K:rc/r",
+        "nash_true": 7.653444,
+        "nash_pred": 7.026217,
+        "other_pred": -0.273647,
+        "nash_error": 0.627226,
+        "divergence": 7.927091
+      },
+      {
+        "key": "K:K:rc/rr",
+        "nash_true": 11.0,
+        "nash_pred": 11.019948,
+        "other_pred": 3.241458,
+        "nash_error": 0.019948,
+        "divergence": 7.758542
+      }
+    ],
+    "bottom_10_divergent": [
+      {
+        "key": "K:J:cc/c",
+        "nash_true": -0.242152,
+        "nash_pred": -0.222942,
+        "other_pred": -0.346094,
+        "nash_error": 0.01921,
+        "divergence": 0.103942
+      },
+      {
+        "key": "J:K:cc/cr",
+        "nash_true": -1.001701,
+        "nash_pred": -0.985707,
+        "other_pred": -0.917978,
+        "nash_error": 0.015993,
+        "divergence": 0.083722
+      },
+      {
+        "key": "K:Q:crc/",
+        "nash_true": -1.304765,
+        "nash_pred": -1.650663,
+        "other_pred": -1.378826,
+        "nash_error": 0.345898,
+        "divergence": 0.07406
+      },
+      {
+        "key": "J:Q:rrc/rr",
+        "nash_true": -9.0,
+        "nash_pred": -8.986547,
+        "other_pred": -9.072636,
+        "nash_error": 0.013453,
+        "divergence": 0.072636
+      },
+      {
+        "key": "J:Q:crrc/rr",
+        "nash_true": -9.000032,
+        "nash_pred": -8.986547,
+        "other_pred": -9.072636,
+        "nash_error": 0.013486,
+        "divergence": 0.072603
+      },
+      {
+        "key": "J:K:cc/r",
+        "nash_true": -1.00004,
+        "nash_pred": -0.997327,
+        "other_pred": -0.935915,
+        "nash_error": 0.002713,
+        "divergence": 0.064125
+      },
+      {
+        "key": "Q:K:crrc/c",
+        "nash_true": -1.279312,
+        "nash_pred": -1.327598,
+        "other_pred": -1.339218,
+        "nash_error": 0.048286,
+        "divergence": 0.059906
+      },
+      {
+        "key": "Q:K:rrc/c",
+        "nash_true": -1.394202,
+        "nash_pred": -1.327598,
+        "other_pred": -1.339218,
+        "nash_error": 0.066604,
+        "divergence": 0.054985
+      },
+      {
+        "key": "K:Q:rc/c",
+        "nash_true": -0.920141,
+        "nash_pred": -0.66661,
+        "other_pred": -0.865942,
+        "nash_error": 0.253532,
+        "divergence": 0.054199
+      },
+      {
+        "key": "J:Q:crrc/",
+        "nash_true": -4.567414,
+        "nash_pred": -4.686425,
+        "other_pred": -4.604327,
+        "nash_error": 0.119011,
+        "divergence": 0.036913
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": {
+      "total_reward": -1181.0,
+      "total_games": 1000,
+      "avg_chips_per_round": -1.181
+    },
+    "value_based": {
+      "total_reward": -914.0,
+      "total_games": 1000,
+      "avg_chips_per_round": -0.914
+    },
+    "adaptive_value": {
+      "total_reward": -1126.0,
+      "total_games": 1000,
+      "avg_chips_per_round": -1.126
+    },
+    "modulated_value": {
+      "total_reward": -903.0,
+      "total_games": 1000,
+      "avg_chips_per_round": -0.903
+    },
+    "entropy_ac": {
+      "total_reward": -1026.0,
+      "total_games": 1000,
+      "avg_chips_per_round": -1.026
+    },
+    "cfr": {
+      "total_reward": -756.0,
+      "total_games": 1000,
+      "avg_chips_per_round": -0.756
+    }
+  },
+  "evaluation_framework": {
+    "heuristic": {
+      "avg_chips_per_round": -1.109,
+      "total_chips": -1109.0
+    },
+    "value_based": {
+      "avg_chips_per_round": -0.877,
+      "total_chips": -877.0
+    },
+    "adaptive_value": {
+      "avg_chips_per_round": -0.834,
+      "total_chips": -834.0
+    },
+    "modulated_value": {
+      "avg_chips_per_round": -1.159,
+      "total_chips": -1159.0
+    },
+    "entropy_ac": {
+      "avg_chips_per_round": -0.955,
+      "total_chips": -955.0
+    },
+    "cfr": {
+      "avg_chips_per_round": -0.41,
+      "total_chips": -410.0
+    }
+  },
+  "exploitation_vs_robustness": {
+    "vs_weak_avg": -1.181,
+    "vs_strong_avg": -0.9527,
+    "overall_avg": -0.9843,
+    "worst_case": -1.181,
+    "best_case": -0.756,
+    "std": 0.1439
+  },
+  "robustness_metrics": {
+    "avg": -0.9843,
+    "worst_case": -1.181,
+    "best_case": -0.756,
+    "std": 0.1576,
+    "robustness": -1.2207,
+    "n_opponents": 6
+  },
+  "total_time_s": 87.6
+}
