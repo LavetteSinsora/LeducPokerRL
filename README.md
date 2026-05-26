@@ -1,6 +1,6 @@
 # PokerRL — Opponent-Modulated Value Networks for Leduc Hold'em
 
-Code accompanying the paper *Opponent-Modulated Value Networks for Exploiting Suboptimal Play in Leduc Hold'em* (He, Pant, Kharat, Dang — UCSD CSE 25).
+Code accompanying the paper *Opponent-Modulated Value Networks for Exploiting Suboptimal Play in Leduc Hold'em* (He, Pant, Kharat, Dang).
 
 We train a value network with a **value-modulation head** that conditions on online-collected opponent statistics. Across a round-robin tournament our method earns **+21.1 chips/session more than CFR Nash** and is the only baseline that maintains positive net gain against out-of-distribution opponents.
 
@@ -82,7 +82,6 @@ The paper presents the final, working method. Many things were tried first and d
 @misc{he2026opponentmodulated,
   title  = {Opponent-Modulated Value Networks for Exploiting Suboptimal Play in Leduc Hold'em},
   author = {He, Chris and Pant, Devang and Kharat, Rutvij and Dang, Mark},
-  year   = {2026},
-  note   = {UCSD CSE 25 Intro to AI, Final Project}
+  year   = {2026}
 }
 ```
