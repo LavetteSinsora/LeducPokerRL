@@ -1,0 +1,11 @@
+{
+  "study_agent": "full_modulation_deep",
+  "seed": 1,
+  "pool_agent": "cfr",
+  "chips_per_round": -0.2262,
+  "ci_95_low": -0.3035,
+  "ci_95_high": -0.15149250000000003,
+  "cold_mean": -0.3085,
+  "warm_mean": -0.205625,
+  "n_hands": 10000
+}

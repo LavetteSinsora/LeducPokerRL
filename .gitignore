@@ -7,10 +7,13 @@ dist/
 build/
 *.egg
 
-
 # IDE
 .vscode/
 .idea/
+.claude/worktrees/
+.claude/settings.local.json
+.claude/skills/
+.agents/
 
 # OS
 .DS_Store
@@ -26,3 +29,31 @@ venv/
 
 # Conversation history exports (generated, potentially sensitive)
 conversation_history/
+
+# ─── Training / evaluation artifacts ──────────────────────────────────────────
+# Per-experiment raw outputs are gitignored everywhere by default.
+**/outputs/
+**/outputs_v2/
+**/outputs_v3/
+**/outputs_smoke/
+**/outputs_benchmark/
+
+# Per-epoch intermediate checkpoints inside any outputs/ tree.
+# (Only curated final checkpoints under paper/checkpoints/ are committed.)
+**/checkpoints/checkpoint_ep*.pt
+
+# Per-hand replay logs are large; keep only summary JSONs.
+**/results/**/*.jsonl
+
+# Dashboard / training runtime data
+agents/*/training_history.json
+
+# ─── Allowlist: things we DO want tracked ────────────────────────────────────
+# Curated final-epoch checkpoints used by paper figures.
+!paper/checkpoints/
+!paper/checkpoints/**
+
+# Summary JSONs for the round-robin tournament (used by figures).
+!paper/evaluation/results/
+!paper/evaluation/results/**/vs_*.json
+!paper/evaluation/results/**/aggregate_report.json

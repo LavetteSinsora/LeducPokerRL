@@ -1,0 +1,16 @@
+{
+  "experiment_id": "value_based_repr_analysis",
+  "status": "complete",
+  "research_question": "Does the TD(0)-trained value network's internal 64-dim representation implicitly encode reward-metric structure, and how does it compare to explicit contrastive encoders?",
+  "key_metrics": {
+    "scalar_spearman_rho": 0.626,
+    "hidden_layer_spearman_rho": 0.287,
+    "raw_15dim_spearman_rho": 0.106
+  },
+  "baseline_comparisons": {
+    "contrastive_repr_v1_L1_8dim": {"hidden_spearman_rho": 0.163},
+    "dual_axis_repr_v4_8dim": {"hidden_spearman_rho": 0.672}
+  },
+  "key_finding": "TD(0) value training implicitly creates reward-metric structure in the hidden layer (rho=0.287) without any explicit contrastive objective, exceeding the contrastive_repr_v1 baseline (0.163). Value function accuracy (scalar rho=0.626) far exceeds the hidden-layer metric structure, confirming the two are distinct properties.",
+  "checkpoint": "agents/value_based/checkpoint.pt"
+}

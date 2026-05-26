@@ -1,0 +1,102 @@
+{
+  "_meta": {
+    "description": "Per-opponent prototype behavioral statistics \u2014 7-dimensional embeddings for each opponent archetype in the OpponentModeling pool.",
+    "produced_by": "OpponentModeling/shared_data/generate_prototype_stats.py",
+    "calibration_hands_per_opponent": 500,
+    "prior_strength_S": 20.0,
+    "learner": "RandomAgent (uniform random actions)",
+    "feature_order": [
+      "preflop_fold_rate",
+      "preflop_raise_rate",
+      "flop_raise_rate",
+      "preflop_fold_to_raise",
+      "flop_fold_to_raise",
+      "raise_after_raise_rate",
+      "confidence"
+    ],
+    "smoothing": "Beta-Bernoulli: p_hat = (k + alpha) / (n + alpha + beta), alpha = 0.5 * 20.0, beta = 0.5 * 20.0 (neutral prior, all rates centered at 0.5 before calibration)",
+    "expected_confidence": 0.9615,
+    "note": "These are per-opponent archetypes, NOT the pool-mean prior. The pool-mean prior (used in OpponentStatsTracker cold-start) is a single cross-opponent average. These prototype stats represent each opponent's characteristic behavior after sufficient observation."
+  },
+  "cfr": [
+    0.10761155188083649,
+    0.48293963074684143,
+    0.3093922734260559,
+    0.2019704431295395,
+    0.5892857313156128,
+    0.34156379103660583,
+    0.9615384340286255
+  ],
+  "value_based": [
+    0.028248587623238564,
+    0.32768362760543823,
+    0.22499999403953552,
+    0.05181347206234932,
+    0.5,
+    0.32608696818351746,
+    0.9615384340286255
+  ],
+  "tight_passive": [
+    0.19540229439735413,
+    0.028735632076859474,
+    0.23645320534706116,
+    0.35978835821151733,
+    0.4545454680919647,
+    0.12280701845884323,
+    0.9615384340286255
+  ],
+  "tight_aggressive": [
+    0.1820448935031891,
+    0.39401495456695557,
+    0.36000001430511475,
+    0.3160173296928406,
+    0.5483871102333069,
+    0.2868216931819916,
+    0.9615384340286255
+  ],
+  "loose_passive": [
+    0.027624309062957764,
+    0.027624309062957764,
+    0.2177121788263321,
+    0.05154639109969139,
+    0.28082191944122314,
+    0.1114649698138237,
+    0.9615384340286255
+  ],
+  "loose_aggressive": [
+    0.02688172087073326,
+    0.725806474685669,
+    0.5833333134651184,
+    0.04524886980652809,
+    0.30000001192092896,
+    0.7418032884597778,
+    0.9615384340286255
+  ],
+  "maniac": [
+    0.08411215245723724,
+    0.8247663378715515,
+    0.8156028389930725,
+    0.13235294818878174,
+    0.151162788271904,
+    0.9610894918441772,
+    0.9615384340286255
+  ],
+  "random": [
+    0.4058355391025543,
+    0.3023872673511505,
+    0.3414634168148041,
+    0.3882978856563568,
+    0.3461538553237915,
+    0.3616071343421936,
+    0.9615384340286255
+  ],
+  "heuristic": [
+    0.026178009808063507,
+    0.4921466112136841,
+    0.3807339370250702,
+    0.044843047857284546,
+    0.4956521689891815,
+    0.289682537317276,
+    0.9615384340286255
+  ]
+}

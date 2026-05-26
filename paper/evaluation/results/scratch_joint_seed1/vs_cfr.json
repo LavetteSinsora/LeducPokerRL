@@ -1,0 +1,11 @@
+{
+  "study_agent": "scratch_joint",
+  "seed": 1,
+  "pool_agent": "cfr",
+  "chips_per_round": -0.2655,
+  "ci_95_low": -0.3397,
+  "ci_95_high": -0.1892975,
+  "cold_mean": -0.222,
+  "warm_mean": -0.276375,
+  "n_hands": 10000
+}

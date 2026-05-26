@@ -1,0 +1,4115 @@
+{
+  "n_states": 177,
+  "n_hands_simulated": 5000,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "total_decisions": 3186,
+  "total_flips": 80,
+  "flip_rate": 0.0251,
+  "toward_cfr_count": 23,
+  "toward_cfr_rate": 0.2875,
+  "by_opponent": {
+    "maniac": {
+      "flips": 14,
+      "toward_cfr": 3
+    },
+    "tight_passive": {
+      "flips": 36,
+      "toward_cfr": 13
+    },
+    "loose_passive": {
+      "flips": 20,
+      "toward_cfr": 4
+    },
+    "tight_aggressive": {
+      "flips": 2,
+      "toward_cfr": 1
+    },
+    "loose_aggressive": {
+      "flips": 5,
+      "toward_cfr": 2
+    },
+    "random": {
+      "flips": 3,
+      "toward_cfr": 0
+    }
+  },
+  "by_round": {
+    "preflop": {
+      "flips": 3,
+      "toward_cfr": 2
+    },
+    "postflop": {
+      "flips": 77,
+      "toward_cfr": 21
+    }
+  },
+  "by_strength": {
+    "medium": {
+      "flips": 29,
+      "toward_cfr": 17
+    },
+    "strong": {
+      "flips": 29,
+      "toward_cfr": 5
+    },
+    "weak": {
+      "flips": 22,
+      "toward_cfr": 1
+    }
+  },
+  "by_transition": {
+    "CALL\u2192RAISE": 17,
+    "RAISE\u2192CALL": 8,
+    "FOLD\u2192CALL": 9,
+    "CALL\u2192FOLD": 46
+  },
+  "top_flipped_states": [
+    {
+      "label": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "RAISE",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.4363,
+        "RAISE": 0.5637
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [
+            0
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "RAISE",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": true
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [
+            0
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "RAISE",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": true
+        },
+        "maniac": {
+          "flipped_seeds": [
+            0
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "RAISE",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": true
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        }
+      },
+      "flip_count": 7,
+      "flip_toward_cfr": 3,
+      "flip_away_cfr": 4
+    },
+    {
+      "label": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        9,
+        5
+      ],
+      "raises": 2,
+      "legal": [
+        "FOLD",
+        "CALL"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.2053,
+        "CALL": 0.7947
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        }
+      },
+      "flip_count": 7,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 7
+    },
+    {
+      "label": "K|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 1.0,
+        "RAISE": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [
+            1
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "RAISE",
+          "any_flip": true
+        },
+        "maniac": {
+          "flipped_seeds": [
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "RAISE",
+          "any_flip": true
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 5,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 5
+    },
+    {
+      "label": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.924,
+        "RAISE": 0.076
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [
+            0
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        }
+      },
+      "flip_count": 5,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 5
+    },
+    {
+      "label": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot": [
+        9,
+        5
+      ],
+      "raises": 2,
+      "legal": [
+        "FOLD",
+        "CALL"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 1.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 5,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 5
+    },
+    {
+      "label": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        5,
+        9
+      ],
+      "raises": 2,
+      "legal": [
+        "FOLD",
+        "CALL"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0038,
+        "CALL": 0.9962
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 5,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 5
+    },
+    {
+      "label": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        3,
+        3
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.5457,
+        "RAISE": 0.4543
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "RAISE",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "RAISE",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 4,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 4
+    },
+    {
+      "label": "J|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot": [
+        9,
+        5
+      ],
+      "raises": 2,
+      "legal": [
+        "FOLD",
+        "CALL"
+      ],
+      "cfr_best": "FOLD",
+      "cfr_probs": {
+        "FOLD": 1.0,
+        "CALL": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "FOLD",
+          "majority_stats": "FOLD",
+          "any_flip": false
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "FOLD",
+          "majority_stats": "FOLD",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "FOLD",
+          "majority_stats": "FOLD",
+          "any_flip": false
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [
+            1
+          ],
+          "neutral_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "FOLD",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "maniac": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "FOLD",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "FOLD",
+          "majority_stats": "FOLD",
+          "any_flip": false
+        }
+      },
+      "flip_count": 4,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 4
+    },
+    {
+      "label": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.9286,
+        "RAISE": 0.0714
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 4,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 4
+    },
+    {
+      "label": "Q|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot": [
+        11,
+        7
+      ],
+      "raises": 2,
+      "legal": [
+        "FOLD",
+        "CALL"
+      ],
+      "cfr_best": "FOLD",
+      "cfr_probs": {
+        "FOLD": 1.0,
+        "CALL": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 4,
+      "flip_toward_cfr": 4,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "Q|board=K|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot": [
+        13,
+        9
+      ],
+      "raises": 2,
+      "legal": [
+        "FOLD",
+        "CALL"
+      ],
+      "cfr_best": "FOLD",
+      "cfr_probs": {
+        "FOLD": 1.0,
+        "CALL": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            1,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "FOLD",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 4,
+      "flip_toward_cfr": 4,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.9926,
+        "RAISE": 0.0074
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            0,
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "FOLD",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 3,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 3
+    },
+    {
+      "label": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        3,
+        3
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.9191,
+        "RAISE": 0.0809
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            1
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "CALL"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        }
+      },
+      "flip_count": 2,
+      "flip_toward_cfr": 2,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "Q|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "J",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 1.0,
+        "RAISE": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "maniac": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 2,
+      "flip_toward_cfr": 2,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.8078,
+        "RAISE": 0.1922
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            0
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "FOLD",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 2,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 2
+    },
+    {
+      "label": "K|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.9994,
+        "RAISE": 0.0005
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 2,
+      "flip_toward_cfr": 0,
+      "flip_away_cfr": 2
+    },
+    {
+      "label": "K|board=Q|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        1,
+        5
+      ],
+      "raises": 1,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "FOLD",
+      "cfr_probs": {
+        "FOLD": 0.5799,
+        "CALL": 0.4201,
+        "RAISE": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 2,
+      "flip_toward_cfr": 2,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "Q|board=none|preflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": null,
+      "round": "preflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "RAISE",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 0.2573,
+        "RAISE": 0.7427
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "RAISE"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 1,
+      "flip_toward_cfr": 1,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "J|board=none|preflop|pot=4|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": null,
+      "round": "preflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot": [
+        1,
+        3
+      ],
+      "raises": 1,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "FOLD",
+      "cfr_probs": {
+        "FOLD": 0.9462,
+        "CALL": 0.0354,
+        "RAISE": 0.0184
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            2
+          ],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "FOLD"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "CALL"
+          ],
+          "majority_neutral": "CALL",
+          "majority_stats": "CALL",
+          "any_flip": false
+        }
+      },
+      "flip_count": 1,
+      "flip_toward_cfr": 1,
+      "flip_away_cfr": 0
+    },
+    {
+      "label": "K|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot": [
+        1,
+        1
+      ],
+      "raises": 0,
+      "legal": [
+        "FOLD",
+        "CALL",
+        "RAISE"
+      ],
+      "cfr_best": "CALL",
+      "cfr_probs": {
+        "FOLD": 0.0,
+        "CALL": 1.0,
+        "RAISE": 0.0
+      },
+      "profiles": {
+        "tight_passive": {
+          "flipped_seeds": [
+            1
+          ],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "CALL",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "CALL",
+          "any_flip": true
+        },
+        "tight_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "loose_passive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "loose_aggressive": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "maniac": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        },
+        "random": {
+          "flipped_seeds": [],
+          "neutral_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "stats_actions": [
+            "CALL",
+            "RAISE",
+            "RAISE"
+          ],
+          "majority_neutral": "RAISE",
+          "majority_stats": "RAISE",
+          "any_flip": false
+        }
+      },
+      "flip_count": 1,
+      "flip_toward_cfr": 1,
+      "flip_away_cfr": 0
+    }
+  ],
+  "all_flips": [
+    {
+      "state": "Q|board=none|preflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": null,
+      "round": "preflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.2573,
+      "stats_cfr_prob": 0.7427,
+      "toward_cfr": true
+    },
+    {
+      "state": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.0809,
+      "stats_cfr_prob": 0.9191,
+      "toward_cfr": true
+    },
+    {
+      "state": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.0809,
+      "stats_cfr_prob": 0.9191,
+      "toward_cfr": true
+    },
+    {
+      "state": "K|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_aggressive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_aggressive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_aggressive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "J",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_aggressive",
+      "seed": 2,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "J",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 2,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "J|board=none|preflop|pot=4|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": null,
+      "round": "preflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 4,
+      "raises": 1,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0354,
+      "stats_cfr_prob": 0.9462,
+      "toward_cfr": true
+    },
+    {
+      "state": "K|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=none|preflop|pot=4|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": null,
+      "round": "preflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 4,
+      "raises": 1,
+      "opponent": "maniac",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.8449,
+      "stats_cfr_prob": 0.1551,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=J|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "J",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 22,
+      "raises": 2,
+      "opponent": "maniac",
+      "seed": 1,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.7256,
+      "stats_cfr_prob": 0.2744,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.8078,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.8078,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.56,
+      "stats_cfr_prob": 0.44,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.5457,
+      "stats_cfr_prob": 0.4543,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.5457,
+      "stats_cfr_prob": 0.4543,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.5457,
+      "stats_cfr_prob": 0.4543,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=J|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.5457,
+      "stats_cfr_prob": 0.4543,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.5637,
+      "stats_cfr_prob": 0.4363,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.5637,
+      "stats_cfr_prob": 0.4363,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_aggressive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.4363,
+      "stats_cfr_prob": 0.5637,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 1,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.5637,
+      "stats_cfr_prob": 0.4363,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.5637,
+      "stats_cfr_prob": 0.4363,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_aggressive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.4363,
+      "stats_cfr_prob": 0.5637,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 0.4363,
+      "stats_cfr_prob": 0.5637,
+      "toward_cfr": true
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9926,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9926,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9926,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_aggressive",
+      "seed": 1,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "maniac",
+      "seed": 0,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "maniac",
+      "seed": 1,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "maniac",
+      "seed": 2,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9994,
+      "stats_cfr_prob": 0.0005,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=J|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "J",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "RAISE",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9994,
+      "stats_cfr_prob": 0.0005,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.924,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.924,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.924,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.924,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "random",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.924,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "maniac",
+      "seed": 1,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.2159,
+      "stats_cfr_prob": 0.7841,
+      "toward_cfr": true
+    },
+    {
+      "state": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9286,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9286,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9286,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=Q|postflop|pot=2|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 2,
+      "raises": 0,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9286,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 1,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.4201,
+      "stats_cfr_prob": 0.5799,
+      "toward_cfr": true
+    },
+    {
+      "state": "K|board=Q|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 1,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.4201,
+      "stats_cfr_prob": 0.5799,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=6|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 6,
+      "raises": 1,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.998,
+      "stats_cfr_prob": 0.0014,
+      "toward_cfr": false
+    },
+    {
+      "state": "J|board=K|postflop|pot=10|no-pair|legal=FOLD/CALL/RAISE",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 10,
+      "raises": 0,
+      "opponent": "maniac",
+      "seed": 0,
+      "neutral_action": "RAISE",
+      "stats_action": "CALL",
+      "cfr_best": "RAISE",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9962,
+      "stats_cfr_prob": 0.0038,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9962,
+      "stats_cfr_prob": 0.0038,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9962,
+      "stats_cfr_prob": 0.0038,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9962,
+      "stats_cfr_prob": 0.0038,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.9962,
+      "stats_cfr_prob": 0.0038,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "random",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "K|board=Q|postflop|pot=14|no-pair|legal=FOLD/CALL",
+      "hand": "K",
+      "board": "Q",
+      "round": "postflop",
+      "strength": "strong",
+      "has_pair": false,
+      "pot_sum": 14,
+      "raises": 2,
+      "opponent": "random",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "CALL",
+      "neutral_cfr_prob": 0.7947,
+      "stats_cfr_prob": 0.2053,
+      "toward_cfr": false
+    },
+    {
+      "state": "Q|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 18,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 18,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 18,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 18,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 18,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 22,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 0,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 22,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 1,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 22,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 22,
+      "raises": 2,
+      "opponent": "loose_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "Q|board=K|postflop|pot=22|no-pair|legal=FOLD/CALL",
+      "hand": "Q",
+      "board": "K",
+      "round": "postflop",
+      "strength": "medium",
+      "has_pair": false,
+      "pot_sum": 22,
+      "raises": 2,
+      "opponent": "tight_passive",
+      "seed": 2,
+      "neutral_action": "CALL",
+      "stats_action": "FOLD",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 0.0,
+      "stats_cfr_prob": 1.0,
+      "toward_cfr": true
+    },
+    {
+      "state": "J|board=K|postflop|pot=18|no-pair|legal=FOLD/CALL",
+      "hand": "J",
+      "board": "K",
+      "round": "postflop",
+      "strength": "weak",
+      "has_pair": false,
+      "pot_sum": 18,
+      "raises": 2,
+      "opponent": "maniac",
+      "seed": 1,
+      "neutral_action": "FOLD",
+      "stats_action": "CALL",
+      "cfr_best": "FOLD",
+      "neutral_cfr_prob": 1.0,
+      "stats_cfr_prob": 0.0,
+      "toward_cfr": false
+    }
+  ]
+}

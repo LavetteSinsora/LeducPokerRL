@@ -1,0 +1,11 @@
+{
+  "study_agent": "full_modulation",
+  "seed": 2,
+  "pool_agent": "reinforce",
+  "chips_per_round": 3.2438,
+  "ci_95_low": 3.1688975,
+  "ci_95_high": 3.3216075000000003,
+  "cold_mean": 3.2115,
+  "warm_mean": 3.251875,
+  "n_hands": 10000
+}

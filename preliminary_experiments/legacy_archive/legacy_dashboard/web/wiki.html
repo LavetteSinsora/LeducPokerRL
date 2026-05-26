@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Wiki - PokerRL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="wiki.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/dagre@0.8.5/dist/dagre.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div id="app" style="max-width: 1400px;">
+        <header>
+            <div class="header-left">
+                <h1>Research Wiki</h1>
+                <nav class="nav-tabs">
+                    <a href="index.html" class="nav-link">Play</a>
+                    <a href="dashboard.html" class="nav-link">Training</a>
+                    <a href="analyzer.html" class="nav-link">Analyzer</a>
+                    <a href="tournament.html" class="nav-link">Tournament</a>
+                    <a href="wiki.html" class="nav-link active">Wiki</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Sub-tabs for wiki views -->
+        <div class="wiki-tabs">
+            <button class="wiki-tab active" data-view="tree">Agent Lineage</button>
+            <button class="wiki-tab" data-view="agents">Agent Wiki</button>
+            <button class="wiki-tab" data-view="overview">Overview</button>
+        </div>
+
+        <!-- Tree View -->
+        <div id="tree-view" class="wiki-view active">
+            <div id="evolution-tree" class="evolution-tree"></div>
+        </div>
+
+        <!-- Agent Wiki View -->
+        <div id="agents-view" class="wiki-view">
+            <div class="wiki-layout">
+                <aside class="wiki-sidebar" id="wiki-sidebar">
+                    <!-- Populated dynamically by lineage groups -->
+                </aside>
+                <main class="wiki-content">
+                    <div id="wiki-markdown" class="markdown-body">
+                        <div class="placeholder-text" style="text-align:center; padding: 80px 40px;">
+                            <h2 style="opacity: 0.5; margin-bottom: 10px;">Select an Agent</h2>
+                            <p style="opacity: 0.3;">Choose an agent from the sidebar or click a node in the tree view.</p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+
+        <!-- Overview View -->
+        <div id="overview-view" class="wiki-view">
+            <div class="wiki-content-full">
+                <div id="overview-markdown" class="markdown-body">
+                    <div class="loading-spinner"></div> Loading overview...
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="wiki.js"></script>
+</body>
+</html>

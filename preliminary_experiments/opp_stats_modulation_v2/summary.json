@@ -1,0 +1,57 @@
+{
+  "experiment_id": "opp_stats_modulation_v2",
+  "date": "2026-03-17",
+  "status": "complete",
+  "variants": {
+    "variant_a_ungated": {
+      "checkpoint": "checkpoint_best_robust.pt",
+      "best_robust_ep": 50000,
+      "scores": {
+        "heuristic": 0.413,
+        "cfr": 0.044,
+        "tight_passive": 0.187,
+        "tight_aggressive": -0.006,
+        "loose_passive": 0.408,
+        "loose_aggressive": 0.910,
+        "maniac": 1.590,
+        "random": 1.409
+      },
+      "avg": 0.619,
+      "worst_case": -0.006,
+      "robustness": -0.303,
+      "converged": false,
+      "training_time_s": 254
+    },
+    "variant_b_state_gated": {
+      "checkpoint": "checkpoint_best_robust.pt",
+      "best_robust_ep": 125000,
+      "scores": {
+        "heuristic": 0.405,
+        "cfr": -0.003,
+        "tight_passive": 0.199,
+        "tight_aggressive": 0.032,
+        "loose_passive": 0.371,
+        "loose_aggressive": 0.902,
+        "maniac": 1.443,
+        "random": 1.419
+      },
+      "avg": 0.596,
+      "worst_case": -0.003,
+      "robustness": -0.284,
+      "converged": true,
+      "training_time_s": 293
+    }
+  },
+  "baselines": {
+    "baseline_value_v1": {"avg": 0.580, "cfr": -0.070, "heuristic": 0.295},
+    "v1_variant_a_td":   {"avg": 0.539, "cfr": -0.194, "heuristic": 0.008}
+  },
+  "key_findings": [
+    "Oversampled training recipe (CFR/heuristic 3x) is the primary driver: CFR improved from -0.194 (v1) to +0.044 (v2a)",
+    "State-conditioned gate (v2b) does not learn state-selective gating; all gates ~0.51-0.58 with low variance",
+    "Ungated v2a beats gated v2b on avg (+0.619 vs +0.596); gated v2b has marginally better robustness (-0.284 vs -0.303)",
+    "Tight_passive and tight_aggressive remain well below baseline — cold-start still dominates for slow-signal opponents",
+    "Both variants clear secondary success criterion: beat v1_a_td avg by >= 0.03 chips/round"
+  ],
+  "recommended_next": "opp_stats_modulation_v3 — EV-variance-weighted TD loss to inject state-sensitivity signal into gradients"
+}

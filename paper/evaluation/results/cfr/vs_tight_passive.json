@@ -1,0 +1,11 @@
+{
+  "study_agent": "cfr",
+  "seed": null,
+  "pool_agent": "tight_passive",
+  "chips_per_round": 0.0295,
+  "ci_95_low": -0.023504999999999998,
+  "ci_95_high": 0.0834,
+  "cold_mean": 0.08,
+  "warm_mean": 0.016875,
+  "n_hands": 10000
+}

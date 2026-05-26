@@ -1,0 +1,423 @@
+{
+  "training": {
+    "A": {
+      "condition": "A",
+      "agent_id": "modulated_value",
+      "note": "Pre-existing checkpoint, not retrained"
+    },
+    "B": {
+      "condition": "B",
+      "agent_id": "modulated_pop_value",
+      "num_sessions": 5000,
+      "elapsed_s": 357.1,
+      "final_loss": 4.571908,
+      "loss_trajectory": [
+        7.918683,
+        5.911438,
+        4.862427,
+        4.447916,
+        3.498772,
+        5.287603,
+        3.594342,
+        2.867937,
+        5.396143,
+        4.75198,
+        5.903636,
+        4.741777,
+        3.943164,
+        6.955028,
+        2.900452,
+        4.700415,
+        5.040651,
+        3.199116,
+        3.471629,
+        2.992151,
+        2.601312,
+        3.614027,
+        5.859422,
+        2.189958,
+        2.695953,
+        4.052496,
+        5.164466,
+        6.067771,
+        4.200833,
+        3.657538,
+        2.359494,
+        2.304921,
+        3.045897,
+        4.73847,
+        3.10925,
+        4.383709,
+        3.867409,
+        3.348192,
+        1.772032,
+        4.087665,
+        2.062251,
+        4.184549,
+        5.254663,
+        2.61807,
+        3.233456,
+        2.609796,
+        2.902241,
+        3.816534,
+        5.346941,
+        4.798837
+      ]
+    },
+    "C": {
+      "condition": "C",
+      "agent_id": "residual_value",
+      "num_sessions": 5000,
+      "elapsed_s": 366.9,
+      "final_loss": 4.172854,
+      "loss_trajectory": [
+        5.792054,
+        6.772892,
+        4.689514,
+        5.939204,
+        7.697642,
+        8.628204,
+        10.660875,
+        7.571679,
+        7.098125,
+        7.88709,
+        6.644763,
+        13.377839,
+        5.536218,
+        5.891728,
+        8.660031,
+        8.413516,
+        8.967857,
+        8.187824,
+        8.652107,
+        6.731318,
+        7.654362,
+        8.079997,
+        6.951475,
+        9.165091,
+        6.569478,
+        6.0204,
+        9.596025,
+        6.317867,
+        7.418251,
+        8.215289,
+        7.369388,
+        8.315478,
+        7.971195,
+        6.378993,
+        7.849273,
+        6.240004,
+        7.323677,
+        6.420482,
+        8.920698,
+        4.819847,
+        5.932421,
+        7.084506,
+        5.020906,
+        8.385106,
+        8.794837,
+        6.917014,
+        9.290603,
+        7.091164,
+        7.127756,
+        10.787575
+      ]
+    },
+    "D": {
+      "condition": "D",
+      "agent_id": "residual_pop_value",
+      "num_sessions": 5000,
+      "elapsed_s": 315.4,
+      "final_loss": 5.438222,
+      "loss_trajectory": [
+        8.304089,
+        3.403892,
+        4.944974,
+        5.631292,
+        3.62182,
+        5.5244,
+        4.499849,
+        3.482173,
+        3.834097,
+        4.329767,
+        5.940722,
+        5.11939,
+        4.688187,
+        3.712496,
+        4.209266,
+        2.270775,
+        2.67274,
+        3.290394,
+        1.925545,
+        2.115986,
+        2.436871,
+        3.324834,
+        3.677198,
+        4.075328,
+        3.179446,
+        2.927904,
+        2.615942,
+        3.689816,
+        3.098966,
+        2.630311,
+        2.298776,
+        2.747123,
+        3.08678,
+        4.914462,
+        2.949784,
+        3.704765,
+        4.292258,
+        1.508049,
+        2.281294,
+        2.875514,
+        4.326005,
+        5.399832,
+        3.530853,
+        3.044105,
+        2.829283,
+        2.934908,
+        2.629347,
+        2.825899,
+        2.703212,
+        2.360571
+      ]
+    }
+  },
+  "diagnostics": {
+    "A": {
+      "condition": "A",
+      "agent_id": "condition_A",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 614,
+          "delta_mean": 0.089169,
+          "delta_std": 0.054661,
+          "delta_min": -0.172795,
+          "delta_max": 0.032741,
+          "delta_abs_mean": 0.089169,
+          "gate_mean": 0.398726,
+          "gate_std": 0.017707,
+          "gate_min": 0.388532,
+          "gate_max": 0.4765
+        },
+        "value_based": {
+          "n_states": 499,
+          "delta_mean": 0.09659,
+          "delta_std": 0.053091,
+          "delta_min": -0.17295,
+          "delta_max": 0.0251,
+          "delta_abs_mean": 0.09659,
+          "gate_mean": 0.414144,
+          "gate_std": 0.018712,
+          "gate_min": 0.402181,
+          "gate_max": 0.480333
+        },
+        "adaptive_value": {
+          "n_states": 506,
+          "delta_mean": 0.095615,
+          "delta_std": 0.053014,
+          "delta_min": -0.169553,
+          "delta_max": 0.023909,
+          "delta_abs_mean": 0.095615,
+          "gate_mean": 0.41345,
+          "gate_std": 0.018064,
+          "gate_min": 0.402787,
+          "gate_max": 0.4765
+        }
+      },
+      "delta_grand_mean": 0.093791,
+      "delta_cross_opponent_std": 0.004033
+    },
+    "B": {
+      "condition": "B",
+      "agent_id": "condition_B",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 538,
+          "delta_mean": 0.23422,
+          "delta_std": 0.279196,
+          "delta_min": -1.017792,
+          "delta_max": 0.529266,
+          "delta_abs_mean": 0.23422,
+          "gate_mean": 0.604641,
+          "gate_std": 0.01388,
+          "gate_min": 0.552634,
+          "gate_max": 0.614587
+        },
+        "value_based": {
+          "n_states": 468,
+          "delta_mean": 0.215151,
+          "delta_std": 0.298316,
+          "delta_min": -1.000161,
+          "delta_max": 0.552912,
+          "delta_abs_mean": 0.215151,
+          "gate_mean": 0.611113,
+          "gate_std": 0.010883,
+          "gate_min": 0.579758,
+          "gate_max": 0.628942
+        },
+        "adaptive_value": {
+          "n_states": 469,
+          "delta_mean": 0.209272,
+          "delta_std": 0.286095,
+          "delta_min": -0.971272,
+          "delta_max": 0.556193,
+          "delta_abs_mean": 0.209272,
+          "gate_mean": 0.609744,
+          "gate_std": 0.01051,
+          "gate_min": 0.551759,
+          "gate_max": 0.620221
+        }
+      },
+      "delta_grand_mean": 0.219548,
+      "delta_cross_opponent_std": 0.013042
+    },
+    "C": {
+      "condition": "C",
+      "agent_id": "condition_C",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 524,
+          "delta_mean": 0.024729,
+          "delta_std": 0.027243,
+          "delta_min": -0.068916,
+          "delta_max": 0.083891,
+          "delta_abs_mean": 0.024729
+        },
+        "value_based": {
+          "n_states": 480,
+          "delta_mean": 0.026302,
+          "delta_std": 0.024646,
+          "delta_min": -0.057048,
+          "delta_max": 0.081726,
+          "delta_abs_mean": 0.026302
+        },
+        "adaptive_value": {
+          "n_states": 481,
+          "delta_mean": 0.02581,
+          "delta_std": 0.026029,
+          "delta_min": -0.061862,
+          "delta_max": 0.082412,
+          "delta_abs_mean": 0.02581
+        }
+      },
+      "delta_grand_mean": 0.025614,
+      "delta_cross_opponent_std": 0.000805
+    },
+    "D": {
+      "condition": "D",
+      "agent_id": "condition_D",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 545,
+          "delta_mean": 0.217835,
+          "delta_std": 0.289517,
+          "delta_min": -1.050446,
+          "delta_max": 0.531153,
+          "delta_abs_mean": 0.217835
+        },
+        "value_based": {
+          "n_states": 475,
+          "delta_mean": 0.245895,
+          "delta_std": 0.295864,
+          "delta_min": -0.97452,
+          "delta_max": 0.564056,
+          "delta_abs_mean": 0.245895
+        },
+        "adaptive_value": {
+          "n_states": 485,
+          "delta_mean": 0.248291,
+          "delta_std": 0.309342,
+          "delta_min": -0.960911,
+          "delta_max": 0.565275,
+          "delta_abs_mean": 0.248291
+        }
+      },
+      "delta_grand_mean": 0.23734,
+      "delta_cross_opponent_std": 0.016935
+    }
+  },
+  "evaluation": {
+    "A": {
+      "condition": "A",
+      "per_opponent": {
+        "heuristic": {
+          "mean": 0.359,
+          "total": 718.0
+        },
+        "value_based": {
+          "mean": 0.22,
+          "total": 440.0
+        },
+        "adaptive_value": {
+          "mean": 0.213,
+          "total": 426.0
+        }
+      },
+      "avg": 0.264,
+      "worst_case": 0.213,
+      "robustness": 0.1405
+    },
+    "B": {
+      "condition": "B",
+      "per_opponent": {
+        "heuristic": {
+          "mean": 0.158,
+          "total": 316.0
+        },
+        "value_based": {
+          "mean": 0.0805,
+          "total": 161.0
+        },
+        "adaptive_value": {
+          "mean": 0.237,
+          "total": 474.0
+        }
+      },
+      "avg": 0.1585,
+      "worst_case": 0.0805,
+      "robustness": 0.0411
+    },
+    "C": {
+      "condition": "C",
+      "per_opponent": {
+        "heuristic": {
+          "mean": 0.18,
+          "total": 360.0
+        },
+        "value_based": {
+          "mean": -0.015,
+          "total": -30.0
+        },
+        "adaptive_value": {
+          "mean": -0.142,
+          "total": -284.0
+        }
+      },
+      "avg": 0.0077,
+      "worst_case": -0.142,
+      "robustness": -0.2356
+    },
+    "D": {
+      "condition": "D",
+      "per_opponent": {
+        "heuristic": {
+          "mean": -0.035,
+          "total": -70.0
+        },
+        "value_based": {
+          "mean": 0.2805,
+          "total": 561.0
+        },
+        "adaptive_value": {
+          "mean": 0.2355,
+          "total": 471.0
+        }
+      },
+      "avg": 0.1603,
+      "worst_case": -0.035,
+      "robustness": -0.0956
+    }
+  },
+  "total_elapsed_s": 1055.3
+}

@@ -1,0 +1,11 @@
+{
+  "study_agent": "full_modulation",
+  "seed": 1,
+  "pool_agent": "dqn_v2",
+  "chips_per_round": 0.033,
+  "ci_95_low": -0.053759999999999995,
+  "ci_95_high": 0.11721499999999992,
+  "cold_mean": 0.0055,
+  "warm_mean": 0.039875,
+  "n_hands": 10000
+}

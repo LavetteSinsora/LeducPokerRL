@@ -1,0 +1,11 @@
+{
+  "study_agent": "gated_modulation",
+  "seed": 0,
+  "pool_agent": "actor_critic",
+  "chips_per_round": 1.1376,
+  "ci_95_low": 1.0747925,
+  "ci_95_high": 1.2030025,
+  "cold_mean": 1.2085,
+  "warm_mean": 1.119875,
+  "n_hands": 10000
+}

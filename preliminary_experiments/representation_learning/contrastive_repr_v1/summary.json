@@ -1,0 +1,44 @@
+{
+  "name": "contrastive_repr_v1",
+  "status": "complete",
+  "parent": "value_based",
+  "changed_axis": "training_objective",
+  "description": "Contrastive/metric representation learning for Leduc state embeddings. Tests whether multi-dimensional embeddings trained via contrastive loss capture structure beyond scalar V(s).",
+  "formulations": ["L0_td_control", "L1_distance_correlation", "L2_rank_n_contrast"],
+  "phase": 1,
+  "phase_description": "representation_learning_only",
+  "key_diagnostics": ["rank_correlation", "knn_reward", "pca_dimensionality", "linear_probes", "variance_probe", "same_reward_probe"],
+  "results": {
+    "L0": {
+      "episodes": 40000,
+      "spearman_rho": 0.281,
+      "knn_k10": 2.08,
+      "pca_top1_pct": 99.5,
+      "eff_dim": 1,
+      "reward_r2": 0.360,
+      "hand_acc": 0.772,
+      "redundant_pairs": 28
+    },
+    "L1": {
+      "episodes": 20000,
+      "spearman_rho": 0.660,
+      "knn_k10": 2.22,
+      "pca_top1_pct": 50.8,
+      "eff_dim": 4,
+      "reward_r2": 0.102,
+      "hand_acc": 0.728,
+      "redundant_pairs": 0
+    },
+    "L2": {
+      "episodes": 40000,
+      "spearman_rho": 0.641,
+      "knn_k10": 2.23,
+      "pca_top1_pct": 31.8,
+      "eff_dim": 5,
+      "reward_r2": 0.308,
+      "hand_acc": 0.781,
+      "redundant_pairs": 0
+    },
+    "key_finding": "Contrastive losses produce genuinely multi-dimensional representations (4-5 eff dims) where TD(0) collapses to 1D. L2 (Rank-N-Contrast) is most balanced: best dimensionality spread + state identity preservation. No shortcut exploitation detected (D8). No distributional structure found — training signal doesn't supervise variance."
+  }
+}

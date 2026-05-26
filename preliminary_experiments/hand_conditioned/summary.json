@@ -1,0 +1,22 @@
+{
+  "experiment_id": "hand_conditioned_action_model_v1",
+  "status": "completed",
+  "parent_agent": "belief_modulated",
+  "base_agent": null,
+  "changed_axis": "Train a hand-conditioned opponent action likelihood model for Bayesian hand-belief updates",
+  "train_entrypoint": "experiments/hand_conditioned_action_model_v1/train.py",
+  "eval_entrypoint": "experiments/hand_conditioned_action_model_v1/eval.py",
+  "diagnostics_entrypoint": "experiments/hand_conditioned_action_model_v1/diagnose.py",
+  "artifact_dir": "experiments/hand_conditioned_action_model_v1/outputs",
+  "training_budget": {
+    "sessions": 40000,
+    "hands_per_session": 30,
+    "batch_size": 64
+  },
+  "primary_metrics": [
+    "mean_action_accuracy",
+    "belief_top1_lift",
+    "true_hand_probability_lift"
+  ],
+  "result_summary": "Completed full training and held-out evaluation. The model achieved mean_action_accuracy 0.8038, mean_belief_top1_accuracy 0.7424, belief_top1_lift +0.1837 over the card-removal prior, and true_hand_probability_lift +0.1581. Performance was strongest against value-based and modulated-value style opponents and weakest against CFR, but belief updates remained positive against every held-out target."
+}

@@ -1,0 +1,11 @@
+{
+  "study_agent": "dqn_v3",
+  "seed": 0,
+  "pool_agent": "opp_encoder_v1",
+  "chips_per_round": -0.0457,
+  "ci_95_low": -0.10720500000000001,
+  "ci_95_high": 0.014102499999999987,
+  "cold_mean": 0.016,
+  "warm_mean": -0.061125,
+  "n_hands": 10000
+}

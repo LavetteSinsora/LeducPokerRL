@@ -1,0 +1,38 @@
+{
+  "experiment": "repr_geometry_v1",
+  "research_question": "What is the geometric structure of the reward-contrastive embedding space?",
+  "checkpoint": "outputs/contrastive_repr_v1/encoder_l2.pt",
+  "n_states_analyzed": 169,
+  "key_findings": {
+    "effective_dim_80pct": 3,
+    "effective_dim_90pct": 4,
+    "top1_pca_variance_pct": 40.7,
+    "top2_pca_variance_pct": 77.0,
+    "reward_spearman_rho": 0.163,
+    "strongest_clustering_axis": "player_hand",
+    "silhouette_player_hand": 0.019,
+    "silhouette_opp_hand": -0.029,
+    "silhouette_round": 0.015,
+    "inter_intra_player_hand": 1.069,
+    "inter_intra_opp_hand": 1.004,
+    "inter_intra_round": 1.012
+  },
+  "conclusions": {
+    "semantic_clustering": "Weak across all axes. Player hand shows marginal positive clustering (silhouette=0.019); opponent hand shows no clustering (expected, as it is unobserved); round shows negligible clustering.",
+    "dimensionality": "3 effective dimensions at 80% threshold. PCA dominated by two axes (77% combined), suggesting reward as PC1 and a hand-strength/board-match interaction as PC2.",
+    "reward_metric_structure": "Spearman rho=0.163 over pairwise distances — weaker than training-time diagnosis (0.641) due to stricter pairwise metric formulation and narrower state sample from random play.",
+    "most_interesting_finding": "Strong two-PC dominance (40.7% + 36.3%) with a sharp elbow in the scree plot. The encoder concentrated most information into two primary axes rather than distributing evenly across all 8.",
+    "opponent_hand_footprint": "Zero — confirms correct information masking; the encoder does not leak opponent private information into the embedding."
+  },
+  "outputs": {
+    "plots": [
+      "outputs/repr_geometry_v1/pca_tsne_grid.png",
+      "outputs/repr_geometry_v1/pca_by_reward.png",
+      "outputs/repr_geometry_v1/pca_by_player_hand.png",
+      "outputs/repr_geometry_v1/pca_by_opp_hand.png",
+      "outputs/repr_geometry_v1/pca_by_round.png",
+      "outputs/repr_geometry_v1/pca_scree.png"
+    ],
+    "data": "outputs/repr_geometry_v1/geometry_report.json"
+  }
+}

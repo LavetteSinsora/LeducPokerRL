@@ -1,0 +1,11 @@
+{
+  "study_agent": "state_only",
+  "seed": 0,
+  "pool_agent": "loose_aggressive",
+  "chips_per_round": 1.0825,
+  "ci_95_low": 0.9662,
+  "ci_95_high": 1.2029125,
+  "cold_mean": 1.1235,
+  "warm_mean": 1.07225,
+  "n_hands": 10000
+}

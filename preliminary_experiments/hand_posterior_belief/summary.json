@@ -1,0 +1,9 @@
+{
+  "experiment_id": "hand_posterior_belief_v1",
+  "status": "in_progress",
+  "parent_agent": "hand_conditioned_action_model_v1",
+  "base_agent": "value_based",
+  "changed_axis": "GRU belief network that tracks posterior P(opp_rank | action_sequence) and conditions value net on it",
+  "key_metrics": {},
+  "note": "agent.py is complete; training, eval, and report not yet run."
+}

@@ -1,0 +1,11 @@
+{
+  "study_agent": "value_based_deep",
+  "seed": 0,
+  "pool_agent": "random",
+  "chips_per_round": 1.3497,
+  "ci_95_low": 1.2764,
+  "ci_95_high": 1.4217024999999999,
+  "cold_mean": 1.273,
+  "warm_mean": 1.368875,
+  "n_hands": 10000
+}

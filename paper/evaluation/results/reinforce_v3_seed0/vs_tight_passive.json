@@ -1,0 +1,11 @@
+{
+  "study_agent": "reinforce_v3",
+  "seed": 0,
+  "pool_agent": "tight_passive",
+  "chips_per_round": 0.2961,
+  "ci_95_low": 0.2267,
+  "ci_95_high": 0.367305,
+  "cold_mean": 0.2865,
+  "warm_mean": 0.2985,
+  "n_hands": 10000
+}

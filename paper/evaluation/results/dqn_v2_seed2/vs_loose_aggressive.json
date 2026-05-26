@@ -1,0 +1,11 @@
+{
+  "study_agent": "dqn_v2",
+  "seed": 2,
+  "pool_agent": "loose_aggressive",
+  "chips_per_round": 0.8163,
+  "ci_95_low": 0.6828974999999999,
+  "ci_95_high": 0.9426049999999999,
+  "cold_mean": 0.9375,
+  "warm_mean": 0.786,
+  "n_hands": 10000
+}

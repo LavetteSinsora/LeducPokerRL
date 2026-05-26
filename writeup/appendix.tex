@@ -1,0 +1,409 @@
+% ============================================================================
+% appendix.tex
+% ----------------------------------------------------------------------------
+% Drop-in replacement for the appendix in PokerRL Writeup/paper.tex.
+% Copy everything from "\appendix" downward, replacing the existing A.1--A.5.
+%
+% Cross-references used by the main body:
+%   \ref{app:rules}    -> A.1  Leduc Hold'em Rules
+%   \ref{app:state}    -> A.2  State and Opponent-Statistics Representation
+%   \ref{app:hyper}    -> A.3  Training Configuration
+%   \ref{app:oppstats} -> A.4  Opponent Statistics
+%   \ref{app:pool}     -> A.5  Agent Pool and Evaluation Protocol
+% ============================================================================
+
+\appendix
+
+% ----------------------------------------------------------------------------
+\section{Leduc Hold'em Rules}
+\label{app:rules}
+
+Leduc Hold'em is a simplified two-player poker variant. The deck consists of
+six cards --- two Jacks, two Queens, and two Kings --- and at every decision
+point a player chooses from the action set
+$\mathcal{A} = \{\textsc{Call},\,\textsc{Raise},\,\textsc{Fold}\}$.
+
+The game has two betting rounds: \emph{pre-flop} (before a community card
+is dealt) and \emph{flop} (after the community card is revealed). A raise
+costs 2 chips in the pre-flop round and 4 chips in the flop round; at most
+two raises are allowed per round.
+
+At the start of each hand, both players post a 1-chip ante (initial pot of
+2 chips) and each receives one private card. Pre-flop betting begins; if
+neither player folds, a single public board card is then dealt and flop
+betting follows. The hand ends in one of two ways:
+\begin{enumerate}
+  \item \textbf{Fold:} the opposing player wins the entire pot.
+  \item \textbf{Showdown:} both cards are revealed. A player whose private
+        card matches the board card has a pair and wins. If neither player
+        has a pair, the higher private card wins
+        ($\textsc{K} > \textsc{Q} > \textsc{J}$).
+\end{enumerate}
+Each agent observes only the information legally available to that player:
+their own private card, the (possibly hidden) board, the pot vector, the
+current round and acting player, the number of raises in the current
+round, and the public action history.
+
+% ----------------------------------------------------------------------------
+\section{State and Opponent-Statistics Representation}
+\label{app:state}
+
+\paragraph{Game-state encoding.}
+Every state $s$ is encoded as a 15-dimensional vector
+$\phi(s) \in \mathbb{R}^{15}$ from the perspective of the \emph{viewer}
+(the seat whose value is being estimated). The same encoding is used by
+both the base value network and the modulation head.
+
+\begin{table}[h]
+\centering
+\caption{15-dimensional game-state encoding $\phi(s)$.}
+\label{tab:state}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Component} & \textbf{Dims} & \textbf{Description} \\
+\midrule
+Private hand            & 3 & One-hot over $\{\textsc{J},\textsc{Q},\textsc{K}\}$. \\
+Board card              & 4 & One-hot over $\{\textsc{J},\textsc{Q},\textsc{K},\textsc{None}\}$. \\
+Pot (viewer-relative)   & 2 & $(\text{viewer chips},\;\text{opp.\ chips}) / 13$. \\
+My-turn flag            & 1 & $1$ if it is the viewer's turn, else $0$. \\
+Position                & 1 & Seat index of the viewer ($0$ or $1$). \\
+Current round           & 1 & $0$ pre-flop, $1$ flop. \\
+Terminal flag           & 1 & $1$ if the hand has ended, else $0$. \\
+Has-pair flag           & 1 & $1$ if the private card matches the board. \\
+Raises this round       & 1 & Normalised by the per-round raise cap ($2$). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The pot normaliser $13$ corresponds to the maximum total chip commitment
+attainable at showdown under the betting rules of Section~\ref{app:rules}.
+
+\paragraph{Modulation-head input.}
+The value modulation head receives, in addition to $\phi(s)$, a
+7-dimensional opponent-statistics vector $o$ summarising the current
+opponent's observed behaviour over the ongoing session
+(Section~\ref{app:oppstats}). The full modulation-head input is therefore
+$[\phi(s)\,\Vert\,o] \in \mathbb{R}^{22}$.
+
+% ----------------------------------------------------------------------------
+\section{Training Configuration}
+\label{app:hyper}
+
+\subsection{Base Value Network}
+
+The base value network $V_{\text{base}}(s)$ is a two-hidden-layer MLP
+$15 \to 64 \to 64 \to 1$ with ReLU activations, trained with self-play
+and a TD(0) objective. During training, action selection follows the
+Boltzmann distribution induced by the one-step lookahead values with
+temperature $\tau = 1.0$; at evaluation time, action selection is
+greedy. Hyperparameters are listed in Table~\ref{tab:base-hyper}.
+
+\begin{table}[h]
+\centering
+\caption{Training hyperparameters for the base value network.}
+\label{tab:base-hyper}
+\begin{tabular}{lr}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value} \\
+\midrule
+Episodes              & $200{,}000$         \\
+Learning rate         & $1\times 10^{-4}$   \\
+Optimiser             & Adam ($\beta_1{=}0.9,\;\beta_2{=}0.999$) \\
+Loss                  & MSE                 \\
+Batch size            & $32$ episodes       \\
+Architecture          & $15 \to 64 \to 64 \to 1$ (ReLU) \\
+Temperature $\tau$    & $1.0$               \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{TD(0) target.}
+For a per-player post-action state chain $(s_1, s_2, \dots, s_T)$ with
+terminal reward $r$, the bootstrap target is
+\begin{equation*}
+y(s_t) =
+\begin{cases}
+r & t = T, \\
+\operatorname{sg}\!\bigl(V_{\text{base}}(s_{t+1})\bigr) & \text{otherwise},
+\end{cases}
+\qquad
+\mathcal{L} = \mathrm{MSE}\!\bigl(V_{\text{base}}(s_t),\,y(s_t)\bigr),
+\end{equation*}
+where $\operatorname{sg}$ denotes the stop-gradient operator. Successive
+states in a chain are separated by two game time steps, since the opponent
+acts between consecutive learner actions.
+
+\subsection{Value Modulation Head}
+
+The modulation head implements
+$V(s,o) = V_{\text{base}}(s) + \Delta(s,o)$, where $\Delta$ is a small MLP
+mapping the concatenated 22-dimensional input through two hidden layers of
+32 units to a scalar residual. The output-layer weights are initialised to
+$\mathcal{U}(-10^{-2},\,10^{-2})$ and biases to zero, so that training
+begins close to the frozen base. Hyperparameters are listed in
+Table~\ref{tab:mod-hyper}.
+
+The modulation head is trained against the weighted opponent pool of
+Section~\ref{app:pool} (CFR and the heuristic agent oversampled $3\times$)
+in sessions of $n = 100$ hands. The seat of the learner alternates between
+episodes ($\text{seat} = \text{episode} \bmod 2$) so that both first- and
+second-acting decisions are observed. Gradient updates apply to the
+modulation parameters only, with $V_{\text{base}}$ frozen at the
+self-play-trained checkpoint described above. We report mean and standard
+deviation across $3$ random seeds.
+
+\begin{table}[h]
+\centering
+\caption{Training hyperparameters for the value modulation head
+(frozen-base variant; reported as ``Modulated Value Net.\ (Ours)''
+in the main text).}
+\label{tab:mod-hyper}
+\begin{tabular}{lr}
+\toprule
+\textbf{Hyperparameter} & \textbf{Value} \\
+\midrule
+Episodes              & $300{,}000$             \\
+Learning rate         & $1\times 10^{-4}$       \\
+Optimiser             & Adam                    \\
+Loss                  & MSE on residual TD(0) targets \\
+Modulation-head arch.\ & $22 \to 32 \to 32 \to 1$ (ReLU) \\
+Output init.          & $\mathcal{U}(-10^{-2},10^{-2})$, bias $0$ \\
+Batch size            & $32$ episodes           \\
+Session length $n$    & $100$ hands             \\
+Prior strength $S$    & $20$                    \\
+Seeds                 & $3$                     \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Residual TD(0) target.}
+At each learner post-action state $s_t$ with stats snapshot $o_t$:
+\begin{equation*}
+y_\Delta(s_t,o_t) =
+\begin{cases}
+r - V_{\text{base}}(s_T) & t = T, \\[3pt]
+\bigl(V_{\text{base}}(s_{t+1}) + \Delta(s_{t+1},o_{t+1})\bigr) - V_{\text{base}}(s_t)
+& \text{otherwise},
+\end{cases}
+\end{equation*}
+\begin{equation*}
+\mathcal{L}_{\text{TD}(0)} = \mathrm{MSE}\!\bigl(\Delta(s_t,o_t),\,\operatorname{sg}(y_\Delta(s_t,o_t))\bigr).
+\end{equation*}
+The bootstrap target on non-terminal transitions is the \emph{total} next-state
+value $V_{\text{base}} + \Delta$, so the residual head learns to be consistent
+with itself; only the modulation parameters receive gradient updates, while
+$V_{\text{base}}$ remains frozen throughout.
+
+\paragraph{Optional state-conditioned gate.}
+The state-gated variant studied in our ablations augments the composite
+value as $V(s,o) = V_{\text{base}}(s) + g(s,o)\,\Delta(s,o)$, where
+$g: \mathbb{R}^{22} \to [0,1]$ is a $22 \to 16 \to 16 \to 1$ MLP followed
+by a sigmoid and initialised with near-zero output weights. Conditioning
+the gate jointly on state and stats was motivated by the observation that
+opponent style has variable impact across states.
+
+\subsection{Baseline Reinforcement-Learning Agents}
+
+The REINFORCE, Actor--Critic (A2C), and DQN baselines reported in
+Section~4 are trained against the same weighted opponent pool used to
+train our modulation head, with an opponent re-sampled at the start of
+each episode (CFR $\times 3$, heuristic $\times 3$, six rule-based agents
+$\times 1$; see Section~\ref{app:pool}). All three baselines share a
+compute budget of $200{,}000$ episodes with learning rate
+$1 \times 10^{-4}$, batch size $32$, and the Adam optimiser. Method-specific
+settings are summarised in Table~\ref{tab:baseline-hyper}.
+
+\begin{table}[h]
+\centering
+\caption{Baseline-specific hyperparameters.}
+\label{tab:baseline-hyper}
+\begin{tabular}{lll}
+\toprule
+\textbf{Setting} & \textbf{REINFORCE} & \textbf{Actor--Critic / DQN} \\
+\midrule
+Discount $\gamma$           & $1.0$                   & $0.99$ \\
+Entropy bonus coefficient   & $0.01$                  & $0.01$ (A2C only) \\
+Value-loss coefficient      & ---                     & $0.5$ (A2C only) \\
+Replay buffer size          & ---                     & $10{,}000$ (DQN) \\
+Target-network update       & ---                     & every $500$ episodes (DQN) \\
+Exploration                 & Boltzmann (policy)      & $\varepsilon$-greedy, $1.0 \to 0.05$ over $200{,}000$ episodes (DQN) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ----------------------------------------------------------------------------
+\section{Opponent Statistics}
+\label{app:oppstats}
+
+The opponent-statistics vector $o \in \mathbb{R}^{7}$ comprises six
+round-stratified behavioural rates and a confidence scalar. Each rate is
+maintained online by the learner during a 100-hand session and is reported
+as a Beta--Bernoulli posterior mean smoothed toward a pool-average prior.
+
+\paragraph{Posterior-mean smoothing.}
+For each rate, let $k$ denote the count of qualifying events
+(e.g.\ folds) and $n$ the count of qualifying contexts
+(e.g.\ all pre-flop actions). With prior strength $S=20$ and pool-mean
+prior $\bar p$,
+\begin{equation*}
+\hat p \;=\; \frac{k + \alpha}{n + \alpha + \beta},
+\qquad
+\alpha = \bar p \cdot S,\;
+\beta  = (1 - \bar p) \cdot S.
+\end{equation*}
+The pool means $\{\bar p\}$ are calibrated once, before training, by
+playing $500$ hands against each pool opponent with a uniform-random
+learner (so that every action context is covered) and averaging the
+observed counts across opponents.
+
+\paragraph{Feature definitions.}
+\begin{description}
+\item[Pre-flop fold rate.] Fraction of pre-flop actions in which the
+opponent folded. High values indicate a passive or tight pre-flop range.
+
+\item[Pre-flop raise rate.] Fraction of pre-flop actions that were
+raises. High values indicate aggression or wide pre-flop ranges.
+
+\item[Flop raise rate.] Fraction of flop actions that were raises. A
+spike relative to the pre-flop raise rate is a strong ``opponent paired
+the board'' signal.
+
+\item[Pre-flop fold-to-raise.] Among pre-flop actions taken while facing
+a raise, the fraction that were folds. Distinguishes opponents who fold
+to pressure pre-flop from those who call down.
+
+\item[Flop fold-to-raise.] The analogous rate for the flop round.
+Combined with the flop raise rate this characterises post-flop defence
+frequency.
+
+\item[Raise-after-raise rate.] Among actions taken while facing a raise
+and with a re-raise legal, the fraction that were raises. A maniac-style
+aggressor scores near $1.0$; passive opponents score near $0.0$.
+
+\item[Confidence.] $\rho = n_h / (n_h + S)$, where $n_h$ is the number
+of hands observed against the current opponent within the session and
+$S = 20$. The scalar grows from $0$ at the start of a session to
+$\approx 0.83$ after $100$ hands and allows the modulation head to
+discount the other six features during the early, statistically-noisy
+hands of a session.
+\end{description}
+
+% ----------------------------------------------------------------------------
+\section{Agent Pool and Evaluation Protocol}
+\label{app:pool}
+
+\subsection{Training Pool}
+
+The modulation head is trained against a fixed pool of eight opponents
+that are sampled per session under the weighting in
+Table~\ref{tab:train-pool}. The pool is deliberately unbalanced in skill:
+CFR is a tabular Nash-equilibrium solver and represents the strongest
+possible opponent in Leduc Hold'em, while the heuristic agent is a
+strong, carefully tuned hand-crafted strategy that approximates expert
+human play. The remaining six agents are simple style-based archetypes
+(tight-passive, loose-aggressive, etc.) that exhibit exploitable
+tendencies by construction and are correspondingly easier to beat. We
+oversample CFR and the heuristic agent by $3\times$ so that, on a
+per-session basis, the modulation head spends roughly half of its
+training budget against the two highest-quality opponents in the pool.
+This concentrates learning on the matchups that drive the robustness
+metric --- a modulation head that performs well against weak rule-based
+agents but collapses against CFR is of limited practical value.
+
+\begin{table}[h]
+\centering
+\caption{Training-pool opponents and per-session sampling weights.
+The expected per-session frequency for each agent is its weight divided
+by the total weight ($14.0$).}
+\label{tab:train-pool}
+\begin{tabular}{lcl}
+\toprule
+\textbf{Opponent} & \textbf{Weight} & \textbf{Description} \\
+\midrule
+CFR              & $3.0$ & Tabular CFR$^+$; Nash-equilibrium baseline. \\
+Heuristic        & $3.0$ & Hand-crafted expert-style strategy. \\
+Tight-Passive    & $1.0$ & ``Nit''; raises only made pairs, folds Js to pressure. \\
+Tight-Aggressive & $1.0$ & Raises premium hands; folds marginals under pressure. \\
+Loose-Passive    & $1.0$ & Calling station; never folds pre-flop. \\
+Loose-Aggressive & $1.0$ & Bluff-raises Js pre-flop (40\%) and on the flop (35\%). \\
+Maniac           & $1.0$ & Raises whenever legal; folds only J-high under pressure with raises capped. \\
+Random           & $1.0$ & Uniform-random over legal actions. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Evaluation Pool}
+
+For the main results (Section~4 and Figure~2) we score each agent in a
+\emph{fixed-gauntlet} round-robin against a 13-agent evaluation pool.
+Eight opponents are in-distribution --- the same agents the modulation
+head observed during training --- and five are out-of-distribution
+neural-network agents that the modulation head never trained against
+(Table~\ref{tab:eval-pool}).
+
+\begin{table}[h]
+\centering
+\caption{Evaluation pool. The out-of-distribution agents were trained
+independently for this study and never appeared in any modulation-head
+training session.}
+\label{tab:eval-pool}
+\begin{tabular}{lll}
+\toprule
+\textbf{Opponent} & \textbf{Distribution} & \textbf{Notes} \\
+\midrule
+CFR              & In-distribution  & Tabular CFR$^+$ (Nash baseline). \\
+Heuristic        & In-distribution  & Rule-based. \\
+Tight-Passive    & In-distribution  & Rule-based archetype. \\
+Tight-Aggressive & In-distribution  & Rule-based archetype. \\
+Loose-Passive    & In-distribution  & Rule-based archetype. \\
+Loose-Aggressive & In-distribution  & Rule-based archetype. \\
+Maniac           & In-distribution  & Rule-based archetype. \\
+Random           & In-distribution  & Uniform-random. \\
+\midrule
+Opp.\ Encoder    & Out-of-distribution & Frozen base $+$ learned opponent encoder. \\
+Adaptive Value   & Out-of-distribution & Value net with 19-dim input (state $+$ 4 hand-coded stats). \\
+REINFORCE        & Out-of-distribution & Policy gradient ($200{,}000$ pool-training episodes). \\
+Actor--Critic    & Out-of-distribution & A2C ($200{,}000$ pool-training episodes). \\
+DQN              & Out-of-distribution & Double Q-learning with replay and target network. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Match Protocol and Metrics}
+
+Each (study agent, pool agent) matchup is played for $10{,}000$ hands with
+alternating seats: the learner sits at seat $0$ for odd-indexed hands and
+seat $1$ for even-indexed hands. Hands are grouped into $100$-hand
+sessions, and the opponent-statistics tracker is reset at the session
+boundary so that cold-start behaviour is repeatedly probed.
+
+\paragraph{Per-matchup metrics.}
+Each matchup yields the learner's mean chips per hand together with a
+$95\%$ confidence interval and a \emph{cold} vs \emph{warm} decomposition
+(hands $0$--$19$ vs hands $20$--$99$ within each session), used to isolate
+the contribution of opponent-statistics accumulation.
+
+\paragraph{Pool-level metrics.}
+For each study agent we report, across the 13 pool opponents (and
+separately across the in-distribution and OOD subsets):
+\begin{align*}
+\mu       &= \tfrac{1}{|P|}\sum_{p\in P}\bar x_p, &
+\sigma    &= \operatorname{stddev}_{p\in P}(\bar x_p), \\
+\mathrm{robustness} &= \mu - 1.5\,\sigma, &
+\mathrm{worst\text{-}case} &= \min_{p\in P}\bar x_p,
+\end{align*}
+where $\bar x_p$ is the mean chips per hand against opponent $p$. The
+robustness score penalises high variance across opponents, rewarding
+agents that perform consistently rather than those that exploit some
+opponents strongly while collapsing against others.
+
+For comparability with the main text's tables, the per-100-hand session
+score is $100 \times \bar x_p$ (e.g.\ $+0.419$ chips per hand
+$=$ $+41.9$ chips per $100$-hand session).
+
+\paragraph{Checkpoint selection.}
+During training we evaluate every $10{,}000$ episodes against the
+in-distribution pool ($500$ rounds per opponent) and retain both the
+final checkpoint and the checkpoint that maximises the in-training
+robustness score, which is then used for the final fixed-gauntlet
+evaluation.

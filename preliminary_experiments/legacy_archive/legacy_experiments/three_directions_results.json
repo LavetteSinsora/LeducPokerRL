@@ -1,0 +1,238 @@
+{
+  "training": {
+    "Baseline": {
+      "direction": "Baseline",
+      "name": "Gate+SelfPlay (original)"
+    },
+    "A": {
+      "direction": "A",
+      "name": "Warm-Start Fine-Tune",
+      "num_sessions": 3000,
+      "elapsed_s": 370.3,
+      "final_loss": 3.089395
+    },
+    "B": {
+      "direction": "B",
+      "name": "Gate-Scheduled Curriculum",
+      "num_sessions": 5000,
+      "phase1_sessions": 2500,
+      "phase1_elapsed_s": 253.3,
+      "phase2_sessions": 2500,
+      "phase2_elapsed_s": 286.1,
+      "elapsed_s": 539.4,
+      "phase1_final_loss": 6.95999,
+      "phase2_final_loss": 3.520081
+    },
+    "C": {
+      "direction": "C",
+      "name": "Tanh-Bounded Residual",
+      "num_sessions": 5000,
+      "elapsed_s": 407.6,
+      "final_loss": 2.872773,
+      "max_correction": 0.5
+    }
+  },
+  "diagnostics": {
+    "Baseline": {
+      "label": "Baseline",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 608,
+          "delta_abs_mean": 0.090094,
+          "delta_std": 0.054423,
+          "delta_range": [
+            -0.185,
+            0.0313
+          ],
+          "gate_mean": 0.4012,
+          "gate_std": 0.0189
+        },
+        "value_based": {
+          "n_states": 497,
+          "delta_abs_mean": 0.099481,
+          "delta_std": 0.051841,
+          "delta_range": [
+            -0.1729,
+            0.0232
+          ],
+          "gate_mean": 0.4161,
+          "gate_std": 0.0191
+        },
+        "adaptive_value": {
+          "n_states": 492,
+          "delta_abs_mean": 0.097126,
+          "delta_std": 0.050714,
+          "delta_range": [
+            -0.185,
+            0.0235
+          ],
+          "gate_mean": 0.4145,
+          "gate_std": 0.0185
+        }
+      },
+      "delta_grand_mean": 0.095567,
+      "delta_cross_opponent_std": 0.004884
+    },
+    "A": {
+      "label": "A",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 600,
+          "delta_abs_mean": 0.244578,
+          "delta_std": 0.068157,
+          "delta_range": [
+            -0.3591,
+            -0.0913
+          ],
+          "gate_mean": 0.4181,
+          "gate_std": 0.0161
+        },
+        "value_based": {
+          "n_states": 500,
+          "delta_abs_mean": 0.245939,
+          "delta_std": 0.068623,
+          "delta_range": [
+            -0.3494,
+            -0.1012
+          ],
+          "gate_mean": 0.4282,
+          "gate_std": 0.0194
+        },
+        "adaptive_value": {
+          "n_states": 506,
+          "delta_abs_mean": 0.245364,
+          "delta_std": 0.067891,
+          "delta_range": [
+            -0.3453,
+            -0.0937
+          ],
+          "gate_mean": 0.4282,
+          "gate_std": 0.0172
+        }
+      },
+      "delta_grand_mean": 0.245294,
+      "delta_cross_opponent_std": 0.000683
+    },
+    "B": {
+      "label": "B",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 473,
+          "delta_abs_mean": 0.479802,
+          "delta_std": 0.189291,
+          "delta_range": [
+            -1.0791,
+            -0.0572
+          ],
+          "gate_mean": 0.7309,
+          "gate_std": 0.0175
+        },
+        "value_based": {
+          "n_states": 413,
+          "delta_abs_mean": 0.375214,
+          "delta_std": 0.21173,
+          "delta_range": [
+            -1.0502,
+            0.2136
+          ],
+          "gate_mean": 0.729,
+          "gate_std": 0.0168
+        },
+        "adaptive_value": {
+          "n_states": 414,
+          "delta_abs_mean": 0.38593,
+          "delta_std": 0.207545,
+          "delta_range": [
+            -1.0452,
+            0.1115
+          ],
+          "gate_mean": 0.7211,
+          "gate_std": 0.0172
+        }
+      },
+      "delta_grand_mean": 0.413649,
+      "delta_cross_opponent_std": 0.05754
+    },
+    "C": {
+      "label": "C",
+      "per_opponent": {
+        "heuristic": {
+          "n_states": 547,
+          "delta_abs_mean": 0.166916,
+          "delta_std": 0.197989,
+          "delta_range": [
+            -0.4558,
+            0.3922
+          ]
+        },
+        "value_based": {
+          "n_states": 469,
+          "delta_abs_mean": 0.166067,
+          "delta_std": 0.198751,
+          "delta_range": [
+            -0.4554,
+            0.3864
+          ]
+        },
+        "adaptive_value": {
+          "n_states": 486,
+          "delta_abs_mean": 0.160961,
+          "delta_std": 0.197438,
+          "delta_range": [
+            -0.4582,
+            0.3851
+          ]
+        }
+      },
+      "delta_grand_mean": 0.164648,
+      "delta_cross_opponent_std": 0.003221
+    }
+  },
+  "evaluation": {
+    "Baseline": {
+      "label": "Baseline",
+      "per_opponent": {
+        "heuristic": 0.342,
+        "value_based": 0.312,
+        "adaptive_value": 0.1125
+      },
+      "avg": 0.2555,
+      "worst_case": 0.1125,
+      "robustness": 0.0684
+    },
+    "A": {
+      "label": "A",
+      "per_opponent": {
+        "heuristic": 0.506,
+        "value_based": 0.256,
+        "adaptive_value": -0.005
+      },
+      "avg": 0.2523,
+      "worst_case": -0.005,
+      "robustness": -0.1309
+    },
+    "B": {
+      "label": "B",
+      "per_opponent": {
+        "heuristic": 0.137,
+        "value_based": 0.1255,
+        "adaptive_value": 0.0605
+      },
+      "avg": 0.1077,
+      "worst_case": 0.0605,
+      "robustness": 0.0458
+    },
+    "C": {
+      "label": "C",
+      "per_opponent": {
+        "heuristic": 0.1635,
+        "value_based": -0.0425,
+        "adaptive_value": -0.013
+      },
+      "avg": 0.036,
+      "worst_case": -0.0425,
+      "robustness": -0.1311
+    }
+  },
+  "total_elapsed_s": 1333.1
+}

@@ -1,5 +1,13 @@
 # Agent Family Tree
 
+> **Experiment Protocol**: All architecture experiments MUST use `TournamentCheckpointer`
+> from `agents/tournament_eval.py`. See `CLAUDE.md` for the full protocol and
+> `paper/evaluation/meta/EVAL_CONFIG.json` for frozen evaluation parameters.
+
+> **Start here for insights**: Skip to **Key Insights — Cumulative** (search `## Key Insights`)
+> for the accumulated mechanistic understanding across all rounds. Read these before
+> designing any new experiment.
+
 This document tracks the lineage of all agents in the PokerRL project.
 Each agent is an incremental change from its parent, changing exactly one aspect.
 
@@ -344,8 +352,9 @@ Two-axis experiment design: Axis 1 (belief estimation) then Axis 2 (belief usage
 | Rank | Agent | Avg | Worst | Best | Std | Robustness |
 |------|-------|-----|-------|------|-----|------------|
 | 1 | **belief_modulated** | **+0.315** | -0.14 | +1.082 | 0.496 | **-0.430** |
-| 2 | belief_value (R4 baseline) | -0.434 | -1.024 | — | — | -1.024 |
-| 3 | belief_cfr | -0.724 | -1.118 | -0.386 | 0.264 | -1.120 |
+| 2 | **belief_cfr (pop ablation)** | **+0.173** | -0.27 | +0.82 | 0.425 | **-0.465** |
+| 3 | belief_value (R4 baseline) | -0.434 | -1.024 | — | — | -1.024 |
+| 4 | belief_cfr | -0.724 | -1.118 | -0.386 | 0.264 | -1.120 |
 
 Winner: **belief_modulated** — first belief agent with positive avg score. Beats 4/6 opponents (heuristic +0.776, value_based +0.002, modulated_value +0.186, entropy_ac +1.082). Only loses to adaptive_value (-0.14) and cfr (-0.016). Trained for 40K sessions (1.2M hands, ~109 min).
 
@@ -379,30 +388,33 @@ Note: E2b-E2d used shorter training schedules (40K episodes or 2K sessions ≈ 6
 
 ### Diagnosis: Round 5 Results
 
-**Belief Confident (E2c, avg -0.213 — best belief agent ever):**
+**Belief Confident (E2c, avg -0.213 — best short-training belief agent):**
+- Belief correctness 0.39 — below random baseline (0.50), confirming beliefs are counterproductive at this training level
 - Confidence mechanism works: TVD=0.18 between conf=0 and conf=1 strategies
 - But performance DEGRADES with confidence: conf=0 → +0.014, conf=0.5 → -0.206, conf=1.0 → -0.280
 - The model correctly learned that its belief is harmful and should be ignored
 - The improvement comes from accidentally dampening the bad belief signal, not from exploiting beliefs
 
 **Belief Stable (E2d, avg -0.445 — most interesting diagnostically):**
-- BEST belief correctness: 0.648 (vs 0.39-0.45 for all others!)
+- BEST belief correctness: 0.648 — well above random baseline (0.50), far ahead of all others (0.39-0.51)
 - ONLY agent that raises with Q (54%) and K (82%) — non-degenerate strategy
 - But broken TD chain means value estimates are less accurate
 - Trade-off: better beliefs + worse value learning → net negative
 
 **Belief CFR (E1a, avg -0.724 — informative failure):**
 - Nash equilibrium likelihoods are informationally opaque: P(a|J) ≈ P(a|Q) ≈ P(a|K) at equilibrium
-- Belief updates BROKEN in round 1 (zero shift) due to belief re-initialization with uniformly similar likelihoods
+- Belief correctness 0.42 — **below random baseline (0.50)**, meaning beliefs are counterproductive
+- Belief shift = 0.000 in round 1 (flop): after observing opponent's action, `posterior ∝ P(action|h) × prior` reduces to `posterior ≈ prior` because Nash likelihoods are constant across hands
 - 100% FOLD with J — exploitable degenerate strategy
 
 **Belief Modulated (E1b, avg +0.315 — first competitive belief agent):**
 - With full training (40K sessions, 1.2M hands, ~109 min), beats 4/6 opponents
 - Gate shows differentiation: heuristic (0.578) > value_based (0.542) > adaptive_value (0.535)
 - Non-degenerate strategy: K raises 83% preflop, J raises 41% on flop
-- Belief correctness 0.514 — best among non-stable agents
-- Modulation still hurts raw Nash accuracy (-11.1%), but longer training compensates
-- **Key**: 2K-session version (avg -0.30) was dramatically undertrained. Full training reveals the agent is competitive
+- Belief correctness 0.514 — above random baseline (0.50), best among non-stable agents
+- Modulation hurts raw Nash accuracy (-11.1%), but may improve discriminativeness across hands
+- **Ablation resolved**: pure Nash + population + 40K sessions (no modulation) achieved avg +0.173. Population+duration explain 86% of improvement over E1a; modulation adds +0.142 (14%), primarily through improved belief quality (0.39 → 0.51).
+- **Key**: 2K-session version (avg -0.30) was dramatically undertrained. Population training + duration are the dominant variables.
 
 ### Cross-Cutting Themes — Round 5
 
@@ -411,6 +423,7 @@ Note: E2b-E2d used shorter training schedules (40K episodes or 2K sessions ≈ 6
 | Theme | Evidence |
 |-------|----------|
 | Training duration is critical for belief agents | E1b: 2K sessions → -0.30, 40K sessions → **+0.315** |
+| Population+duration = 86% of improvement | Ablation (Nash+pop+40K): +0.173 vs E1b (Nash+mod+pop+40K): +0.315 |
 | Beliefs are harmful when undertrained | E2c conf=0 (+0.014) > conf=1 (-0.280) with 2K sessions |
 | Nash equilibrium = informationally opaque | E1a likelihoods too uniform for Bayesian discrimination |
 | Population training + sufficient duration = competitive | E1b full (pop, +0.315) > E1a (self-play, -0.72) |

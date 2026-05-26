@@ -1,0 +1,297 @@
+{
+  "baselines": {
+    "preflop_ptrue": 0.36000000536441795,
+    "preflop_argmax": 0.4000000000000001,
+    "flop_ptrue": 0.4,
+    "flop_argmax": 0.5,
+    "overall_ptrue": 0.380000002682209,
+    "overall_argmax": 0.45000000000000007
+  },
+  "belief_results": [
+    {
+      "agent": "E1a belief_cfr",
+      "total_decisions": 2135,
+      "avg_ptrue": 0.4182,
+      "argmax_accuracy": 0.4778,
+      "round_0_ptrue": 0.3981,
+      "round_0_argmax": 0.4598,
+      "round_0_n": 1194,
+      "round_0_prior_ptrue": 0.3544,
+      "round_0_prior_argmax": 0.3585,
+      "round_1_ptrue": 0.4436,
+      "round_1_argmax": 0.5005,
+      "round_1_n": 941,
+      "round_1_prior_ptrue": 0.3913,
+      "round_1_prior_argmax": 0.4772,
+      "belief_by_true_hand": {
+        "J": {
+          "n": 713,
+          "avg_belief": [
+            0.4302,
+            0.2796,
+            0.2901
+          ],
+          "avg_ptrue": 0.4302,
+          "std_ptrue": 0.1554,
+          "min_ptrue": 0.2,
+          "max_ptrue": 0.9437,
+          "argmax_rate": 0.7798
+        },
+        "Q": {
+          "n": 599,
+          "avg_belief": [
+            0.3271,
+            0.3789,
+            0.294
+          ],
+          "avg_ptrue": 0.3789,
+          "std_ptrue": 0.1847,
+          "min_ptrue": 0.0,
+          "max_ptrue": 1.0,
+          "argmax_rate": 0.4157
+        },
+        "K": {
+          "n": 823,
+          "avg_belief": [
+            0.2945,
+            0.2692,
+            0.4363
+          ],
+          "avg_ptrue": 0.4363,
+          "std_ptrue": 0.1769,
+          "min_ptrue": 0.2,
+          "max_ptrue": 1.0,
+          "argmax_rate": 0.2612
+        }
+      }
+    },
+    {
+      "agent": "Ablation pop_no_mod",
+      "total_decisions": 3038,
+      "avg_ptrue": 0.3936,
+      "argmax_accuracy": 0.4322,
+      "round_0_ptrue": 0.3864,
+      "round_0_argmax": 0.4189,
+      "round_0_n": 1578,
+      "round_0_prior_ptrue": 0.3555,
+      "round_0_prior_argmax": 0.372,
+      "round_1_ptrue": 0.4013,
+      "round_1_argmax": 0.4466,
+      "round_1_n": 1460,
+      "round_1_prior_ptrue": 0.381,
+      "round_1_prior_argmax": 0.463,
+      "belief_by_true_hand": {
+        "J": {
+          "n": 746,
+          "avg_belief": [
+            0.384,
+            0.3033,
+            0.3127
+          ],
+          "avg_ptrue": 0.384,
+          "std_ptrue": 0.1406,
+          "min_ptrue": 0.0664,
+          "max_ptrue": 0.6876,
+          "argmax_rate": 0.6676
+        },
+        "Q": {
+          "n": 1123,
+          "avg_belief": [
+            0.3044,
+            0.3561,
+            0.3395
+          ],
+          "avg_ptrue": 0.3561,
+          "std_ptrue": 0.1254,
+          "min_ptrue": 0.0,
+          "max_ptrue": 0.5,
+          "argmax_rate": 0.3232
+        },
+        "K": {
+          "n": 1169,
+          "avg_belief": [
+            0.2404,
+            0.3239,
+            0.4356
+          ],
+          "avg_ptrue": 0.4356,
+          "std_ptrue": 0.1898,
+          "min_ptrue": 0.1513,
+          "max_ptrue": 0.9819,
+          "argmax_rate": 0.3867
+        }
+      }
+    },
+    {
+      "agent": "E1b belief_modulated",
+      "total_decisions": 3035,
+      "avg_ptrue": 0.4132,
+      "argmax_accuracy": 0.4804,
+      "round_0_ptrue": 0.4077,
+      "round_0_argmax": 0.4686,
+      "round_0_n": 1590,
+      "round_0_prior_ptrue": 0.3582,
+      "round_0_prior_argmax": 0.3604,
+      "round_1_ptrue": 0.4193,
+      "round_1_argmax": 0.4934,
+      "round_1_n": 1445,
+      "round_1_prior_ptrue": 0.3844,
+      "round_1_prior_argmax": 0.474,
+      "belief_by_true_hand": {
+        "J": {
+          "n": 793,
+          "avg_belief": [
+            0.4239,
+            0.277,
+            0.2991
+          ],
+          "avg_ptrue": 0.4239,
+          "std_ptrue": 0.2173,
+          "min_ptrue": 0.0104,
+          "max_ptrue": 0.9999,
+          "argmax_rate": 0.7049
+        },
+        "Q": {
+          "n": 953,
+          "avg_belief": [
+            0.2695,
+            0.3648,
+            0.3658
+          ],
+          "avg_ptrue": 0.3648,
+          "std_ptrue": 0.1362,
+          "min_ptrue": 0.0816,
+          "max_ptrue": 0.9031,
+          "argmax_rate": 0.3536
+        },
+        "K": {
+          "n": 1289,
+          "avg_belief": [
+            0.236,
+            0.3215,
+            0.4425
+          ],
+          "avg_ptrue": 0.4425,
+          "std_ptrue": 0.2321,
+          "min_ptrue": 0.0186,
+          "max_ptrue": 0.9864,
+          "argmax_rate": 0.436
+        }
+      }
+    },
+    {
+      "agent": "E2c belief_confident",
+      "total_decisions": 2131,
+      "avg_ptrue": 0.387,
+      "argmax_accuracy": 0.4158,
+      "round_0_ptrue": 0.3966,
+      "round_0_argmax": 0.401,
+      "round_0_n": 1454,
+      "round_0_prior_ptrue": 0.3535,
+      "round_0_prior_argmax": 0.2813,
+      "round_1_ptrue": 0.3663,
+      "round_1_argmax": 0.4476,
+      "round_1_n": 677,
+      "round_1_prior_ptrue": 0.3848,
+      "round_1_prior_argmax": 0.4919,
+      "belief_by_true_hand": {
+        "J": {
+          "n": 630,
+          "avg_belief": [
+            0.3579,
+            0.2921,
+            0.35
+          ],
+          "avg_ptrue": 0.3579,
+          "std_ptrue": 0.1616,
+          "min_ptrue": 0.0029,
+          "max_ptrue": 0.7215,
+          "argmax_rate": 0.6857
+        },
+        "Q": {
+          "n": 778,
+          "avg_belief": [
+            0.2697,
+            0.308,
+            0.4223
+          ],
+          "avg_ptrue": 0.308,
+          "std_ptrue": 0.2031,
+          "min_ptrue": 0.0235,
+          "max_ptrue": 0.8782,
+          "argmax_rate": 0.3085
+        },
+        "K": {
+          "n": 723,
+          "avg_belief": [
+            0.2361,
+            0.2667,
+            0.4972
+          ],
+          "avg_ptrue": 0.4972,
+          "std_ptrue": 0.3101,
+          "min_ptrue": 0.0942,
+          "max_ptrue": 0.9735,
+          "argmax_rate": 0.296
+        }
+      }
+    },
+    {
+      "agent": "E2d belief_stable",
+      "total_decisions": 2110,
+      "avg_ptrue": 0.3758,
+      "argmax_accuracy": 0.454,
+      "round_0_ptrue": 0.3765,
+      "round_0_argmax": 0.4672,
+      "round_0_n": 1188,
+      "round_0_prior_ptrue": 0.3576,
+      "round_0_prior_argmax": 0.3577,
+      "round_1_ptrue": 0.3749,
+      "round_1_argmax": 0.4371,
+      "round_1_n": 922,
+      "round_1_prior_ptrue": 0.3753,
+      "round_1_prior_argmax": 0.4371,
+      "belief_by_true_hand": {
+        "J": {
+          "n": 731,
+          "avg_belief": [
+            0.3592,
+            0.31,
+            0.3308
+          ],
+          "avg_ptrue": 0.3592,
+          "std_ptrue": 0.1231,
+          "min_ptrue": 0.1491,
+          "max_ptrue": 0.5,
+          "argmax_rate": 0.6607
+        },
+        "Q": {
+          "n": 596,
+          "avg_belief": [
+            0.3197,
+            0.3544,
+            0.3259
+          ],
+          "avg_ptrue": 0.3544,
+          "std_ptrue": 0.0983,
+          "min_ptrue": 0.2,
+          "max_ptrue": 0.5,
+          "argmax_rate": 0.3507
+        },
+        "K": {
+          "n": 783,
+          "avg_belief": [
+            0.3049,
+            0.2875,
+            0.4076
+          ],
+          "avg_ptrue": 0.4076,
+          "std_ptrue": 0.1172,
+          "min_ptrue": 0.2,
+          "max_ptrue": 0.5712,
+          "argmax_rate": 0.3397
+        }
+      }
+    }
+  ]
+}

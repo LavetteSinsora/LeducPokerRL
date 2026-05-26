@@ -1,0 +1,15 @@
+{
+  "experiment_id": "capacity_study_v1",
+  "status": "complete",
+  "research_question": "Minimal architecture for Leduc Hold'em value function",
+  "phase1_winner": "p1_baseline",
+  "phase1_winner_hidden": [
+    64,
+    64
+  ],
+  "best_overall_score": 0.01876,
+  "n_configs": 10,
+  "total_episodes": 500000,
+  "eval_rounds_per_checkpoint": 5000,
+  "run_date": "2026-03-14"
+}

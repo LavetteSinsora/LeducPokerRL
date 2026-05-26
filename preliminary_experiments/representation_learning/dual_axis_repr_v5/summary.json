@@ -1,0 +1,60 @@
+{
+  "experiment": "dual_axis_repr_v5",
+  "title": "Dual-Axis Subspace-Partitioned Representation Learning",
+  "approach": "Structural gradient isolation via disjoint 4-dim subspaces",
+  "date": "2026-03-12",
+  "config": {
+    "lambda_hand": 1.0,
+    "lambda_var": 0.1,
+    "episodes": 20000,
+    "lr": 0.0001,
+    "batch_size": 256,
+    "embedding_dim": 8,
+    "reward_subspace": "dims 0:4",
+    "hand_subspace": "dims 4:8"
+  },
+  "results": {
+    "full_embedding": {
+      "effective_dim_80pct": 3,
+      "effective_dim_90pct": 4,
+      "reward_spearman_rho": 0.536,
+      "opp_hand_accuracy": 0.652,
+      "reward_bin_accuracy": 0.514
+    },
+    "reward_subspace_dims_0_4": {
+      "effective_dim_80pct": 3,
+      "reward_spearman_rho": 0.543,
+      "hand_accuracy_contamination_check": 0.575
+    },
+    "hand_subspace_dims_4_8": {
+      "effective_dim_80pct": 2,
+      "opp_hand_accuracy": 0.676,
+      "reward_spearman_rho_contamination_check": 0.087
+    }
+  },
+  "targets": {
+    "reward_spearman_rho_target": 0.163,
+    "reward_spearman_rho_achieved": 0.543,
+    "target_met_reward": true,
+    "opp_hand_accuracy_target": 0.620,
+    "opp_hand_accuracy_achieved": 0.676,
+    "target_met_hand": true,
+    "both_targets_simultaneously": true
+  },
+  "comparison_table": {
+    "reward_only_v1":   {"effective_dim_80": 3, "opp_hand_accuracy": 0.333, "reward_spearman_rho": 0.163},
+    "hand_only":        {"effective_dim_80": 1, "opp_hand_accuracy": 0.628, "reward_spearman_rho": null},
+    "dual_supcon_v2":   {"effective_dim_80": 2, "opp_hand_accuracy": 0.633, "reward_spearman_rho": 0.118},
+    "dual_hybrid_v3":   {"effective_dim_80": 2, "opp_hand_accuracy": 0.678, "reward_spearman_rho": 0.083},
+    "dual_ema_v4":      {"effective_dim_80": 4, "opp_hand_accuracy": 0.383, "reward_spearman_rho": 0.672},
+    "dual_subspace_v5": {"effective_dim_80": 3, "opp_hand_accuracy": 0.652, "reward_spearman_rho": 0.536}
+  },
+  "key_findings": [
+    "v5 is the FIRST configuration to simultaneously meet both targets: reward Spearman rho >= 0.163 AND hand accuracy >= 0.620",
+    "Reward subspace (dims 0:4) achieves rho=0.543, outperforming pure reward-only v1 (0.163) by 3.3x",
+    "Hand subspace (dims 4:8) achieves 67.6% accuracy vs hand-only baseline of 62.8%",
+    "Structural isolation is partially verified: hand subspace reward rho = 0.087 (near-chance), but reward subspace hand accuracy = 0.575 (above chance 0.333) suggesting some soft entanglement via shared hidden layers",
+    "VICReg correctly pushed full embedding to effective_dim_80 = 3 (from near-1 collapse in hand-only)",
+    "The hand subspace (dims 4:8) slightly outperforms the full embedding for hand accuracy (0.676 vs 0.652), confirming signal concentration in its designated subspace"
+  ]
+}

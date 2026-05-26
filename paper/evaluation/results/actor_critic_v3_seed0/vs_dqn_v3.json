@@ -1,0 +1,11 @@
+{
+  "study_agent": "actor_critic_v3",
+  "seed": 0,
+  "pool_agent": "dqn_v3",
+  "chips_per_round": -0.3095,
+  "ci_95_low": -0.410205,
+  "ci_95_high": -0.2075625000000002,
+  "cold_mean": -0.339,
+  "warm_mean": -0.302125,
+  "n_hands": 10000
+}

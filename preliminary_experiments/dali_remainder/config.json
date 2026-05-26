@@ -1,0 +1,28 @@
+{
+  "episodes": 300000,
+  "learning_rate": 1e-4,
+  "batch_size": 32,
+  "optimizer": "Adam",
+  "session_length": 100,
+  "prior_strength": 20.0,
+  "checkpoint_interval": 10000,
+  "final_eval_rounds": 5000,
+  "game_dims": 15,
+  "stat_dims": 7,
+  "opponent_weights": {
+    "cfr": 3.0,
+    "heuristic": 3.0,
+    "tight_passive": 1.0,
+    "tight_aggressive": 1.0,
+    "loose_passive": 1.0,
+    "loose_aggressive": 1.0,
+    "maniac": 1.0,
+    "random": 1.0
+  },
+  "seeds": {
+    "full_modulation": [0, 1, 2],
+    "gated_modulation": [0],
+    "state_only": [0, 1, 2],
+    "finetuned_base": [0, 1, 2]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "experiment": "dual_axis_repr_v1",
+  "research_question": "Can joint reward+hand contrastive supervision learn a multi-axis representation that encodes both strategic value and opponent identity?",
+  "run": "outputs/dual_axis_repr_v1/run_default",
+  "checkpoint": "outputs/dual_axis_repr_v1/run_default/checkpoint.pt",
+  "hyperparameters": {
+    "episodes": 20000,
+    "batch_size": 256,
+    "buffer_capacity": 5000,
+    "temperature": 0.5,
+    "reward_thresh": 0.5,
+    "reward_margin": 1.5,
+    "lambda_var": 0.1,
+    "lr": 1e-4,
+    "embedding_dim": 8,
+    "architecture": "15 -> 64 -> 64 -> 8"
+  },
+  "results": {
+    "effective_dim_80": 2,
+    "effective_dim_90": 3,
+    "pc1_variance": 0.546,
+    "pc2_variance": 0.350,
+    "linear_probe_accuracy": 0.5376,
+    "chance_baseline": 0.3333,
+    "reward_spearman_rho": 0.1066,
+    "reward_spearman_pvalue": 4.12e-14,
+    "hand_spearman_rho": 0.0666,
+    "hand_spearman_pvalue": 2.41e-6,
+    "final_contrastive_loss": -2576.63,
+    "final_variance_loss": 0.0,
+    "elapsed_seconds": 544.9
+  },
+  "success_criteria": {
+    "effective_dim_ge_2": true,
+    "linear_probe_gt_50pct": true,
+    "reward_spearman_gt_0163": false
+  },
+  "comparison": {
+    "contrastive_repr_v1": {
+      "effective_dim_80": 3,
+      "opp_hand_accuracy": 0.333,
+      "reward_spearman_rho": 0.163
+    },
+    "hand_identity_repr_v1": {
+      "effective_dim_80": 1,
+      "opp_hand_accuracy": 0.628,
+      "reward_spearman_rho": null
+    },
+    "dual_axis_repr_v1": {
+      "effective_dim_80": 2,
+      "opp_hand_accuracy": 0.538,
+      "reward_spearman_rho": 0.107
+    }
+  },
+  "key_findings": [
+    "Dual-axis construction prevents 1D collapse: 2 effective dims vs 1 in hand_identity_repr_v1",
+    "Both signals encoded: 53.8% opp hand accuracy (above 50% target), significant reward Spearman rho",
+    "Reward Spearman rho (0.107) below reward-only baseline (0.163) — capacity shared between axes",
+    "InfoNCE loss diverged to -inf after VICReg variance term went to 0 (~7000 episodes)",
+    "Loss instability did not prevent meaningful representation learning — diagnostics confirm real structure"
+  ],
+  "follow_up": "dual_axis_repr_v2: address InfoNCE instability via increased lambda_var, embedding norm clipping, or stop-gradient"
+}

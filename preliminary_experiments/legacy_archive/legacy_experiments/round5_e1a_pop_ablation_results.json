@@ -1,0 +1,140 @@
+{
+  "agent": "belief_cfr_pop_ablation",
+  "experiment": "E1a_pop_ablation",
+  "timestamp": "2026-02-28 19:51:10",
+  "purpose": "Isolate modulation contribution: pure Nash + population + 40K sessions",
+  "config": {
+    "train_sessions": 40000,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "hands_per_session": 30,
+    "rotate_every": 100,
+    "eval_rounds": 500,
+    "cfr_model_path": "models/cfr_agent.pt",
+    "modulation": false
+  },
+  "comparison": {
+    "E1a_self_play": {
+      "avg": -0.724,
+      "training": "40K episodes, self-play"
+    },
+    "E1b_modulated": {
+      "avg": 0.315,
+      "training": "40K sessions, population, modulation"
+    }
+  },
+  "training": {
+    "training_time_s": 2337.8,
+    "num_updates": 40000,
+    "final_loss": 7.307400703430176,
+    "final_eval_vs_heuristic": 0.53,
+    "eval_history": [
+      {
+        "episode": 1199730,
+        "avg_chips": 0.81
+      },
+      {
+        "episode": 1199760,
+        "avg_chips": 1.07
+      },
+      {
+        "episode": 1199790,
+        "avg_chips": 0.96
+      },
+      {
+        "episode": 1199820,
+        "avg_chips": 0.8
+      },
+      {
+        "episode": 1199850,
+        "avg_chips": 0.58
+      },
+      {
+        "episode": 1199880,
+        "avg_chips": 0.44
+      },
+      {
+        "episode": 1199910,
+        "avg_chips": 0.99
+      },
+      {
+        "episode": 1199940,
+        "avg_chips": 0.14
+      },
+      {
+        "episode": 1199970,
+        "avg_chips": 0.74
+      },
+      {
+        "episode": 1200000,
+        "avg_chips": 0.53
+      }
+    ]
+  },
+  "evaluation": {
+    "heuristic": 0.82,
+    "value_based": -0.066,
+    "adaptive_value": -0.27,
+    "modulated_value": 0.096,
+    "entropy_ac": 0.56,
+    "cfr": -0.102
+  },
+  "robustness": {
+    "avg": 0.173,
+    "worst_case": -0.27,
+    "best_case": 0.82,
+    "std": 0.425,
+    "robustness": -0.4646,
+    "n_opponents": 6
+  },
+  "diagnostics": {
+    "belief_quality": {
+      "belief_correctness": 0.3881,
+      "avg_belief_shift_l1": 0.4776,
+      "std_belief_shift_l1": 0.2796,
+      "total_decision_points": 1517,
+      "per_round_shift": {
+        "round_0": 0.3756,
+        "round_1": 0.5167
+      }
+    },
+    "action_distribution": {
+      "J": {
+        "Preflop": {
+          "FOLD": 0.0,
+          "CALL": 1.0,
+          "RAISE": 0.0
+        },
+        "Flop": {
+          "FOLD": 0.303,
+          "CALL": 0.274,
+          "RAISE": 0.423
+        }
+      },
+      "Q": {
+        "Preflop": {
+          "FOLD": 0.0,
+          "CALL": 1.0,
+          "RAISE": 0.0
+        },
+        "Flop": {
+          "FOLD": 0.356,
+          "CALL": 0.242,
+          "RAISE": 0.403
+        }
+      },
+      "K": {
+        "Preflop": {
+          "FOLD": 0.0,
+          "CALL": 0.147,
+          "RAISE": 0.853
+        },
+        "Flop": {
+          "FOLD": 0.098,
+          "CALL": 0.712,
+          "RAISE": 0.19
+        }
+      }
+    }
+  }
+}

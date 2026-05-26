@@ -1,0 +1,46 @@
+{
+  "experiment": "value_dim_search_v1",
+  "research_question": "What is the minimum hidden width that allows a value network to learn a strong Leduc Hold'em strategy?",
+  "training_recipe": {
+    "algorithm": "TD(0) self-play",
+    "episodes": 20000,
+    "lr": 1e-4,
+    "batch_size": 32,
+    "optimizer": "Adam"
+  },
+  "baseline": {
+    "arch": "15->64->64->1",
+    "num_params": 8321,
+    "avg_chips_vs_heuristic": -0.075,
+    "source": "agents/value_based/checkpoint.pt (evaluated in opp_encoder_modulation_v1)"
+  },
+  "runs": [
+    {
+      "run_id": "A",
+      "arch": "15->32->32->1",
+      "hidden_dims": [32, 32],
+      "num_params": 1601,
+      "episodes": 20000,
+      "elapsed_seconds": 26.8,
+      "avg_chips_vs_heuristic": -0.522,
+      "peak_eval_during_training": 0.07,
+      "peak_eval_episode": 9000,
+      "output_dir": "outputs/value_dim_search_v1/run_A_32x32"
+    },
+    {
+      "run_id": "B",
+      "arch": "15->32->16->1",
+      "hidden_dims": [32, 16],
+      "num_params": 1057,
+      "episodes": 20000,
+      "elapsed_seconds": 25.6,
+      "avg_chips_vs_heuristic": -1.354,
+      "peak_eval_during_training": 0.10,
+      "peak_eval_episode": 5500,
+      "output_dir": "outputs/value_dim_search_v1/run_B_32x16"
+    }
+  ],
+  "key_finding": "Training instability (non-converging TD(0) self-play) dominates the capacity signal. Both architectures briefly reached near-baseline performance during training but regressed. The 20k-episode recipe is insufficient to cleanly measure minimum viable capacity. Recommend stabilizing training with a target network or replay buffer before drawing conclusions about minimum width.",
+  "verdict": "inconclusive — training instability, not capacity, is the bottleneck",
+  "recommended_next_step": "Add target network + replay buffer to stabilize TD(0), then re-run to cleanly isolate the capacity effect. If both converge, test 15->16->16->1 and 15->16->1."
+}

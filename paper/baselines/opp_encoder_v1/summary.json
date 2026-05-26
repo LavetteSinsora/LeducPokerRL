@@ -1,0 +1,39 @@
+{
+  "experiment_id": "opp_encoder_modulation_v1",
+  "status": "completed",
+  "parent_agent": "modulated_value",
+  "base_agent": "value_based",
+  "changed_axis": "Replace raw opponent stats conditioning with a learned opponent embedding trained with auxiliary next-action prediction",
+  "train_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v1/train.py",
+  "eval_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v1/eval.py",
+  "diagnostics_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v1/diagnose.py",
+  "artifact_dir": "experiments/opp_encoder_modulation/opp_encoder_modulation_v1/outputs",
+  "opponent_pool": [
+    "heuristic",
+    "value_based",
+    "adaptive_value",
+    "modulated_value",
+    "cfr"
+  ],
+  "training_budget": {
+    "sessions": 40000,
+    "hands_per_session": 30,
+    "batch_size": 128
+  },
+  "primary_metrics": [
+    "robustness_vs_promoted_suite",
+    "action_prediction_accuracy",
+    "mean_gate",
+    "mean_abs_delta"
+  ],
+  "promotion_decision": "not_promoted",
+  "final_metrics": {
+    "candidate_avg": 0.0986,
+    "candidate_robustness": -0.1385,
+    "control_avg": 0.1544,
+    "control_robustness": -0.1773,
+    "base_only_avg": -0.1134,
+    "base_only_robustness": -0.4054
+  },
+  "result_summary": "Completed 40K-session run. The learned opponent encoder improved robustness over modulated_value and strongly beat a base-only ablation, but average performance remained below the control. Follow-up diagnosis showed the new gate saturated near 1.0, losing the parent's protective small-residual behavior. Do not promote yet."
+}

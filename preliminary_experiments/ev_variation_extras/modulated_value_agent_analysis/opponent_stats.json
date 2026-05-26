@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "description": "4-dim OpponentStats (fold_rate, raise_rate, fold_to_raise_rate, confidence) collected by ModulatedValueAgent playing 10,000 hands against each rule-based agent.",
+    "num_hands_per_opponent": 10000,
+    "modulated_agent_checkpoint": "/Users/chrishe/Downloads/PokerRL_Vanilla/agents/modulated_value/checkpoint.pt",
+    "feature_order": [
+      "fold_rate",
+      "raise_rate",
+      "fold_to_raise_rate",
+      "confidence"
+    ],
+    "confidence_formula": "min(hands_observed / 50.0, 1.0)",
+    "note": "This is the simpler 4-dim OpponentStats from engine/poker_session.py, NOT the 7-dim OpponentStatsTracker used in shared_data/opponent_prototype_stats.json."
+  },
+  "tight_passive": [
+    0.14647253639942512,
+    0.061176029494469784,
+    0.46749102512963703,
+    1.0
+  ],
+  "tight_aggressive": [
+    0.14063145470640306,
+    0.5059309530835054,
+    0.4744176786780808,
+    1.0
+  ],
+  "loose_passive": [
+    0.037832842372783455,
+    0.07514584416334547,
+    0.12293543543543543,
+    1.0
+  ],
+  "loose_aggressive": [
+    0.03597472046669908,
+    0.7817749689407444,
+    0.12481259370314843,
+    1.0
+  ],
+  "maniac": [
+    0.0,
+    1.0,
+    0.0,
+    1.0
+  ],
+  "random": [
+    0.3316641737660142,
+    0.33927294010535214,
+    0.3293692928434912,
+    1.0
+  ]
+}

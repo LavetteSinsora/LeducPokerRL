@@ -1,0 +1,19 @@
+{
+  "rounds_per_matchup": 2000,
+  "session_length": 100,
+  "tournament_interval": 10000,
+  "opponent_pool": [
+    "heuristic",
+    "value_based",
+    "adaptive_value",
+    "modulated_value",
+    "cfr"
+  ],
+  "standard_training": {
+    "episodes": 200000,
+    "lr": 1e-4,
+    "batch_size": 32,
+    "optimizer": "Adam"
+  },
+  "_comment": "This file is the single source of truth for all evaluation and training parameters. Edit here to change standards. TournamentCheckpointer reads from this file. Changing values = visible git diff."
+}

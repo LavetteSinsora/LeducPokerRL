@@ -1,0 +1,41 @@
+{
+  "experiment": "dual_axis_repr_v3",
+  "date": "2026-03-11",
+  "hypothesis": "Combining L1 soft-distance reward loss with SupCon hand loss achieves full fidelity on both axes",
+  "hypothesis_confirmed": false,
+  "config": {
+    "loss": "L_L1_reward + lambda_hand * L_SupCon(hand) + lambda_var * L_VICReg",
+    "lambda_hand": 1.0,
+    "lambda_var": 0.1,
+    "temperature": 0.07,
+    "episodes": 20000,
+    "lr": 1e-4,
+    "batch_size": 256,
+    "encoder": "15 -> 64 -> 64 -> 8"
+  },
+  "results": {
+    "effective_dim_80": 2,
+    "effective_dim_90": 2,
+    "opp_hand_accuracy": 0.678,
+    "reward_spearman_rho": 0.083,
+    "reward_bin_accuracy": 0.429,
+    "training_seconds": 61.1
+  },
+  "success_criteria": {
+    "effective_dim_ge_3": false,
+    "opp_hand_accuracy_ge_0.63": true,
+    "reward_spearman_rho_gt_0.163": false
+  },
+  "comparison": {
+    "reward_only_v1": {"effective_dim_80": 3, "opp_hand_accuracy": 0.333, "reward_spearman_rho": 0.163},
+    "hand_only": {"effective_dim_80": 1, "opp_hand_accuracy": 0.628, "reward_spearman_rho": null},
+    "dual_supcon_v2": {"effective_dim_80": 2, "opp_hand_accuracy": 0.633, "reward_spearman_rho": 0.118},
+    "dual_hybrid_v3": {"effective_dim_80": 2, "opp_hand_accuracy": 0.678, "reward_spearman_rho": 0.083}
+  },
+  "key_finding": "Scale imbalance: L_hand ~5.26 vs L_reward ~0.002 at convergence; hand SupCon dominates ~99.96% of gradient signal, crowding out reward metric structure. Hand accuracy improved to 67.8% (new best) but reward Spearman rho dropped to 0.083 (worst of all variants).",
+  "next_steps": [
+    "v4: Separate representation into disjoint subspaces (4 dims reward, 4 dims hand) to prevent gradient interference",
+    "v4 alt: Explicit loss re-scaling to equalize gradient magnitudes before combining",
+    "Investigate: normalize L_reward to match SupCon scale before backprop"
+  ]
+}

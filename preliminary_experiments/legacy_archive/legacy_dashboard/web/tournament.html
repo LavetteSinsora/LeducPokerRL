@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament - PokerRL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div id="app" style="max-width: 1100px;">
+        <header>
+            <h1>Tournament</h1>
+            <nav class="nav-tabs">
+                <a href="index.html" class="nav-link">Play Game</a>
+                <a href="dashboard.html" class="nav-link">Training</a>
+                <a href="analyzer.html" class="nav-link">Analyzer</a>
+                <a href="tournament.html" class="nav-link active">Tournament</a>
+                <a href="wiki.html" class="nav-link">Wiki</a>
+            </nav>
+        </header>
+
+        <div class="tournament-container">
+            <div class="tournament-header">
+                <div class="tournament-status" id="tournament-status">
+                    <span class="status-dot" id="status-dot"></span>
+                    <span id="status-text">Ready</span>
+                </div>
+                <div class="tournament-controls">
+                    <label style="font-size: 0.85rem; color: var(--text-muted);">Rounds:</label>
+                    <input type="number" id="num-rounds" value="5000" min="10" max="50000">
+                    <button id="btn-run-tournament">Run Tournament</button>
+                </div>
+            </div>
+
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="leaderboard">Leaderboard</button>
+                <button class="tab-btn" data-tab="drilldown">Agent Drill-Down</button>
+                <button class="tab-btn" data-tab="chiprace">Chip Race</button>
+            </div>
+
+            <!-- Tab: Leaderboard -->
+            <div class="tab-panel active" id="tab-leaderboard">
+                <div id="leaderboard-content">
+                    <div class="placeholder-text" style="text-align: center; padding: 60px;">
+                        Run a tournament to see the leaderboard.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Agent Drill-Down -->
+            <div class="tab-panel" id="tab-drilldown">
+                <div id="drilldown-content">
+                    <div class="placeholder-text" style="text-align: center; padding: 60px;">
+                        Click an agent from the leaderboard to see matchup details.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab: Chip Race -->
+            <div class="tab-panel" id="tab-chiprace">
+                <div id="chiprace-content">
+                    <div class="placeholder-text" style="text-align: center; padding: 60px;">
+                        Run a tournament to see the chip race chart.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="tournament.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "study_agent": "state_only",
+  "seed": 2,
+  "pool_agent": "actor_critic_v2",
+  "chips_per_round": 0.4425,
+  "ci_95_low": 0.34757750000000004,
+  "ci_95_high": 0.5348025000000001,
+  "cold_mean": 0.1905,
+  "warm_mean": 0.5055,
+  "n_hands": 10000
+}

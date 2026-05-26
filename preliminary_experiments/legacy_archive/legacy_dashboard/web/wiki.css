@@ -1,0 +1,374 @@
+/* wiki.css — Research Wiki styles */
+
+/* Wiki tabs */
+.wiki-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.wiki-tab {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.wiki-tab:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.8);
+    transform: none;
+}
+
+.wiki-tab.active {
+    background: var(--accent-gold);
+    color: #000;
+    border-color: var(--accent-gold);
+    box-shadow: 0 4px 12px rgba(244, 208, 63, 0.3);
+}
+
+/* View switching */
+.wiki-view {
+    display: none;
+}
+
+.wiki-view.active {
+    display: block;
+}
+
+/* ── Evolution tree ── */
+.evolution-tree {
+    width: 100%;
+    min-height: 500px;
+    background: #0c0f14;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: auto;
+    position: relative;
+}
+
+.tree-inner {
+    position: relative;
+    margin: 0 auto;
+}
+
+.tree-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.tree-card {
+    position: absolute;
+    width: 200px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    font-family: 'Inter', sans-serif;
+}
+
+.tree-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tree-card.game-theory {
+    border-style: dashed;
+}
+
+.tree-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.tree-card-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tree-card-score {
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: 'Inter', monospace;
+    flex-shrink: 0;
+}
+
+.tree-card-desc {
+    font-size: 0.72rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 4px;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── Wiki layout (two-column) ── */
+.wiki-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 25px;
+    min-height: 600px;
+}
+
+/* Sidebar */
+.wiki-sidebar {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px 15px;
+    overflow-y: auto;
+    max-height: 80vh;
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-section {
+    margin-bottom: 20px;
+}
+
+.sidebar-section h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+
+.sidebar-agent-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-white);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 2px;
+}
+
+.sidebar-agent-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    transform: none;
+}
+
+.sidebar-agent-btn.active {
+    background: rgba(244, 208, 63, 0.1);
+    border-color: rgba(244, 208, 63, 0.3);
+}
+
+.sidebar-agent-btn .agent-name {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sidebar-agent-btn .round-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #6b7280;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+}
+
+.sidebar-agent-btn .agent-score {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'Inter', monospace;
+    flex-shrink: 0;
+}
+
+/* ── Wiki content area ── */
+.wiki-content {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 35px 40px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.wiki-content-full {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 35px 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ── Markdown rendering ── */
+.markdown-body {
+    color: var(--text-white);
+    line-height: 1.7;
+    font-size: 0.95rem;
+}
+
+.markdown-body h1 {
+    font-size: 1.8rem;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(244, 208, 63, 0.2);
+}
+
+.markdown-body h2 {
+    font-size: 1.3rem;
+    color: var(--text-white);
+    margin-top: 35px;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.markdown-body h3 {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.markdown-body p {
+    margin-bottom: 14px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.markdown-body blockquote {
+    border-left: 3px solid var(--accent-gold);
+    padding: 10px 20px;
+    margin: 15px 0;
+    background: rgba(244, 208, 63, 0.05);
+    border-radius: 0 8px 8px 0;
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+.markdown-body code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.88em;
+    color: #f4d03f;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+.markdown-body pre {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 18px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.markdown-body pre code {
+    background: none;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85em;
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.markdown-body th {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.markdown-body td {
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+.markdown-body tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.markdown-body ul, .markdown-body ol {
+    padding-left: 25px;
+    margin-bottom: 14px;
+}
+
+.markdown-body li {
+    margin-bottom: 6px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.markdown-body strong {
+    color: var(--text-white);
+    font-weight: 700;
+}
+
+.markdown-body a {
+    color: var(--accent-blue);
+    text-decoration: none;
+}
+
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+
+.markdown-body hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin: 30px 0;
+}
+
+/* Loading spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--accent-gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

@@ -1,0 +1,101 @@
+{
+  "n_states": 132,
+  "n_stat_vectors": 6,
+  "stat_vector_names": [
+    "tight_passive",
+    "tight_aggressive",
+    "loose_passive",
+    "loose_aggressive",
+    "maniac",
+    "random"
+  ],
+  "prototype_stats": {
+    "tight_passive": [
+      0.7,
+      0.1,
+      0.1,
+      0.7,
+      0.7,
+      0.05,
+      0.9
+    ],
+    "tight_aggressive": [
+      0.2,
+      0.65,
+      0.55,
+      0.3,
+      0.3,
+      0.55,
+      0.9
+    ],
+    "loose_passive": [
+      0.15,
+      0.2,
+      0.15,
+      0.25,
+      0.2,
+      0.1,
+      0.9
+    ],
+    "loose_aggressive": [
+      0.1,
+      0.7,
+      0.65,
+      0.15,
+      0.15,
+      0.65,
+      0.9
+    ],
+    "maniac": [
+      0.05,
+      0.9,
+      0.9,
+      0.1,
+      0.1,
+      0.8,
+      0.9
+    ],
+    "random": [
+      0.33,
+      0.33,
+      0.33,
+      0.33,
+      0.33,
+      0.33,
+      0.9
+    ]
+  },
+  "full_modulation": {
+    "n_seeds": 3,
+    "mean_abs_delta": 0.4940928965832439,
+    "cross_opp_spread": 0.3089040285554973,
+    "cross_seed_std": 0.3257676856692094,
+    "per_stat_mean": {
+      "tight_passive": -0.11652529826905164,
+      "tight_aggressive": 0.4066190879716717,
+      "loose_passive": -0.025474813976089913,
+      "loose_aggressive": 0.5350085495997013,
+      "maniac": 0.7436459292457768,
+      "random": 0.16785059366822055
+    }
+  },
+  "finetuned_base": {
+    "n_seeds": 3,
+    "mean_abs_delta": 0.1451175467287851,
+    "cross_opp_spread": 0.13964745196312345,
+    "cross_seed_std": 0.07865430514751232,
+    "mean_base_drift": 0.40612701248057714,
+    "per_stat_mean": {
+      "tight_passive": -0.207770819187804,
+      "tight_aggressive": 0.08000611484308276,
+      "loose_passive": -0.12008353642357344,
+      "loose_aggressive": 0.12535482832357625,
+      "maniac": 0.18484232855773758,
+      "random": -0.03517408469824751
+    }
+  },
+  "seed0_comparison": {
+    "pearson_correlation": 0.18241806629959648,
+    "mean_abs_difference": 0.3387267124142987
+  }
+}

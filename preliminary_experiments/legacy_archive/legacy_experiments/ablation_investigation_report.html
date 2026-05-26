@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ablation Investigation Report</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+:root{--bg:#0f1117;--card:#1a1d28;--border:#2a2d3a;--text:#e2e4e9;--muted:#8b8fa3;
+--accent:#6c5ce7;--green:#00b894;--red:#fd79a8;--yellow:#fdcb6e;--blue:#74b9ff}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;
+line-height:1.6;padding:2rem;max-width:1200px;margin:0 auto}
+h1{font-size:1.8rem;font-weight:700;margin-bottom:.5rem;
+background:linear-gradient(135deg,#6c5ce7,#74b9ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+h2{font-size:1.3rem;font-weight:600;margin:2rem 0 1rem;color:var(--accent);
+border-bottom:1px solid var(--border);padding-bottom:.5rem}
+.sub{color:var(--muted);font-size:.9rem;margin-bottom:2rem}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem}
+.v{padding:1rem 1.5rem;border-radius:8px;margin:1rem 0;font-weight:500}
+.verdict-pass{background:rgba(0,184,148,.15);border-left:4px solid var(--green)}
+.verdict-fail{background:rgba(253,121,168,.15);border-left:4px solid var(--red)}
+.verdict-note{background:rgba(253,203,110,.15);border-left:4px solid var(--yellow)}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.85rem}
+th,td{padding:.6rem .8rem;text-align:right;border-bottom:1px solid var(--border)}
+th{background:rgba(108,92,231,.1);font-weight:600;color:var(--accent)}
+th:first-child,td:first-child{text-align:left}
+td.num{font-family:'JetBrains Mono',monospace;font-size:.8rem}
+.positive{color:var(--green)}.negative{color:var(--red)}
+.cc{position:relative;margin:1rem 0;padding:1rem;background:rgba(0,0,0,.2);border-radius:8px}
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1rem 0}
+.sb{background:rgba(0,0,0,.2);border-radius:8px;padding:1rem;text-align:center}
+.sv{font-size:1.5rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+.sl{font-size:.8rem;color:var(--muted);margin-top:.3rem}
+code{font-family:'JetBrains Mono',monospace;background:rgba(108,92,231,.15);
+padding:.15rem .4rem;border-radius:4px;font-size:.8rem}
+</style></head><body>
+<h1>Ablation Investigation Report</h1>
+<p class="sub">ModulatedValueAgent: gate=0 vs plain ValueBasedAgent | 2026-03-01 18:30:49</p>
+
+<h2>1. Weight Identity Check</h2>
+<div class="card">
+<p>Base weights in <code>modulated_value_agent.pt</code> vs <code>value_based_agent.pt</code></p>
+<div class="v verdict-pass">All weights are BIT-FOR-BIT IDENTICAL. No weight drift during training.</div>
+<table><tr><th>Parameter</th><th>Shape</th><th>Identical</th><th>Max Diff</th></tr>
+<tr><td><code>net.0.weight</code></td><td class="num">[64, 15]</td><td>✓</td><td class="num">0.00e+00</td></tr>
+<tr><td><code>net.0.bias</code></td><td class="num">[64]</td><td>✓</td><td class="num">0.00e+00</td></tr>
+<tr><td><code>net.2.weight</code></td><td class="num">[64, 64]</td><td>✓</td><td class="num">0.00e+00</td></tr>
+<tr><td><code>net.2.bias</code></td><td class="num">[64]</td><td>✓</td><td class="num">0.00e+00</td></tr>
+<tr><td><code>net.4.weight</code></td><td class="num">[1, 64]</td><td>✓</td><td class="num">0.00e+00</td></tr>
+<tr><td><code>net.4.bias</code></td><td class="num">[1]</td><td>✓</td><td class="num">0.00e+00</td></tr>
+</table></div>
+
+<h2>2. Deterministic Value &amp; Action Check</h2>
+<div class="card">
+<p>Given identical game states, do gate=0 and plain VBA produce identical V(s)?</p>
+<div class="sg">
+<div class="sb"><div class="sv">3555</div><div class="sl">State-Actions Compared</div></div>
+<div class="sb"><div class="sv positive">0</div><div class="sl">Value Mismatches</div></div>
+<div class="sb"><div class="sv">0.00e+00</div><div class="sl">Max Value Diff</div></div>
+<div class="sb"><div class="sv positive">0</div><div class="sl">Action Mismatches</div></div>
+</div>
+<div class="v verdict-pass">CONFIRMED: Gate=0 and plain VBA produce IDENTICAL values and actions.</div></div>
+
+<h2>3. Head-to-Head Ablation (10000 rounds/matchup)</h2>
+<div class="card">
+<table><tr><th>Variant</th><th>vs Heuristic</th><th>vs Value Based</th><th>vs Adaptive Value</th><th>Average</th></tr>
+<tr><td>Full Model (learned gate)</td><td class="num positive">+0.2810 +/- 0.0897</td><td class="num positive">+0.0200 +/- 0.0543</td><td class="num positive">+0.1047 +/- 0.0693</td><td class="num positive"><b>+0.1352</b></td></tr>
+<tr><td>Gate=1 (no gating)</td><td class="num positive">+0.2397 +/- 0.0899</td><td class="num positive">+0.0011 +/- 0.0545</td><td class="num positive">+0.1211 +/- 0.0690</td><td class="num positive"><b>+0.1206</b></td></tr>
+<tr><td>Gate=0 (base only)</td><td class="num positive">+0.3044 +/- 0.0898</td><td class="num positive">+0.0105 +/- 0.0549</td><td class="num positive">+0.1423 +/- 0.0682</td><td class="num positive"><b>+0.1524</b></td></tr>
+<tr><td>Plain VBA (original ckpt)</td><td class="num positive">+0.3166 +/- 0.0907</td><td class="num negative">-0.0151 +/- 0.0543</td><td class="num positive">+0.1309 +/- 0.0693</td><td class="num positive"><b>+0.1441</b></td></tr>
+<tr><td>VBA from mod base</td><td class="num positive">+0.3265 +/- 0.0897</td><td class="num positive">+0.0231 +/- 0.0553</td><td class="num positive">+0.1265 +/- 0.0686</td><td class="num positive"><b>+0.1587</b></td></tr>
+</table>
+<div class="cc" style="height:400px"><canvas id="ablationChart"></canvas></div>
+<div class="v verdict-note"><b>Interpretation:</b> If gate=0 and plain VBA are functionally identical
+(Experiment 2), any performance difference is random variance. Check the 95% CIs.</div></div>
+
+<h2>4. Gate Value Distribution During Gameplay</h2>
+<div class="card">
+<table><tr><th>Opponent</th><th>N</th><th>Mean</th><th>Std</th><th>Min</th><th>P25</th><th>Median</th><th>P75</th><th>Max</th></tr>
+<tr><td>heuristic</td><td class="num">24797</td><td class="num">0.3934</td><td class="num">0.0061</td><td class="num">0.3878</td><td class="num">0.3920</td><td class="num">0.3933</td><td class="num">0.3935</td><td class="num">0.4765</td></tr>
+<tr><td>value_based</td><td class="num">21100</td><td class="num">0.4124</td><td class="num">0.0053</td><td class="num">0.4103</td><td class="num">0.4109</td><td class="num">0.4116</td><td class="num">0.4124</td><td class="num">0.4854</td></tr>
+<tr><td>adaptive_value</td><td class="num">21593</td><td class="num">0.4051</td><td class="num">0.0058</td><td class="num">0.4011</td><td class="num">0.4040</td><td class="num">0.4044</td><td class="num">0.4047</td><td class="num">0.4803</td></tr>
+</table>
+<div class="cc" style="height:350px"><canvas id="gateHistChart"></canvas></div></div>
+<script>
+Chart.defaults.color="#8b8fa3";Chart.defaults.borderColor="#2a2d3a";
+new Chart(document.getElementById("ablationChart"),{type:"bar",data:{
+  labels:["Full Model (learned gate)", "Gate=1 (no gating)", "Gate=0 (base only)", "Plain VBA (original ckpt)", "VBA from mod base"],
+  datasets:[
+    {label:"vs Heuristic",data:[0.281, 0.2397, 0.3044, 0.3166, 0.3265],backgroundColor:"rgba(0,184,148,0.7)",borderColor:"rgba(0,184,148,1)",borderWidth:1},
+    {label:"vs Value Based",data:[0.02, 0.0011, 0.0105, -0.0151, 0.0231],backgroundColor:"rgba(116,185,255,0.7)",borderColor:"rgba(116,185,255,1)",borderWidth:1},
+    {label:"vs Adaptive Value",data:[0.1047, 0.1211, 0.1423, 0.1309, 0.1265],backgroundColor:"rgba(108,92,231,0.7)",borderColor:"rgba(108,92,231,1)",borderWidth:1},
+    {label:"Average",data:[0.1352, 0.1206, 0.1524, 0.1441, 0.1587],backgroundColor:"rgba(253,203,110,0.85)",borderColor:"rgba(253,203,110,1)",borderWidth:2,borderDash:[4,4],type:"line",order:0,pointRadius:6,pointHoverRadius:8},
+]},options:{responsive:true,maintainAspectRatio:false,
+  plugins:{title:{display:true,text:"Ablation: Avg Chips/Round",color:"#e2e4e9",font:{size:14,weight:600}},legend:{position:"bottom"}},
+  scales:{y:{title:{display:true,text:"Avg chips/round",color:"#8b8fa3"},grid:{color:"#2a2d3a"}},x:{grid:{display:false}}}}});
+
+var gd={"heuristic": {"centers": [0.38870400000000005, 0.390478, 0.3922515, 0.39402499999999996, 0.395799, 0.3975725, 0.399346, 0.40112000000000003, 0.4028935, 0.404667, 0.4064405, 0.40821399999999997, 0.409988, 0.4117615, 0.413535, 0.41530900000000004, 0.4170825, 0.418856, 0.42062999999999995, 0.4224035, 0.424177, 0.42595099999999997, 0.4277245, 0.42949800000000005, 0.431272, 0.43304549999999997, 0.43481899999999996, 0.436593, 0.4383665, 0.44014, 0.4419135, 0.44368700000000005, 0.445461, 0.4472345, 0.44900799999999996, 0.450782, 0.4525555, 0.454329, 0.45610300000000004, 0.4578765, 0.45965, 0.461424, 0.46319750000000004, 0.464971, 0.46674499999999997, 0.4685185, 0.47029200000000004, 0.4720655, 0.473839, 0.47561299999999995], "counts": [526, 4082, 5687, 13172, 870, 16, 14, 14, 10, 12, 11, 8, 10, 15, 14, 6, 10, 21, 10, 14, 4, 16, 21, 8, 10, 14, 10, 8, 8, 10, 8, 10, 18, 10, 8, 12, 12, 14, 11, 14, 10, 12, 17, 0, 6, 0, 0, 2, 0, 2], "mean": 0.393416, "std": 0.006054}, "value_based": {"centers": [0.411064, 0.4125665, 0.414069, 0.415571, 0.417073, 0.4185755, 0.420078, 0.42158, 0.423082, 0.42458450000000003, 0.426087, 0.427589, 0.429091, 0.43059349999999996, 0.432096, 0.433598, 0.4351005, 0.436603, 0.438105, 0.439607, 0.44110950000000004, 0.442612, 0.444114, 0.445616, 0.4471185, 0.448621, 0.450123, 0.451625, 0.4531275, 0.45463, 0.456132, 0.4576345, 0.459137, 0.460639, 0.462141, 0.4636435, 0.465146, 0.466648, 0.46815, 0.46965250000000003, 0.471155, 0.472657, 0.474159, 0.47566149999999996, 0.477164, 0.478666, 0.480168, 0.4816705, 0.483173, 0.484675], "counts": [12257, 7477, 509, 288, 103, 86, 2, 12, 4, 8, 8, 4, 8, 6, 10, 8, 14, 6, 12, 10, 6, 10, 8, 12, 10, 8, 13, 8, 13, 34, 42, 25, 16, 6, 12, 10, 17, 2, 0, 6, 4, 0, 0, 0, 2, 0, 2, 0, 0, 2], "mean": 0.412381, "std": 0.005326}, "adaptive_value": {"centers": [0.40192, 0.403504, 0.405088, 0.40667200000000003, 0.408256, 0.40984, 0.41142449999999997, 0.41300899999999996, 0.414593, 0.416177, 0.417761, 0.41934499999999997, 0.420929, 0.422513, 0.424097, 0.42568150000000005, 0.42726600000000003, 0.42885, 0.430434, 0.432018, 0.433602, 0.43518599999999996, 0.43677, 0.438354, 0.4399385, 0.441523, 0.44310700000000003, 0.444691, 0.446275, 0.447859, 0.44944300000000004, 0.451027, 0.452611, 0.4541955, 0.45577999999999996, 0.457364, 0.458948, 0.460532, 0.46211599999999997, 0.4637, 0.46528400000000003, 0.466868, 0.46845250000000005, 0.47003700000000004, 0.471621, 0.473205, 0.474789, 0.476373, 0.47795699999999997, 0.479541], "counts": [77, 8799, 12292, 20, 10, 12, 10, 7, 6, 10, 8, 10, 4, 8, 8, 8, 6, 10, 8, 6, 10, 4, 8, 7, 4, 18, 8, 10, 13, 10, 12, 10, 10, 8, 16, 24, 20, 21, 10, 10, 14, 3, 4, 2, 6, 2, 2, 4, 2, 2], "mean": 0.405076, "std": 0.005824}};
+var gc={heuristic:"#00b894",value_based:"#74b9ff",adaptive_value:"#6c5ce7"};
+var ds=[];
+for(var[o,d] of Object.entries(gd)){
+  var c=gc[o]||"#fd79a8";
+  ds.push({label:o+" (mean="+d.mean.toFixed(4)+")",
+    data:d.centers.map(function(x,i){return{x:x,y:d.counts[i]}}),
+    borderColor:c,backgroundColor:c+"40",fill:true,tension:0.3,pointRadius:0,borderWidth:2});
+}
+new Chart(document.getElementById("gateHistChart"),{type:"line",data:{datasets:ds},
+  options:{responsive:true,maintainAspectRatio:false,
+    plugins:{title:{display:true,text:"Gate Value Distribution",color:"#e2e4e9",font:{size:14,weight:600}},legend:{position:"bottom"}},
+    scales:{x:{type:"linear",title:{display:true,text:"Gate Value",color:"#8b8fa3"},grid:{color:"#2a2d3a"}},y:{title:{display:true,text:"Count",color:"#8b8fa3"},grid:{color:"#2a2d3a"}}}}});
+</script></body></html>

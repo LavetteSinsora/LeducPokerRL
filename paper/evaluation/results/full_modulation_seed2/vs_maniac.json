@@ -1,0 +1,11 @@
+{
+  "study_agent": "full_modulation",
+  "seed": 2,
+  "pool_agent": "maniac",
+  "chips_per_round": 1.6934,
+  "ci_95_low": 1.55679,
+  "ci_95_high": 1.8224,
+  "cold_mean": 1.4535,
+  "warm_mean": 1.753375,
+  "n_hands": 10000
+}

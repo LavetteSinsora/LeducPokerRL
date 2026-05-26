@@ -1,0 +1,35 @@
+{
+  "experiment": "repr_policy_v1",
+  "research_question": "Does a policy network using contrastive-learned 8-dim representation outperform vanilla REINFORCE on raw 15-dim features?",
+  "encoder_checkpoint": "outputs/contrastive_repr_v1/encoder_l1.pt",
+  "training_config": {
+    "episodes": 20000,
+    "lr": 1e-4,
+    "batch_size": 32,
+    "reward_normalization": true
+  },
+  "results": {
+    "baseline": {
+      "architecture": "15 -> 64 -> 64 -> 3",
+      "encoder": "none (raw features)",
+      "avg_chips_vs_heuristic": -0.942,
+      "eval_rounds": 1000
+    },
+    "frozen": {
+      "architecture": "ContrastiveEncoder(frozen) -> 8 -> 64 -> 64 -> 3",
+      "encoder": "frozen contrastive (L1 loss)",
+      "avg_chips_vs_heuristic": -0.581,
+      "eval_rounds": 1000
+    },
+    "finetune": {
+      "architecture": "ContrastiveEncoder(unfrozen) -> 8 -> 64 -> 64 -> 3",
+      "encoder": "finetuned contrastive (L1 loss)",
+      "avg_chips_vs_heuristic": -1.330,
+      "eval_rounds": 1000
+    }
+  },
+  "ranking": ["frozen", "baseline", "finetune"],
+  "hypothesis_confirmed": true,
+  "key_finding": "Frozen encoder (+0.36 chips/round vs baseline) confirms that the contrastive representation aids policy learning when used as a fixed feature extractor. Finetuning hurts, likely due to noisy REINFORCE gradients corrupting the encoder.",
+  "recommended_next_step": "Two-phase training: Phase 1 contrastive pretraining (done), Phase 2 REINFORCE on frozen encoder with larger policy head or higher lr."
+}

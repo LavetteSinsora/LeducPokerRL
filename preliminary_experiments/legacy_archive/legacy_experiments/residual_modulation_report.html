@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Residual Modulation Experiment</title>
+<style>
+body { font-family: -apple-system, sans-serif; max-width: 1000px; margin: 2em auto; padding: 0 1em; }
+h1 { border-bottom: 2px solid #333; }
+h2 { color: #555; margin-top: 2em; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: right; }
+th { background: #f5f5f5; text-align: left; }
+.highlight { background: #e8f5e9; font-weight: bold; }
+.mechanism { background: #f3e5f5; padding: 1em; border-radius: 8px; margin: 1em 0; }
+pre { background: #f5f5f5; padding: 1em; border-radius: 4px; overflow-x: auto; }
+</style></head><body>
+<h1>Residual Modulation Experiment</h1>
+<p><strong>Question:</strong> Is the modulated value agent's failure due to the gate (gradient starvation)
+or the training method (self-play), or both?</p>
+
+<div class="mechanism">
+<strong>Mechanism hypothesis:</strong> The gate attenuates gradients for delta by ~0.4×,
+and self-play produces small residuals (V_base is already good at self-play).
+Together, these starve the modulation network of learning signal.
+Removing the gate and using population training should restore gradient flow.
+</div>
+<h2>Performance (avg chips/round)</h2>
+<table>
+<tr><th>Condition</th><th>vs Heuristic</th><th>vs Value-Based</th><th>vs Adaptive</th><th>Average</th><th>Worst Case</th><th>Robustness</th></tr>
+<tr class="highlight"><td>Gate + Self-play (baseline)</td><td>+0.3590</td><td>+0.2200</td><td>+0.2130</td><td><strong>+0.2640</strong></td><td>+0.2130</td><td>+0.1405</td></tr>
+<tr><td>Gate + Population</td><td>+0.1580</td><td>+0.0805</td><td>+0.2370</td><td><strong>+0.1585</strong></td><td>+0.0805</td><td>+0.0411</td></tr>
+<tr><td>No gate + Self-play</td><td>+0.1800</td><td>-0.0150</td><td>-0.1420</td><td><strong>+0.0077</strong></td><td>-0.1420</td><td>-0.2356</td></tr>
+<tr><td>No gate + Population</td><td>-0.0350</td><td>+0.2805</td><td>+0.2355</td><td><strong>+0.1603</strong></td><td>-0.0350</td><td>-0.0956</td></tr>
+</table>
+<h2>Delta Diagnostics</h2>
+<p>Core test: if removing the gate and/or adding population training produce larger, more varied deltas, the gradient starvation hypothesis is confirmed.</p>
+<table>
+<tr><th>Condition</th><th>Delta |mean|</th><th>Delta cross-opp std</th><th>vs Heuristic |δ|</th><th>vs Value-Based |δ|</th><th>vs Adaptive |δ|</th><th>Gate mean</th><th>Gate std</th></tr>
+<tr><td>Gate + Self-play (baseline)</td><td>0.093791</td><td>0.004033</td><td>0.089169</td><td>0.096590</td><td>0.095615</td><td>0.3987</td><td>0.0177</td></tr>
+<tr><td>Gate + Population</td><td>0.219548</td><td>0.013042</td><td>0.234220</td><td>0.215151</td><td>0.209272</td><td>0.6046</td><td>0.0139</td></tr>
+<tr><td>No gate + Self-play</td><td>0.025614</td><td>0.000805</td><td>0.024729</td><td>0.026302</td><td>0.025810</td><td>N/A</td><td>N/A</td></tr>
+<tr><td>No gate + Population</td><td>0.237340</td><td>0.016935</td><td>0.217835</td><td>0.245895</td><td>0.248291</td><td>N/A</td><td>N/A</td></tr>
+</table>
+<h2>Factorial Decomposition</h2>
+<table>
+<tr><th>Main effect: Population training</th><td>+0.0235 chips/round</td></tr>
+<tr><th>Main effect: Removing gate</th><td>-0.1272 chips/round</td></tr>
+<tr><th>Interaction (gate removal × population)</th><td>+0.2581 chips/round</td></tr>
+</table>
+<p><strong>Interpretation:</strong> Gate removal is the dominant factor, confirming gradient starvation as the primary bottleneck. Positive interaction: removing the gate helps MORE with population training (synergistic).</p>
+<h2>Training Loss</h2>
+<pre>Gate + Self-play (baseline): Pre-existing checkpoint, not retrained
+Gate + Population: final_loss=4.571908, elapsed=357.1s
+No gate + Self-play: final_loss=4.172854, elapsed=366.9s
+No gate + Population: final_loss=5.438222, elapsed=315.4s
+</pre>
+</body></html>

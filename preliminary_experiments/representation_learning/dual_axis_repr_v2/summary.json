@@ -1,0 +1,49 @@
+{
+  "experiment": "dual_axis_repr_v2",
+  "date": "2026-03-11",
+  "method": "Dual-axis Supervised Contrastive Learning (SupCon, Khosla et al. 2020)",
+  "description": "Two independent SupCon losses (reward bins + opponent hand) sum to train a single 15->64->64->8 encoder, with VICReg variance penalty to prevent collapse.",
+  "config": {
+    "architecture": "15 -> 64 -> 64 -> 8",
+    "temperature": 0.07,
+    "lambda_hand": 1.0,
+    "lambda_var": 0.1,
+    "n_bins": 5,
+    "episodes": 20000,
+    "lr": 1e-4,
+    "batch_size": 256
+  },
+  "results": {
+    "effective_dim_80": 2,
+    "effective_dim_90": 4,
+    "pca_pc1_variance": 0.530,
+    "pca_pc2_variance": 0.305,
+    "opp_hand_accuracy": 0.633,
+    "reward_bin_accuracy": 0.554,
+    "reward_spearman_rho": 0.118,
+    "final_loss_reward": 5.119,
+    "final_loss_hand": 5.401,
+    "final_loss_var": 0.985,
+    "training_time_seconds": 480
+  },
+  "comparison": {
+    "contrastive_repr_v1": {
+      "effective_dim_80": 3,
+      "opp_hand_accuracy": 0.33,
+      "reward_spearman_rho": 0.163
+    },
+    "hand_identity_repr_v1": {
+      "effective_dim_80": 1,
+      "opp_hand_accuracy": 0.628,
+      "reward_spearman_rho": null
+    }
+  },
+  "key_findings": [
+    "SupCon + VICReg prevents 1D collapse: effective_dim=2 (vs 1 in hand-only triplet)",
+    "Simultaneously encodes both axes: hand probe 63.3% (matches hand-only), reward bin probe 55.4%",
+    "Reward Spearman rho (0.118) below contrastive_repr_v1 (0.163) — expected, categorical SupCon does not optimize continuous distance ordering",
+    "Two dominant PCA components (PC1=53%, PC2=30.5%) indicate two meaningful encoding axes",
+    "Per-axis SupCon formulation avoids batch sparsity of AND/OR joint logic in dual_axis_repr_v1"
+  ],
+  "checkpoint": "outputs/dual_axis_repr_v2/run_default/encoder.pt"
+}

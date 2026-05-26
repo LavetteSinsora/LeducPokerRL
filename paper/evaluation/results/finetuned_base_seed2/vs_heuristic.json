@@ -1,0 +1,11 @@
+{
+  "study_agent": "finetuned_base",
+  "seed": 2,
+  "pool_agent": "heuristic",
+  "chips_per_round": 0.8837,
+  "ci_95_low": 0.7712875,
+  "ci_95_high": 0.9929,
+  "cold_mean": 0.7505,
+  "warm_mean": 0.917,
+  "n_hands": 10000
+}

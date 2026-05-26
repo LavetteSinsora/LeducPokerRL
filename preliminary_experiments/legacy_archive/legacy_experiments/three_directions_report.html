@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Three Directions Experiment</title>
+<style>
+body { font-family: -apple-system, sans-serif; max-width: 1100px; margin: 2em auto; padding: 0 1em; line-height: 1.6; }
+h1 { border-bottom: 2px solid #333; padding-bottom: 0.3em; }
+h2 { color: #444; margin-top: 2em; }
+h3 { color: #666; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+th, td { border: 1px solid #ddd; padding: 8px 12px; text-align: right; }
+th { background: #f5f5f5; text-align: left; }
+.best { background: #e8f5e9; font-weight: bold; }
+.mechanism { background: #f3e5f5; padding: 1em; border-radius: 8px; margin: 1em 0; font-size: 0.95em; }
+.finding { background: #e3f2fd; padding: 1em; border-radius: 8px; margin: 1em 0; }
+.negative { color: #c62828; }
+.positive { color: #2e7d32; }
+pre { background: #f5f5f5; padding: 1em; border-radius: 4px; overflow-x: auto; font-size: 0.9em; }
+</style></head><body>
+<h1>Three Directions Experiment</h1>
+
+<p><strong>Context:</strong> The 2&times;2 factorial showed the gate is protective (removing it hurts, &minus;0.128 avg)
+and population training creates larger deltas that are inconsistent. The baseline (gate+self-play, avg +0.264)
+wins by keeping corrections conservatively small.</p>
+
+<h2>Directions Tested</h2>
+<div class="mechanism">
+<strong>A &mdash; Warm-Start Fine-Tune:</strong> Load baseline checkpoint, fine-tune with population at lr=1e-5.
+Preserve conservative structure while adapting to known opponents.<br>
+<strong>B &mdash; Gate-Scheduled Curriculum:</strong> Phase 1: gate=1.0, train delta only (full gradient, self-play).
+Phase 2: unfreeze gate, population training. Separates "what" from "when."<br>
+<strong>C &mdash; Tanh-Bounded Residual:</strong> No gate. Hard-bound corrections to [-0.5, +0.5] via tanh.
+No L2 penalty. Population training.
+</div>
+<h2>Performance (avg chips/round, 2000 rounds/matchup)</h2>
+<table>
+<tr><th>Direction</th><th>vs Heuristic</th><th>vs Value-Based</th><th>vs Adaptive</th><th>Average</th><th>Worst Case</th><th>Robustness</th></tr>
+<tr class="best"><td>Baseline (Gate+SelfPlay)</td><td class="positive">+0.3420</td><td class="positive">+0.3120</td><td class="positive">+0.1125</td><td><strong>+0.2555</strong></td><td>+0.1125</td><td>+0.0684</td></tr>
+<tr><td>Dir-A: Warm-Start Fine-Tune</td><td class="positive">+0.5060</td><td class="positive">+0.2560</td><td class="negative">-0.0050</td><td><strong>+0.2523</strong></td><td>-0.0050</td><td>-0.1309</td></tr>
+<tr><td>Dir-B: Gate-Scheduled Curriculum</td><td class="positive">+0.1370</td><td class="positive">+0.1255</td><td class="positive">+0.0605</td><td><strong>+0.1077</strong></td><td>+0.0605</td><td>+0.0458</td></tr>
+<tr><td>Dir-C: Tanh-Bounded Residual</td><td class="positive">+0.1635</td><td class="negative">-0.0425</td><td class="negative">-0.0130</td><td><strong>+0.0360</strong></td><td>-0.0425</td><td>-0.1311</td></tr>
+</table>
+<h2>Delta Diagnostics</h2>
+<p>Core question: are corrections larger, more opponent-specific, and more helpful?</p>
+<table>
+<tr><th>Direction</th><th>Delta |mean|</th><th>Cross-opp std</th><th>vs Heuristic |&delta;|</th><th>vs VB |&delta;|</th><th>vs Adaptive |&delta;|</th><th>Gate mean</th></tr>
+<tr><td>Baseline (Gate+SelfPlay)</td><td>0.0956</td><td>0.0049</td><td>0.0901</td><td>0.0995</td><td>0.0971</td><td>0.4012</td></tr>
+<tr><td>Dir-A: Warm-Start Fine-Tune</td><td>0.2453</td><td>0.0007</td><td>0.2446</td><td>0.2459</td><td>0.2454</td><td>0.4181</td></tr>
+<tr><td>Dir-B: Gate-Scheduled Curriculum</td><td>0.4136</td><td>0.0575</td><td>0.4798</td><td>0.3752</td><td>0.3859</td><td>0.7309</td></tr>
+<tr><td>Dir-C: Tanh-Bounded Residual</td><td>0.1646</td><td>0.0032</td><td>0.1669</td><td>0.1661</td><td>0.1610</td><td>N/A</td></tr>
+</table>
+<h2>Training Details</h2>
+<pre>Gate+SelfPlay (original): N/A sessions, N/As, final_loss=N/A
+Warm-Start Fine-Tune: 3000 sessions, 370.3s, final_loss=3.089395
+Gate-Scheduled Curriculum: 5000 sessions, 539.4s, final_loss=3.520081
+Tanh-Bounded Residual: 5000 sessions, 407.6s, final_loss=2.872773
+</pre>
+<h2>Analysis</h2>
+<h3>Improvement over Baseline</h3>
+<table>
+<tr><th>Direction</th><th>&Delta; avg</th><th>&Delta; robustness</th><th>Verdict</th></tr>
+<tr><td>Dir-A: Warm-Start Fine-Tune</td><td>-0.0032</td><td>-0.1993</td><td>Comparable</td></tr>
+<tr><td>Dir-B: Gate-Scheduled Curriculum</td><td>-0.1478</td><td>-0.0226</td><td>Degraded</td></tr>
+<tr><td>Dir-C: Tanh-Bounded Residual</td><td>-0.2195</td><td>-0.1995</td><td>Degraded</td></tr>
+</table>
+
+<h3>Key Findings</h3>
+
+<div class="finding">
+<strong>1. No direction improved over baseline.</strong> The original gate+self-play agent (avg +0.256) remains the best.
+Direction A matched it on average (+0.252) but with much worse robustness. Directions B and C both degraded.
+This is now the third experiment (2&times;2 factorial, ablation, three directions) confirming the same result.
+</div>
+
+<div class="finding">
+<strong>2. Larger corrections universally hurt performance.</strong>
+Baseline effective correction: |&delta;| &times; gate &asymp; 0.096 &times; 0.40 = <strong>0.038</strong>.
+Dir-A effective: 0.245 &times; 0.42 = <strong>0.103</strong> &rarr; avg -0.003.
+Dir-B effective: 0.414 &times; 0.73 = <strong>0.302</strong> &rarr; avg -0.148.
+Dir-C effective: 0.165 &times; 1.0 = <strong>0.165</strong> &rarr; avg -0.220.
+There is a clear negative correlation between effective correction magnitude and performance.
+</div>
+
+<div class="finding">
+<strong>3. Direction A reveals a specialization-robustness tradeoff.</strong>
+Population fine-tuning at low lr nearly preserved avg performance (+0.252 vs +0.256) but radically shifted the per-opponent profile:
++0.506 vs heuristic (+48% over baseline) but -0.005 vs adaptive (-104%).
+It learned to exploit the weakest opponent at the cost of the strongest.
+Critically, its cross-opponent delta std <em>dropped</em> (0.0007 vs baseline 0.005) &mdash; the corrections
+became more uniform, not more opponent-specific. Population training taught a generic shift, not opponent adaptation.
+</div>
+
+<div class="finding">
+<strong>4. Direction B achieved genuine opponent-specificity but it didn't help.</strong>
+Cross-opponent delta std 0.058 (12&times; higher than baseline). Larger corrections vs heuristic (0.48) than vs value_based (0.38).
+Gate rose to 0.73 (highest ever observed). But overall performance dropped to +0.108.
+The curriculum successfully separated "learn what corrections look like" from "learn when to apply them" &mdash;
+but the corrections learned in Phase 1 (gate=1, no gating) were too aggressive, and Phase 2
+couldn't rein them in. The gate learned to stay open (0.73) because it had never practiced moderation.
+</div>
+
+<div class="finding">
+<strong>5. Direction C confirms that tanh bounding is not a substitute for the gate.</strong>
+Despite clean gradient flow through tanh (no gate attenuation), reasonable delta magnitude (0.165),
+and lowest final loss (2.87), it produced the worst performance (+0.036).
+The deltas used ~80% of the &plusmn;0.5 bound (range [-0.46, +0.39]) but were not opponent-specific (cross-opp std 0.003).
+Without a gate to attenuate, every correction is applied at full strength &mdash; and most corrections hurt.
+</div>
+
+<div class="finding">
+<strong>6. All delta directions are negative for Direction A.</strong>
+Range: [-0.36, -0.09] across all opponents. The correction network learned to <em>systematically lower value estimates</em>,
+not to selectively adjust. This is a bias shift, not opponent modeling. It makes the agent more cautious
+(which helps against heuristic's bluffs) but more passive against adaptive (which punishes passivity).
+</div>
+
+<h3>What Was Learned</h3>
+
+<div class="finding">
+<strong>The frozen base is already near-optimal for Leduc Hold'em.</strong>
+Across five experimental conditions (2&times;2 factorial + three directions), every attempt to
+add meaningful corrections to the base ValueNetwork has either matched or degraded performance.
+The base was trained to convergence on a game with only 6 cards, 2 betting rounds, and 3 actions.
+Its value estimates are approximately correct, and any learned correction is more likely to introduce
+noise than signal. The baseline's success comes not from its correction mechanism but from its correction
+mechanism being <em>too small to do damage</em>.
+</div>
+
+<div class="finding">
+<strong>The modulated value architecture has reached its ceiling in this game.</strong>
+The architecture V(s, opp) = V_base(s) + gate &times; &Delta;(s, opp) assumes there are exploitable
+patterns in opponent behavior that translate to value adjustments. In Leduc Hold'em:
+(1) Q and K have near-identical CFR strategies, limiting what beliefs can distinguish;
+(2) the action space is tiny (fold/call/raise), leaving little room for exploitation;
+(3) the base is already near-Nash, so deviations for exploitation are risky.
+The architecture is sound in principle, but the game doesn't have enough exploitable structure to reward it.
+</div>
+
+<div class="finding">
+<strong>Implications for future work.</strong>
+Rather than further refining how corrections are applied (gate shape, bounding, curricula),
+the more promising direction would be to either:
+(a) move to a larger game (full Texas Hold'em) where the base is further from Nash and
+opponent-specific corrections have more room to help, or
+(b) abandon the correction paradigm entirely and try a different approach to opponent adaptation
+(e.g., policy-level adaptation, online learning within a session, or MCCFR-based strategies).
+</div>
+
+</body></html>

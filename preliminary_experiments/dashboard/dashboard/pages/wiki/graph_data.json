@@ -1,0 +1,43 @@
+{
+  "nodes": [
+    {
+      "id": "heuristic",
+      "display_name": "Heuristic",
+      "description": "Rule-based baseline",
+      "category": "rule_based",
+      "avg_score": 0.29
+    },
+    {
+      "id": "value_based",
+      "display_name": "Value Based",
+      "description": "TD(0) value-network baseline",
+      "category": "rl",
+      "avg_score": 0.97
+    },
+    {
+      "id": "adaptive_value",
+      "display_name": "Adaptive Value",
+      "description": "Opponent-stat value agent",
+      "category": "rl",
+      "avg_score": 1.01
+    },
+    {
+      "id": "modulated_value",
+      "display_name": "Modulated Value",
+      "description": "Frozen base plus gated modulation",
+      "category": "rl",
+      "avg_score": 0.97
+    },
+    {
+      "id": "cfr",
+      "display_name": "CFR",
+      "description": "Tabular Nash reference",
+      "category": "game_theory",
+      "avg_score": 0.0
+    }
+  ],
+  "edges": [
+    { "from": "value_based", "to": "adaptive_value" },
+    { "from": "adaptive_value", "to": "modulated_value" }
+  ]
+}

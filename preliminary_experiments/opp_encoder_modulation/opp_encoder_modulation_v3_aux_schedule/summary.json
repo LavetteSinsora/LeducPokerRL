@@ -1,0 +1,43 @@
+{
+  "experiment_id": "opp_encoder_modulation_v3_aux_schedule",
+  "status": "completed",
+  "parent_agent": "opp_encoder_modulation_v2",
+  "base_agent": "value_based",
+  "changed_axis": "Delay and ramp in the auxiliary action-prediction loss instead of using it from the start",
+  "train_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_aux_schedule/train.py",
+  "eval_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_aux_schedule/eval.py",
+  "diagnostics_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_aux_schedule/diagnose.py",
+  "artifact_dir": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_aux_schedule/outputs",
+  "opponent_pool": [
+    "heuristic",
+    "value_based",
+    "adaptive_value",
+    "modulated_value",
+    "cfr"
+  ],
+  "training_budget": {
+    "sessions": 40000,
+    "hands_per_session": 30,
+    "batch_size": 128
+  },
+  "primary_metrics": [
+    "robustness_vs_promoted_suite",
+    "value_loss",
+    "action_prediction_accuracy"
+  ],
+  "results": {
+    "evaluation_rounds_per_matchup": 1000,
+    "diagnostic_hands_per_opponent": 1000,
+    "candidate_metrics": {
+      "avg": -0.0228,
+      "worst_case": -0.327,
+      "best_case": 0.208,
+      "std": 0.2214,
+      "robustness": -0.3548
+    },
+    "value_loss_last_100": 3.4131,
+    "action_loss_last_100": 0.83,
+    "mean_gate": 0.5543
+  },
+  "result_summary": "Completed. Delaying the auxiliary loss improved optimization metrics relative to v2, but it did not improve real play. The candidate finished with the worst robustness of the v3 family and a large negative matchup against modulated_value. This reinforces that better training curves here do not imply better strategic behavior."
+}

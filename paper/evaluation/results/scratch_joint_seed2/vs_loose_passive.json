@@ -1,0 +1,11 @@
+{
+  "study_agent": "scratch_joint",
+  "seed": 2,
+  "pool_agent": "loose_passive",
+  "chips_per_round": 0.3158,
+  "ci_95_low": 0.2523925,
+  "ci_95_high": 0.38020499999999996,
+  "cold_mean": 0.321,
+  "warm_mean": 0.3145,
+  "n_hands": 10000
+}

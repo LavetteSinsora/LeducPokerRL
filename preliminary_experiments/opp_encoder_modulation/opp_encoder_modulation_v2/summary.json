@@ -1,0 +1,77 @@
+{
+  "experiment_id": "opp_encoder_modulation_v2",
+  "status": "completed",
+  "parent_agent": "opp_encoder_modulation_v1",
+  "base_agent": "value_based",
+  "changed_axis": "Add gate-target and effective-modulation regularization to the learned opponent-encoder modulation architecture",
+  "train_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v2/train.py",
+  "eval_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v2/eval.py",
+  "diagnostics_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v2/diagnose.py",
+  "artifact_dir": "experiments/opp_encoder_modulation/opp_encoder_modulation_v2/outputs",
+  "opponent_pool": [
+    "heuristic",
+    "value_based",
+    "adaptive_value",
+    "modulated_value",
+    "cfr"
+  ],
+  "training_budget": {
+    "sessions": 40000,
+    "hands_per_session": 30,
+    "batch_size": 128
+  },
+  "primary_metrics": [
+    "robustness_vs_promoted_suite",
+    "action_prediction_accuracy",
+    "mean_gate",
+    "mean_abs_delta"
+  ],
+  "regularization": {
+    "gate_target": 0.4,
+    "gate_reg_weight": 0.5,
+    "modulation_reg_weight": 0.5
+  },
+  "results": {
+    "evaluation_rounds_per_matchup": 1000,
+    "diagnostic_hands_per_opponent": 1000,
+    "candidate_metrics": {
+      "avg": 0.0834,
+      "worst_case": -0.174,
+      "best_case": 0.421,
+      "std": 0.2461,
+      "robustness": -0.2857
+    },
+    "control_modulated_value_metrics": {
+      "avg": 0.1098,
+      "worst_case": -0.167,
+      "best_case": 0.427,
+      "std": 0.2234,
+      "robustness": -0.2253
+    },
+    "baseline_v1_metrics": {
+      "avg": 0.1142,
+      "worst_case": -0.147,
+      "best_case": 0.235,
+      "std": 0.1529,
+      "robustness": -0.1151
+    }
+  },
+  "diagnostics": {
+    "mean_gate_range": [
+      0.5539,
+      0.5641
+    ],
+    "mean_abs_delta_range": [
+      0.4027,
+      0.4532
+    ],
+    "action_prediction_accuracy": {
+      "heuristic": 0.3757,
+      "value_based": 0.6705,
+      "adaptive_value": 0.7055,
+      "modulated_value": 0.5744,
+      "cfr": 0.401
+    }
+  },
+  "result_summary": "Completed matched-budget follow-up. Gate regularization reduced mean gate from v1's saturated ~1.0 to ~0.56, but the residual network grew to compensate, leaving effective modulation still much larger than the promoted control. v2 did not beat either modulated_value or v1 on the promoted suite, so the next step should constrain effective residual magnitude directly rather than only regularizing the gate."
+}

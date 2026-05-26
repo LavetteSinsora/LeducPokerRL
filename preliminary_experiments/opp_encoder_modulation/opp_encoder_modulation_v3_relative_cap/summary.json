@@ -1,0 +1,42 @@
+{
+  "experiment_id": "opp_encoder_modulation_v3_relative_cap",
+  "status": "completed",
+  "parent_agent": "opp_encoder_modulation_v2",
+  "base_agent": "value_based",
+  "changed_axis": "Cap effective residual magnitude directly relative to base value size",
+  "train_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_relative_cap/train.py",
+  "eval_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_relative_cap/eval.py",
+  "diagnostics_entrypoint": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_relative_cap/diagnose.py",
+  "artifact_dir": "experiments/opp_encoder_modulation/opp_encoder_modulation_v3_relative_cap/outputs",
+  "opponent_pool": [
+    "heuristic",
+    "value_based",
+    "adaptive_value",
+    "modulated_value",
+    "cfr"
+  ],
+  "training_budget": {
+    "sessions": 40000,
+    "hands_per_session": 30,
+    "batch_size": 128
+  },
+  "primary_metrics": [
+    "robustness_vs_promoted_suite",
+    "mean_abs_effective_delta",
+    "action_prediction_accuracy"
+  ],
+  "results": {
+    "evaluation_rounds_per_matchup": 1000,
+    "diagnostic_hands_per_opponent": 1000,
+    "candidate_metrics": {
+      "avg": 0.0172,
+      "worst_case": -0.148,
+      "best_case": 0.417,
+      "std": 0.2335,
+      "robustness": -0.333
+    },
+    "mean_gate": 0.4613,
+    "mean_abs_effective_delta": 0.1451
+  },
+  "result_summary": "Completed. Directly capping the effective residual succeeded mechanically: mean gate dropped to ~0.46 and mean effective delta to ~0.145, far below v2. But performance collapsed relative to v1 and modulated_value. This suggests that simply making the correction small is not enough; the remaining opponent signal becomes too weak to pay for the added complexity."
+}

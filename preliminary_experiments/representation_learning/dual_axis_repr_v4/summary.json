@@ -1,0 +1,33 @@
+{
+  "experiment": "dual_axis_repr_v4",
+  "hypothesis": "EMA-based loss normalization solves the 2,600x scale imbalance between L1 reward and SupCon hand losses",
+  "status": "completed",
+  "outcome": "partial_success",
+  "results": {
+    "effective_dim_80": 4,
+    "opp_hand_accuracy": 0.3834,
+    "reward_spearman_rho": 0.6719,
+    "reward_bin_accuracy": 0.2382,
+    "final_ema_reward": 2.495e-6,
+    "final_ema_hand": 5.526,
+    "training_episodes": 20000,
+    "training_seconds": 81.9
+  },
+  "comparison": {
+    "reward_only": {"spearman_rho": 0.163, "hand_accuracy": null, "eff_dim_80": 3},
+    "hand_only": {"spearman_rho": null, "hand_accuracy": 0.628, "eff_dim_80": 1},
+    "dual_supcon_v2": {"spearman_rho": 0.118, "hand_accuracy": 0.633, "eff_dim_80": 2},
+    "dual_hybrid_v3": {"spearman_rho": 0.083, "hand_accuracy": 0.678, "eff_dim_80": 2},
+    "dual_ema_norm_v4": {"spearman_rho": 0.6719, "hand_accuracy": 0.3834, "eff_dim_80": 4}
+  },
+  "success_criteria": {
+    "spearman_rho_gt_0163": true,
+    "hand_accuracy_gte_063": false
+  },
+  "key_finding": "EMA normalization overcorrected: reward loss achieved Spearman rho=0.672 (best ever) but hand accuracy collapsed to 38.3% (near chance). Loss-magnitude normalization does not equalize gradient contributions because reward loss has a more favorable gradient landscape after convergence.",
+  "next_steps": [
+    "Try gradient norm balancing (GradNorm) instead of loss magnitude",
+    "Try high lambda_hand (e.g., 500-1000x) to counteract reward gradient dominance",
+    "Try separate embedding subspaces for reward and hand axes"
+  ]
+}

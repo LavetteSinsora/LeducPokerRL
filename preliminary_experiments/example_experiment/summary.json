@@ -1,0 +1,6 @@
+{
+  "experiment_id": "example_experiment",
+  "status": "template",
+  "parent_agent": "modulated_value",
+  "result_summary": "Template only"
+}

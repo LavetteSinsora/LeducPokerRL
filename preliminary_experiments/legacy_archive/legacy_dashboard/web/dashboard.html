@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Dashboard - PokerRL</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom"></script>
+</head>
+
+<body>
+    <div id="app" style="max-width: 1200px;">
+        <header>
+            <h1>Training Dashboard</h1>
+            <nav class="nav-tabs">
+                <a href="index.html" class="nav-link">Play Game</a>
+                <a href="dashboard.html" class="nav-link active">Training</a>
+                <a href="analyzer.html" class="nav-link">Analyzer</a>
+                <a href="tournament.html" class="nav-link">Tournament</a>
+                <a href="wiki.html" class="nav-link">Wiki</a>
+            </nav>
+        </header>
+
+        <div class="dashboard-container">
+            <!-- Training Controls -->
+            <div class="dashboard-card">
+                <h2>Controls</h2>
+                <div class="stats-grid" style="margin-top: 20px;">
+                    <div class="stat-item">
+                        <span class="stat-label">Status</span>
+                        <span id="train-status-text" class="stat-value" style="color: #f87171;">Idle</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Episodes</span>
+                        <span id="stat-episode" class="stat-value">0</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Agent Architecture</label>
+                    <select id="train-agent-select" class="agent-select"
+                        style="width: 100%; padding: 8px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;">
+                        <!-- Populate dynamically -->
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Learning Rate</label>
+                    <input type="number" id="train-lr" value="0.0001" step="0.00001">
+                </div>
+                <div class="control-group">
+                    <label>Batch Size</label>
+                    <input type="number" id="train-batch" value="32">
+                </div>
+                <div class="control-group">
+                    <label>Total Episodes</label>
+                    <input type="number" id="train-episodes" value="1000">
+                </div>
+
+                <div class="control-group">
+                    <label>Matchup Opponents</label>
+                    <div id="matchup-opponent-list" class="matchup-opponent-list">
+                        <!-- Populated dynamically with checkboxes -->
+                    </div>
+                </div>
+
+                <button id="btn-start-train" class="train-btn">Start Training</button>
+                <button id="btn-stop-train" class="train-btn stop" style="display: none;">Stop Training</button>
+                <button id="btn-reset-agent" class="train-btn reset" style="margin-top: 10px;">Reset Training</button>
+            </div>
+
+            <!-- Charts Carousel -->
+            <div class="dashboard-card">
+                <div class="chart-header">
+                    <h2 id="carousel-title">Training Progress</h2>
+                    <div style="font-size: 0.8rem; opacity: 0.6;">
+                        <span id="loss-type-label">Loss</span>: <span id="current-loss" style="color: #f4d03f; font-weight: bold;">0.0000</span> |
+                        Chips/Round: <span id="current-chips-round"
+                            style="color: #4ade80; font-weight: bold;">+0.00</span>
+                    </div>
+                </div>
+
+                <!-- Carousel Navigation -->
+                <div class="carousel-nav">
+                    <button id="carousel-prev" class="carousel-arrow" disabled>&larr;</button>
+                    <div class="carousel-dots">
+                        <span class="carousel-dot active" data-panel="0"></span>
+                        <span class="carousel-dot" data-panel="1"></span>
+                    </div>
+                    <button id="carousel-next" class="carousel-arrow">&rarr;</button>
+                </div>
+
+                <!-- Carousel Track -->
+                <div class="carousel-viewport">
+                    <div class="carousel-track" id="carousel-track">
+                        <!-- Panel 0: Existing Loss + Chips charts -->
+                        <div class="carousel-panel active" data-panel="0">
+                            <div class="smoothing-controls">
+                                <label for="smoothing-slider">Smoothing:</label>
+                                <input type="range" id="smoothing-slider" min="0" max="0.99" step="0.01" value="0.6"
+                                    style="flex: 1; accent-color: #f4d03f;">
+                                <span id="smoothing-value">0.60</span>
+                                <button id="btn-reset-zoom" class="reset-btn"
+                                    style="padding: 6px 14px; font-size: 0.8rem;">Reset Zoom</button>
+                            </div>
+                            <div class="chart-container-split">
+                                <canvas id="lossChart"></canvas>
+                            </div>
+                            <div class="chart-container-split">
+                                <canvas id="chipsChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Panel 1: Matchup chart -->
+                        <div class="carousel-panel" data-panel="1">
+                            <div class="smoothing-controls">
+                                <label for="matchup-smoothing-slider">Smoothing:</label>
+                                <input type="range" id="matchup-smoothing-slider" min="0" max="0.99" step="0.01"
+                                    value="0.6" style="flex: 1; accent-color: #f4d03f;">
+                                <span id="matchup-smoothing-value">0.60</span>
+                                <button id="btn-reset-matchup-zoom" class="reset-btn"
+                                    style="padding: 6px 14px; font-size: 0.8rem;">Reset Zoom</button>
+                            </div>
+                            <div class="chart-container-matchup">
+                                <canvas id="matchupChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- State Value Analyzer -->
+            <div class="dashboard-card state-analyzer">
+                <div class="chart-header">
+                    <h2>State Value Analyzer</h2>
+                </div>
+                <p style="opacity: 0.6; font-size: 0.9rem; margin-bottom: 20px;">
+                    Configure a game state and see how the agent values each possible action.
+                </p>
+
+                <div class="analyzer-grid">
+                    <!-- State Configuration -->
+                    <div class="config-section">
+                        <h3>Configure State</h3>
+
+                        <div class="config-row">
+                            <div class="config-item">
+                                <label>Player Hand</label>
+                                <div class="card-selector" id="hand-selector">
+                                    <button class="card-btn" data-card="J">J</button>
+                                    <button class="card-btn active" data-card="Q">Q</button>
+                                    <button class="card-btn" data-card="K">K</button>
+                                </div>
+                            </div>
+
+                            <div class="config-item">
+                                <label>Board Card</label>
+                                <div class="card-selector" id="board-selector">
+                                    <button class="card-btn active" data-card="">None</button>
+                                    <button class="card-btn" data-card="J">J</button>
+                                    <button class="card-btn" data-card="Q">Q</button>
+                                    <button class="card-btn" data-card="K">K</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Sequence Builder -->
+                        <div class="config-row" style="flex-direction: column; gap: 10px;">
+                            <label>Action Sequence (History)</label>
+                            <div id="sequence-display" class="sequence-display">
+                                <span class="placeholder-text">Start of game (Ante 1)</span>
+                            </div>
+
+                            <div class="sequence-controls">
+                                <label style="margin-bottom: 5px;">Add Next Action:</label>
+                                <div id="next-actions-container" class="next-actions-grid">
+                                    <!-- Buttons injected by JS -->
+                                    <button class="action-btn" disabled>Loading...</button>
+                                </div>
+                                <button id="btn-reset-sequence" class="reset-btn"
+                                    style="margin-top: 10px; font-size: 0.8rem;">
+                                    Reset Sequence
+                                </button>
+                            </div>
+                        </div>
+
+                        <button id="btn-evaluate" class="train-btn" style="margin-top: 20px;">
+                            Evaluate State
+                        </button>
+                    </div>
+
+                    <!-- Results Display -->
+                    <div class="results-section">
+                        <h3>Action Values</h3>
+                        <div class="state-preview">
+                            <div class="preview-cards">
+                                <div class="preview-card" id="preview-hand">Q</div>
+                                <span style="margin: 0 10px; opacity: 0.5;">+</span>
+                                <div class="preview-card board" id="preview-board">?</div>
+                            </div>
+                            <div class="preview-pot">
+                                Pot: <span id="preview-pot">3</span>
+                            </div>
+                        </div>
+
+                        <table class="decision-table">
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>Next State Value</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="action-values-body">
+                                <tr>
+                                    <td colspan="3" style="text-align: center; opacity: 0.5;">
+                                        Click "Evaluate State" to analyze
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
